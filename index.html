@@ -14,7 +14,7 @@
   
   var users=getHtml("https://server.mydiscussion.net/users.txt");
   var userjson={};
-  var userlines = messages.split('\n');
+  var userlines = users.toString().split('\n');
   for(var i=0;i<userlines.length;i++){
       userjson.push(lines[i]);
   }
