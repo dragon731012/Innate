@@ -13,6 +13,10 @@
   }
   
   var messages=getHtml("http://server.mydiscussion.net/");
-  var messages=JSON.stringify(messages);
-  alert(messages);
+  var messagejson={};
+  var lines = messages.split('\n');
+  for(var i=0;i<lines.length;i++){
+      messagejson.push(lines[i]);
+  }
+  alert(messagejson);
 </script>
