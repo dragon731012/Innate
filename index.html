@@ -13,7 +13,7 @@
   }
 
   async function start(){
-    var users=await getHtml("https://10202319.mywebcommunity.org/users.txt");
+    var users=await getHtml("https://chatserver.mydiscussion.net/users.txt");
     var userjson={};
     var userlines = users.toString().split('\n');
     for(var i=0;i<userlines.length;i++){
