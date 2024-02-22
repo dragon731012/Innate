@@ -1,5 +1,9 @@
 <div id="messages"></div>
 <script>
+  console.error=function(event){
+        alert("error: "+event.message +" at linenumber: "+event.lineno+" of file: "+event.filename);
+  }
+  
   function getHtml(file){
     return new Promise((resolve) => {
       fetch(file)
