@@ -1,7 +1,13 @@
 <div id="messages"></div>
 <script>
-  console.error=function(event){
-        alert("error: "+event.message +" at linenumber: "+event.lineno+" of file: "+event.filename);
+  window.addEventListener("error", handleError, true);
+
+  function handleError(evt) {
+      if (evt.message) { // Chrome sometimes provides this
+        alert("error: "+evt.message +" at linenumber: "+evt.lineno+" of file: "+evt.filename);
+      } else {
+        alert("error: "+evt.type+" from element: "+(evt.srcElement || evt.target));
+      }
   }
   
   function getHtml(file){
