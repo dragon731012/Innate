@@ -22,7 +22,7 @@
     });
   }
 
-  async start(){
+  async function start(){
     var users=await getHtml("https://server.mydiscussion.net/users.txt");
     var userjson={};
     var userlines = users.toString().split('\n');
@@ -31,4 +31,5 @@
     }
     alert(userjson);
   }
+  start();
 </script>
