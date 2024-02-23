@@ -9,7 +9,7 @@
         request.responseType = "json";
       
         request.addEventListener("load", () => {
-          setTimeout(()=>
+          setTimeout(()=>{
             resolve(request.response);
           },50);
         });
