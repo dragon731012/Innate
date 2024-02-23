@@ -9,9 +9,9 @@
         request.responseType = "json";
       
         request.addEventListener("load", () => {
-          setInterval(()=>
+          setTimeout(()=>
             resolve(request.response);
-        }
+          },50);
         });
         request.addEventListener("error", () => {
           console.error("XHR error");
