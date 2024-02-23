@@ -1,19 +1,29 @@
 <div id="messages"></div>
 <script>
-  function getHtml(file){
+  function getText(file){
     return new Promise((resolve) => {
-      fetch(file)
-        .then((response) => {
-          return response.text();
-        })
-        .then((html) => {
-          resolve(html);
+      var request = new XMLHttpRequest();
+      try {
+        request.open("GET", file);
+      
+        request.responseType = "json";
+      
+        request.addEventListener("load", () => {
+          resolve(request.response);
         });
+        request.addEventListener("error", () => {
+          console.error("XHR error");
+        });
+      
+        request.send();
+      } catch (error) {
+        console.error(`XHR error ${request.status}`);
+      }
     });
   }
 
   async function start(){
-    var users=await getHtml("https://chatserver.mydiscussion.net/index.php/?val=r&group=hi");
+    var users=await getText("https://chatserver.mydiscussion.net/index.php/?val=r&group=hi");
     var userjson={};
     var userlines = users.toString().split('\n');
     for(var i=0;i<userlines.length;i++){
