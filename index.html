@@ -2,25 +2,13 @@
 <script>
   function getText(file){
     return new Promise((resolve) => {
-      var request = new XMLHttpRequest();
-      try {
-        request.open("GET", file);
-      
-        request.responseType = "text";
-      
-        request.addEventListener("load", () => {
-          setTimeout(()=>{
-            resolve(request.response);
-          },50);
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt);
         });
-        request.addEventListener("error", () => {
-          console.error("XHR error");
-        });
-      
-        request.send();
-      } catch (error) {
-        console.error(`XHR error ${request.status}`);
-      }
     });
   }
 
