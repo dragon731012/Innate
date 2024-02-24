@@ -118,11 +118,11 @@
       document.getElementById("messages").appendChild(messagediv);
     }
     setInterval(async ()=>{
-      var newmessages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
+      var newmessages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi").toString();
       if (messages!=newmessages){
         var messages1=newmessages;
-        newmessages=newmessages.replace(messages,"");
         var newmessagelines=newmessages.toString().split("|");
+        newmessagelines=newmessagelines.replace(messages,"");
         var newmessagejson={messages: []};
         for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson2={};
