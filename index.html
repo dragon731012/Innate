@@ -3,11 +3,14 @@
   <input id="messageinput" placeholder="Send a message...">
 </form>
 <style>
+  ::placeholder{
+    color:black;
+  }
   #messageinput{
     width:70%;
     position:absolute;
     text-align:left;
-    left:25%;
+    left:15%;
     bottom:10px;
     padding:10px;
     font-size:25px;
@@ -84,4 +87,8 @@
     }
   }
   start();
+
+  document.getElementById("messageform").addEventListener("submit",()=>{
+    var sent=await getText("https://server-dragon731012.koyeb.app/?val=w&group=hi&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp=hi&up="+clientpassword);
+  });
 </script>
