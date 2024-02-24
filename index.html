@@ -19,8 +19,10 @@
     alert(userlines.length);
     var userjson={};
     for(var i=0;i<userlines.length;i++){
-        userjson.user=userlines[i].split(":")[0];
-        userjson.message=userlines[i].split(":")[0];
+      var tempjson={};
+      tempjson.user=userlines[i].split(":")[0];
+      tempjson.message=userlines[i].split(":")[0];
+      userjson.push(tempjson);
     }
     alert(JSON.stringify(userjson));
   }
