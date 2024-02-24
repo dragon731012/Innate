@@ -142,6 +142,7 @@
             messagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
           }
           document.getElementById("messages").appendChild(messagediv);
+          messages=messages+newmessages;
         }
       }
     },1000);
