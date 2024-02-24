@@ -21,7 +21,7 @@
     for(var i=0;i<messagelines.length-1;i++){
       var tempjson={};
       tempjson.user=messagelines[i].split(":")[0];
-      tempjson.message=messagelines[i].split(":")[0];
+      tempjson.message=messagelines[i].split(":")[1];
       messagejson.messages.push(tempjson);
     }
     alert(JSON.stringify(messagejson));
