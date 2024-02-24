@@ -1,3 +1,28 @@
+<input id="user">
+<input id="password">
+<button onclick="login();">Log In</button>
 <script>
-  
+  function getText(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt);
+        });
+    });
+  }
+  async function login(){
+    var user=document.getElementById("user").value;
+    var password=document.getElementById("password").value;
+    var reply=await getText("https://server-dragon731012.koyeb.app/user.php/?val=r&user="+user+"&password="+password).toString();
+    if (reply=="Failure"){
+      alert("Invalid password or username!");
+    } else {
+      localStorage.setItem("password",password);
+      localStorage.setItem("username",user);
+      window.location.href="/";
+    }
+  }
 </script>
