@@ -94,7 +94,7 @@
   var messages;
 
   async function start(){
-    messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
+    messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi").tostring();
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
@@ -122,6 +122,7 @@
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
+        alert(newmessages);
         var newmessagelines=newmessages.split("|");
         var newmessagejson={messages: []};
         for(var i=0;i<newmessagelines.length-1;i++){
