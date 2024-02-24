@@ -143,6 +143,7 @@
           }
           document.getElementById("messages").appendChild(messagediv);
         }
+        messagelines=messagelines+newmessagelines;
         for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson3={};
           tempjson3.user=newmessagelines[i].split(":")[0];
