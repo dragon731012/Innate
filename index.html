@@ -120,7 +120,7 @@
     setInterval(async ()=>{
       var newmessages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
       if (messages!=newmessages){
-        newmessages.replace(messages,"");
+        newmessages=newmessages.replace(messages,"");
         var newmessagejson={messages: []};
         for(var i=0;i<messagelines.length-1;i++){
           var tempjson2={};
@@ -149,7 +149,7 @@
           messagejson.messages.push(tempjson3);
         }
       }
-    },100);
+    },1000);
   }
   start();
 
