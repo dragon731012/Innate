@@ -149,6 +149,7 @@
     },1000);
     var c = 0;
 
+    var out=document.getELementById("messages");
     setInterval(function() {
         const isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;
         const newElement = document.createElement("div");
