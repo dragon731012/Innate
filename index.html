@@ -18,7 +18,7 @@
     var userlines=messages.toString().split("|");
     alert(userlines.length);
     var userjson={};
-    for(var i=0;i<userlines.length;i++){
+    for(var i=0;i<userlines.length-1;i++){
       var tempjson={};
       tempjson.user=userlines[i].split(":")[0];
       tempjson.message=userlines[i].split(":")[0];
