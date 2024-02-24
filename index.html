@@ -91,9 +91,10 @@
     });
   }
 
+  var messages;
+
   async function start(){
-    
-    var messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
+    messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
@@ -116,6 +117,39 @@
       }
       document.getElementById("messages").appendChild(messagediv);
     }
+    setInterval(async ()=>{
+      var newmessages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
+      if (messages!=newmessages){
+        newmessages.replace(messages,"");
+        var newmessagejson={messages: []};
+        for(var i=0;i<messagelines.length-1;i++){
+          var tempjson2={};
+          tempjson2.user=messagelines[i].split(":")[0];
+          tempjson2.message=messagelines[i].split(":")[1];
+          newmessagejson.messages.push(tempjson);
+        }
+        for (var i=0;i<newmessagejson.messages.length;i++){
+          var messagediv=document.createElement("div");
+          if (newmessagejson.messages[i].user==clientuser){
+            messagediv.style.position="relative";
+            messagediv.style.alignItems="end";
+          }
+          messagediv.className="messagebox";
+          if (newmessagejson.messages[i].user==clientuser){
+            messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
+          } else {
+            messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
+          }
+          document.getElementById("messages").appendChild(messagediv);
+        }
+        for(var i=0;i<messagelines.length-1;i++){
+          var tempjson3={};
+          tempjson3.user=messagelines[i].split(":")[0];
+          tempjson3.message=messagelines[i].split(":")[1];
+          messagejson.messages.push(tempjson3);
+        }
+      }
+    },100);
   }
   start();
 
