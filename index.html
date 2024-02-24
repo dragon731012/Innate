@@ -108,6 +108,10 @@
     }
     for (var i=0;i<messagejson.messages.length;i++){
       var messagediv=document.createElement("div");
+      if (messagejson.messages[i].user==clientuser){
+        messagediv.style.width="200%";
+        messagediv.style.alignItems="end";
+      }
       messagediv.className="messagebox";
       messagediv.innerHTML="<div class='usertext'>"+messagejson.messages[i].user+"</div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
       document.getElementById("messages").appendChild(messagediv);
