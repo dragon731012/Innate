@@ -19,6 +19,9 @@
     var reply=await getText("https://server-dragon731012.koyeb.app/user.php/?val=w&user="+user+"&password="+password).toString();
     if (reply=="Failure"){
       alert("Name already taken!");
+    } else {
+      localStorage.setItem("password",password);
+      localStorage.setItem("username",user);
     }
   }
 </script>
