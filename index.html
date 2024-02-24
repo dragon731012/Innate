@@ -110,9 +110,9 @@
       }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'>"+messagejson.messages[i].user+"</div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'><b>"+messagejson.messages[i].message+"</b></div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
       } else {
-        messagediv.innerHTML="<div class='usertext'>"+messagejson.messages[i].user+"</div><div class='messagetext'><b>"+messagejson.messages[i].message+"</b></div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
     }
