@@ -137,18 +137,11 @@
           }
           messagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
+            messagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
           } else {
-            messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
+            messagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
           }
           document.getElementById("messages").appendChild(messagediv);
-        }
-        messagelines=messagelines+newmessagelines;
-        for(var i=0;i<newmessagelines.length-1;i++){
-          var tempjson3={};
-          tempjson3.user=newmessagelines[i].split(":")[0];
-          tempjson3.message=newmessagelines[i].split(":")[1];
-          messagejson.messages.push(tempjson3);
         }
       }
     },1000);
