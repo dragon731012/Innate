@@ -133,18 +133,18 @@
         }
         alert(JSON.stringify(newmessagejson));
         for (var i=0;i<newmessagejson.messages.length;i++){
-          var messagediv=document.createElement("div");
+          var newmessagediv=document.createElement("div");
           if (newmessagejson.messages[i].user==clientuser){
-            messagediv.style.position="relative";
-            messagediv.style.alignItems="end";
+            newmessagediv.style.position="relative";
+            newmessagediv.style.alignItems="end";
           }
-          messagediv.className="messagebox";
+          newmessagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            messagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
           } else {
-            messagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
           }
-          document.getElementById("messages").appendChild(messagediv);
+          document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
         }
       }
