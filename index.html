@@ -129,7 +129,7 @@
           var tempjson2={};
           tempjson2.user=newmessagelines[i].split(":")[0];
           tempjson2.message=newmessagelines[i].split(":")[1];
-          newmessagejson.messages.push(tempjson);
+          newmessagejson.messages.push(tempjson2);
         }
         alert(JSON.stringify(newmessagejson));
         for (var i=0;i<newmessagejson.messages.length;i++){
