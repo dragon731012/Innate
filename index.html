@@ -26,7 +26,7 @@
     for (var i=0;i<messagejson.messages.length;i++){
       var messagediv=document.createElement("div");
       messagediv.className="messagetext";
-      messagediv.innerText=messagejson.messages[i];
+      messagediv.innerText=messagejson.messages[i][1];
       document.getElementById("messages").appendChild(messagediv);
     }
   }
