@@ -20,8 +20,8 @@
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
       var tempjson={};
-      tempjson.user=userlines[i].split(":")[0];
-      tempjson.message=userlines[i].split(":")[0];
+      tempjson.user=messagelines[i].split(":")[0];
+      tempjson.message=messagelines[i].split(":")[0];
       userjson.messages.push(tempjson);
     }
     alert(JSON.stringify(userjson));
