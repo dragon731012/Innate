@@ -121,11 +121,12 @@
       var newmessages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
       if (messages!=newmessages){
         newmessages=newmessages.replace(messages,"");
+        var newmessagelines=newmessages.toString().split("|");
         var newmessagejson={messages: []};
-        for(var i=0;i<messagelines.length-1;i++){
+        for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson2={};
-          tempjson2.user=messagelines[i].split(":")[0];
-          tempjson2.message=messagelines[i].split(":")[1];
+          tempjson2.user=newmessagelines[i].split(":")[0];
+          tempjson2.message=newmessagelines[i].split(":")[1];
           newmessagejson.messages.push(tempjson);
         }
         for (var i=0;i<newmessagejson.messages.length;i++){
@@ -142,10 +143,10 @@
           }
           document.getElementById("messages").appendChild(messagediv);
         }
-        for(var i=0;i<messagelines.length-1;i++){
+        for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson3={};
-          tempjson3.user=messagelines[i].split(":")[0];
-          tempjson3.message=messagelines[i].split(":")[1];
+          tempjson3.user=newmessagelines[i].split(":")[0];
+          tempjson3.message=newmessagelines[i].split(":")[1];
           messagejson.messages.push(tempjson3);
         }
       }
