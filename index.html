@@ -58,7 +58,7 @@
     background: #8c8c8c;
     padding-left: 5px !important;
     padding: 7px;
-    border-radius: 0 10px 10px;
+    border-radius: 0px 10px 10px 10px;
     color: black;
   }
   .usertext{
@@ -109,7 +109,11 @@
         messagediv.style.alignItems="end";
       }
       messagediv.className="messagebox";
-      messagediv.innerHTML="<div class='usertext'>"+messagejson.messages[i].user+"</div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
+      if (messagejson.messages[i].user==clientuser){
+        messagediv.innerHTML="<div class='usertext'>"+messagejson.messages[i].user+"</div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
+      } else {
+        messagediv.innerHTML="<div class='usertext'>"+messagejson.messages[i].user+"</div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
+      }
       document.getElementById("messages").appendChild(messagediv);
     }
   }
