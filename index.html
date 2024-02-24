@@ -122,7 +122,6 @@
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
-        alert(newmessages);
         var newmessagelines=newmessages.split("|");
         var newmessagejson={messages: []};
         for(var i=0;i<newmessagelines.length-1;i++){
@@ -131,7 +130,6 @@
           tempjson2.message=newmessagelines[i].split(":")[1];
           newmessagejson.messages.push(tempjson2);
         }
-        alert(JSON.stringify(newmessagejson));
         for (var i=0;i<newmessagejson.messages.length;i++){
           var newmessagediv=document.createElement("div");
           if (newmessagejson.messages[i].user==clientuser){
@@ -149,7 +147,21 @@
         }
       }
     },1000);
-    document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
+    var c = 0;
+
+    setInterval(function() {
+        const isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;
+        const newElement = document.createElement("div");
+        newElement.textContent = format(c++, 'Bottom position:', out.scrollHeight - out.clientHeight,  'Scroll position:', out.scrollTop);
+        out.appendChild(newElement);
+            if (isScrolledToBottom) {
+          out.scrollTop = out.scrollHeight - out.clientHeight;
+        }
+    }, 500);
+    
+    function format () {
+      return Array.prototype.slice.call(arguments).join(' ');
+    }
   }
   start();
 
