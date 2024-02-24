@@ -14,7 +14,7 @@
 
   async function start(){
     
-    var messages=await getText("https://actual-wildebeest-dragon731012.koyeb.app/index.php/?val=r&group=hi");
+    var messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
