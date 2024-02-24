@@ -94,7 +94,6 @@
   var messages;
 
   async function start(){
-    document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
     messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
@@ -148,6 +147,7 @@
         }
       }
     },1000);
+    document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
   }
   start();
 
