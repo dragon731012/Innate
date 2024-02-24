@@ -88,7 +88,7 @@
   }
   start();
 
-  document.getElementById("messageform").addEventListener("submit",()=>{
+  document.getElementById("messageform").addEventListener("submit",async ()=>{
     var sent=await getText("https://server-dragon731012.koyeb.app/?val=w&group=hi&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp=hi&up="+clientpassword);
   });
 </script>
