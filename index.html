@@ -24,7 +24,12 @@
       tempjson.message=messagelines[i].split(":")[1];
       messagejson.messages.push(tempjson);
     }
-    alert(JSON.stringify(messagejson));
+    for (var i=0;i<messagejson.messages.length){
+      var messagediv=document.createElement("div");
+      messagediv.className="messagetext";
+      messagediv.innerText=messagejson.messages[i];
+      document.getElementById("messages").appendChild(messagediv);
+    }
   }
   start();
 </script>
