@@ -16,7 +16,7 @@
     
     var messages=await getText("https://actual-wildebeest-dragon731012.koyeb.app/index.php/?val=r&group=hi");
     var userlines=messages.toString().split("|");
-    alert(messages.toString());
+    alert(userlines.length);
     var userjson={};
     for(var i=0;i<userlines.length;i++){
         userjson.user=userlines[i].split(":")[0];
