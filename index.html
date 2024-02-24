@@ -1,4 +1,6 @@
-<div id="messages"></div> 
+<div id="mbox">
+  <div id="messages"></div> 
+</div>
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
 </form>
@@ -20,11 +22,19 @@
     border-radius:25px;
   }
   #messages{
-    height:90%;
+    height:100%;
     position:absolute;
     left:5px;
     top:0px;
     width:40%;
+  }
+  #mbox{
+    height:80%;
+    position:absolute;
+    left:0px;
+    overflow:scroll;
+    top:0px;
+    width:100%;
   }
   .messagebox{
     display:flex;
