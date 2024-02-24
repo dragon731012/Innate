@@ -11,8 +11,14 @@
     border-radius: 0 10px 10px;
     color: black;
   }
+  .usertext{
+    margin-left: 5px;
+    margin-bottom:3px;
+    color: black;
+  }
   body{
     background:#c4c4c4;
+  }
 </style>
 <script>
   function getText(file){
@@ -41,7 +47,7 @@
     for (var i=0;i<messagejson.messages.length;i++){
       var messagediv=document.createElement("div");
       messagediv.className="messagebox";
-      messagediv.innerHTML="<div class='messagetext'>"+messagejson.messages[i].message+"</div>";
+      messagediv.innerHTML="<div class='usertext'>"+messagejson.messages[i].user+"</div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
       document.getElementById("messages").appendChild(messagediv);
     }
   }
