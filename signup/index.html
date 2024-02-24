@@ -1,3 +1,27 @@
+<input id="user">
+<input id="password">
+<button onclick="signup();">Sign Up</button>
 <script>
-  
+  function getText(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt);
+        });
+    });
+  }
+  async function signup(){
+    var user=document.getElementById("user").value;
+    var password=document.getElementById("password").value;
+    var reply=await getText("https://server-dragon731012.koyeb.app/user.php/?val=w&user="+user+"&password="+password).toString();
+    if (reply=="Failure"){
+      alert("Name already taken!");
+    } else {
+      window.location.href=window.location.origin;
+    }
+  }
+  start();
 </script>
