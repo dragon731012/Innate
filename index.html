@@ -107,6 +107,8 @@
     var x = new MutationObserver(function (e) {
       if(document.getElementById('messages').scrollHeight - document.getElementById('messages').scrollTop - document.getElementById('messages').clientHeight<=0) {
         e[0].addedNodes[0].scrollIntoView(false);
+      } else {
+        console.log(document.getElementById('messages').scrollHeight - document.getElementById('messages').scrollTop - document.getElementById('messages').clientHeight);
       }
     });
 
