@@ -147,22 +147,7 @@
         }
       }
     },1000);
-    var c = 0;
-
-    var out=document.getELementById("messages");
-    setInterval(function() {
-        const isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;
-        const newElement = document.createElement("div");
-        newElement.textContent = format(c++, 'Bottom position:', out.scrollHeight - out.clientHeight,  'Scroll position:', out.scrollTop);
-        out.appendChild(newElement);
-            if (isScrolledToBottom) {
-          out.scrollTop = out.scrollHeight - out.clientHeight;
-        }
-    }, 500);
-    
-    function format () {
-      return Array.prototype.slice.call(arguments).join(' ');
-    }
+    document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
   }
   start();
 
