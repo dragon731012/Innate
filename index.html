@@ -106,7 +106,7 @@
 
     var x = new MutationObserver(function (e) {
       if (e[0].removedNodes){
-        alert("added");
+        e.target.scrollIntoView(false);
       }
     });
 
