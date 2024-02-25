@@ -105,7 +105,7 @@
     }
 
     var x = new MutationObserver(function (e) {
-      if(document.getElementById('messages').scrollTop == (document.getElementById('messages').scrollHeight - document.getElementById('messages').offsetHeight)) {
+      if(document.getElementById('messages').scrollTop == (document.getElementById('messages').scrollHeight - document.getElementById('messages').offsetHeight-e[0].addedNodes[0].offsetHeight)) {
         e[0].addedNodes[0].scrollIntoView(false);
       } else {
         console.log(document.getElementById('messages').scrollTop+", "+(document.getElementById('messages').scrollHeight - document.getElementById('messages').offsetHeight));
