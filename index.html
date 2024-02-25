@@ -105,10 +105,10 @@
     }
 
     var x = new MutationObserver(function (e) {
-      if(element.scrollTop == (element.scrollHeight - element.offsetHeight)) {
+      if(document.getElementById('messages').scrollTop == (document.getElementById('messages').scrollHeight - document.getElementById('messages').offsetHeight)) {
         e[0].addedNodes[0].scrollIntoView(false);
       } else {
-        console.log(element.scrollTop+", "+(element.scrollHeight - element.offsetHeight));
+        console.log(document.getElementById('messages').scrollTop+", "+(document.getElementById('messages').scrollHeight - document.getElementById('messages').offsetHeight));
       }
     });
 
