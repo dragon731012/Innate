@@ -105,8 +105,7 @@
     }
 
     var x = new MutationObserver(function (e) {
-      console.log(e);
-      if (document.getElementById("messages").scrollTop==document.getElementById("messages").scrollHeight){
+      if(document.getElementById('messages').scrollTop + document.getElementById('messages').clientHeight == document.getElementById('messages').scrollHeight) {
         e[0].addedNodes[0].scrollIntoView(false);
       }
     });
