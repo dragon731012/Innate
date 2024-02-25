@@ -104,11 +104,20 @@
       messagejson.messages.push(tempjson);
     }
 
+    function bottomelmvisible() {
+        var rect = document.getElementsByClassName("messagebox")[document.getElementsByClassName("messagebox").length-1].getBoundingClientRect();
+        var vWidth = window.innerWidth || doc.documentElement.clientWidth;
+        var vHeight = window.innerHeight || doc.documentElement.clientHeight;
+  
+        if (rect.right < 0 || rect.bottom < 0 || rect.left > vWidth || rect.top > vHeight) return false;
+    
+        return true;
+        /* function credits to https://stackabuse.com/bytes/check-element-visibility-after-scrolling-with-jquery-or-js/ */
+    }
+
     var x = new MutationObserver(function (e) {
-      if(document.getElementById('messages').scrollTop == (document.getElementById('messages').scrollHeight - document.getElementById('messages').offsetHeight-e[0].addedNodes[0].offsetHeight)) {
+      if(bottomelmvisible()) {
         e[0].addedNodes[0].scrollIntoView(false);
-      } else {
-        console.log(document.getElementById('messages').scrollTop+", "+(document.getElementById('messages').scrollHeight - document.getElementById('messages').offsetHeight-e[0].addedNodes[0].offsetHeight));
       }
     });
 
