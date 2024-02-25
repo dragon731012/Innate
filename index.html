@@ -108,7 +108,7 @@
       if(window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight - 50) {
         e[0].addedNodes[0].scrollIntoView(false);
       } else {
-        console.log(document.getElementById('messages').scrollHeight - document.getElementById('messages').scrollTop - document.getElementById('messages').clientHeight);
+        console.log((window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight - 50)+", "+document.documentElement.scrollHeight - 50);
       }
     });
 
