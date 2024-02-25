@@ -147,14 +147,14 @@
         }
       }
     },1000);
-    document.getElementById( 'parent' ).addEventListener( 'DOMNodeInserted', function (event) {
+    document.getElementById( 'parent' ).addEventListener('DOMNodeInserted', function (event){
       alert("added");
       if(event.target.parentNode.id === 'parent') { 
         if (document.getElementById("messages").scrollTop=document.getElementById("messages").scrollHeight){
           document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
         }
       }
-    );
+    });
   }
   start();
 
