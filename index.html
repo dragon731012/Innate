@@ -107,7 +107,6 @@
     var x = new MutationObserver(function (e) {
       console.log(e);
       e[0].addedNodes.scrollIntoView(false);
-      }
     });
 
     x.observe(document.getElementById('messages'), { childList: true });
