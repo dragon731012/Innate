@@ -105,10 +105,10 @@
     }
 
     var x = new MutationObserver(function (e) {
-      if(window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight - 50) {
+      if(element.scrollTop == (element.scrollHeight - element.offsetHeight)) {
         e[0].addedNodes[0].scrollIntoView(false);
       } else {
-        console.log((window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight - 50)+", "+document.documentElement.scrollHeight - 50);
+        console.log(element.scrollTop+", "+(element.scrollHeight - element.offsetHeight));
       }
     });
 
