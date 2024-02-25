@@ -106,14 +106,14 @@
 
     var x = new MutationObserver(function (e) {
       console.log(e);
-      e[0].addedNodes[0].scrollIntoView(false);
+      if (document.getElementById("messages").scrollTop==document.getElementById("messages").scrollHeight){
+        e[0].addedNodes[0].scrollIntoView(false);
+      }
     });
 
     x.observe(document.getElementById('messages'), { childList: true });
 
-        if (document.getElementById("messages").scrollTop==document.getElementById("messages").scrollHeight){
-          document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
-        }
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
     
     for (var i=0;i<messagejson.messages.length;i++){
       var messagediv=document.createElement("div");
