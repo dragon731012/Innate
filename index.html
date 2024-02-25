@@ -103,6 +103,13 @@
       tempjson.message=messagelines[i].split(":")[1];
       messagejson.messages.push(tempjson);
     }
+    document.getElementById("messages").addEventListener('DOMNodeInserted', function (event){
+      if(event.target.parentNode.id=='messages') { 
+        if (document.getElementById("messages").scrollTop=document.getElementById("messages").scrollHeight){
+          document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
+        }
+      }
+    });
     for (var i=0;i<messagejson.messages.length;i++){
       var messagediv=document.createElement("div");
       if (messagejson.messages[i].user==clientuser){
@@ -147,14 +154,6 @@
         }
       }
     },1000);
-    document.getElementById("messages").addEventListener('DOMNodeInserted', function (event){
-      alert("added");
-      if(event.target.parentNode.id === 'parent') { 
-        if (document.getElementById("messages").scrollTop=document.getElementById("messages").scrollHeight){
-          document.getElementById("messages").scrollTo(0, document.getElementById("messages").scrollHeight);
-        }
-      }
-    });
   }
   start();
 
