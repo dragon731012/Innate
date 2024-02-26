@@ -3,10 +3,10 @@
   <input id="messageinput" placeholder="Send a message...">
 </form>
 <div id="navbar">
-  <div style="display:none;" href="/login" class="navitem"> 
+  <div href="/login" class="navitem"> 
     Login
   </div>
-  <div style="display:none;" href="/signup" class="navitem">
+  <div href="/signup" class="navitem">
     Sign up
   </div>
 </div>
@@ -16,16 +16,19 @@
     display:flex;
     flex-direction:row;
     align-items:right;
+    text-align:right;
     width:100%;
     position:absolute;
     left:0px;
     top:0px;
   }
   .navitem{
+    padding:10px;
     display:flex;
     height:10%;
     background-color:#222222;
     opacity:0.5;
+    color:#c4c4c4
   }
   ::-webkit-scrollbar {
     width: 10px;
