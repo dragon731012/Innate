@@ -200,7 +200,8 @@
 
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    document.getElementById("messageinput").value="";
     var sent=await getText("https://server-dragon731012.koyeb.app/?val=w&group=hi&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp=hi&up="+clientpassword);
+    document.getElementById("messageinput").value="";
+    document.getElementById("messageinput").blur();
   });
 </script>
