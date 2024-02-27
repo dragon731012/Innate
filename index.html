@@ -99,6 +99,9 @@
   }
 </style>
 <script>
+  var params=new URLSearchParams(window.location.search);
+  var groupinuse=params.get('group');
+  
   var clientuser=localStorage.getItem("username");
   var clientpassword=localStorage.getItem("password");
 
@@ -121,7 +124,7 @@
   var messages;
 
   async function start(){
-    messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
+    messages=await getText("https://server-dragon731012.koyeb.app/?val=r&group="+groupinuse);
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
@@ -167,7 +170,7 @@
       document.getElementById("messages").appendChild(messagediv);
     }
     setInterval(async ()=>{
-      var newmessages=await getText("https://server-dragon731012.koyeb.app/?val=r&group=hi");
+      var newmessages=await getText("https://server-dragon731012.koyeb.app/?val=r&group="+groupinuse);
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
