@@ -9,6 +9,9 @@
   <a href="/signup" class="navitem">
     Sign up
   </a>
+  <a href="/groups" style="float:left;" class="navitem">
+    Groups
+  </a>
 </div>
 <style>
   #navbar{
@@ -101,6 +104,8 @@
 <script>
   var params=new URLSearchParams(window.location.search);
   var groupinuse=params.get('group');
+
+  alert(groupinuse);
   
   var clientuser=localStorage.getItem("username");
   var clientpassword=localStorage.getItem("password");
