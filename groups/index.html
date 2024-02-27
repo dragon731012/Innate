@@ -16,13 +16,11 @@
     padding-bottom:5px;
   }
   .groupbutton{
-    height:100%;
     background-color:blue;
     color:black;
     border:0px;
     border-radius:27px;
-    position:relative;
-    right:5px;
+    float:right;
   }
 </style>
 <script>
@@ -58,7 +56,7 @@
       var groupdiv=document.createElement("div");
       groupdiv.className="groupbox";
 
-        groupdiv.innerHTML="<div class='grouptext'>"+groupjson.groups[i].group+"</div><button class='groupbutton' id='"+groupjson.groups[i].group+"'>Join</button>";
+        groupdiv.innerHTML="<div class='grouptext'>"+groupjson.groups[i].name+"</div><button class='groupbutton' id='"+groupjson.groups[i].name+"'>Join</button>";
       document.getElementById("groups").appendChild(groupdiv);
     }
   }
