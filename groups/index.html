@@ -1,0 +1,42 @@
+<div id="groups"></div>
+<script>
+  var clientuser=localStorage.getItem("username");
+  var clientpassword=localStorage.getItem("password");
+
+  if (clientuser==undefined || clientuser==null){
+    window.location.href="/signup";
+  }
+  
+  function getText(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt);
+        });
+    });
+  }
+  async function start(){
+    groups=await getText("https://server-dragon731012.koyeb.app/group.php?val=r");
+    var grouplines=groups.toString().split("|");
+    var groupjson={groups: []};
+    for(var i=0;i<grouplines.length-1;i++){
+      var tempjson={};
+      tempjson.user=grouplines[i].split(":")[0];
+      tempjson.group=grouplines[i].split(":")[1];
+      groupjson.groups.push(tempjson);
+    }
+    
+    for (var i=0;i<groupjson.groups.length;i++){
+      var groupdiv=document.createElement("div");
+      groupdiv.className="groupbox";
+
+        groupdiv.innerHTML="<div class='usertext'><b>"+groupjson.groups[i].user+"</b></div><div class='grouptext'>"+groupjson.groups[i].group+"</div>";
+      groupdiv.innerText=groupjson.groups[i].name;
+      document.getElementById("groups").appendChild(groupdiv);
+    }
+  }
+
+</script>
