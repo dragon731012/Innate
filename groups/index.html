@@ -1,35 +1,44 @@
 <div id="groups"></div>
 <style>
+  body{
+    background:#c4c4c4;
+    overflow:hidden;
+  }
   #groups{
     width:100%;
     height:90%;
     position:absolute;
     left:0px;
     bottom:0px;
-    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
   }
   .grouptext{
-    position:relative;
-    left:5px;
+    position: relative;
+    left: 5px;
+    align-self: flex-start;
+    display: flex;
   }
   .groupbox{
-    display:flex;
-    justify-content:center;
-    border-top:3px solid black;
-    border-bottom:3px solid black;
-    width:100%;
-    padding-top:5px;
-    padding-bottom:5px;
+    display: flex;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    flex-direction: row;
+    justify-content: space-between;
   }
   .groupbutton{
-    position:relative;
-    right:5px;
-    display:flex;
-    background:blue;
-    color:white;
-    border:0px;
-    border-radius:27px;
-    float:right;
+    position: relative;
+    right: 5px;
+    display: flex;
+    background: blue;
+    color: white;
+    border: 0px;
+    border-radius: 27px;
+    float: right;
+    align-self: flex-end;
   }
 </style>
 <script>
