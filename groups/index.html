@@ -24,8 +24,7 @@
     var groupjson={groups: []};
     for(var i=0;i<grouplines.length-1;i++){
       var tempjson={};
-      tempjson.user=grouplines[i].split(":")[0];
-      tempjson.group=grouplines[i].split(":")[1];
+      tempjson.name=grouplines[i];
       groupjson.groups.push(tempjson);
     }
     
