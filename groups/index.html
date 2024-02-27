@@ -76,7 +76,13 @@
     });
   }
   function join(element){
-    window.location.href="/?group="+element.dataset.group;
+    var passwordinuse=prompt("Password?");
+    var verify=await getText("https://server-dragon731012.koyeb.app/?val=v&group="+groupinuse+"&password="+passwordinuse);
+    if (verify=="Valid"){
+      window.location.href="/?group="+element.dataset.group+"&password="+passwordinuse;
+    } else {
+      alert("Incorrect password!");
+    }
   }
   async function start(){
     groups=await getText("https://server-dragon731012.koyeb.app/group.php?val=r");
