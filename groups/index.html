@@ -75,6 +75,9 @@
         });
     });
   }
+  function join(element){
+    window.location.href="/?group="+element.dataset.group;
+  }
   async function start(){
     groups=await getText("https://server-dragon731012.koyeb.app/group.php?val=r");
     var grouplines=groups.toString().split("|");
@@ -89,7 +92,7 @@
       var groupdiv=document.createElement("div");
       groupdiv.className="groupbox";
 
-        groupdiv.innerHTML="<div class='grouptext'><b>"+groupjson.groups[i].name+"</b></div><button class='groupbutton' id='"+groupjson.groups[i].name+"'>Join</button>";
+        groupdiv.innerHTML="<div class='grouptext'><b>"+groupjson.groups[i].name+"</b></div><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
       document.getElementById("groups").appendChild(groupdiv);
     }
   }
