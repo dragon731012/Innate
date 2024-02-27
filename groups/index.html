@@ -107,7 +107,7 @@
 
       var nopassword=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+groupjson.groups[i].name+"&password=");
         if (nopassword=="Valid"){
-          
+          document.getElementById(groupjson.groups[i].name).style.display="none";
         }
     }
     document.getElementsByClassName("groupbox")[0].style.borderTop="3px solid black";
