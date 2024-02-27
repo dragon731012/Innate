@@ -36,6 +36,7 @@
   }
   .groupbox{
     display: flex;
+    margin-bottom:5px;
     border-top: 3px solid black;
     border-bottom: 3px solid black;
     width: 100%;
@@ -76,12 +77,17 @@
     });
   }
   async function join(element){
-    var passwordinuse=prompt("Password?");
-    var verify=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
-    if (verify=="Valid"){
-      window.location.href="/?group="+element.dataset.group+"&password="+passwordinuse;
+    var nopassword=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password=");
+    if (nopassword!="Valid"){
+      var passwordinuse=prompt("Password?");
+      var verify=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
+      if (verify=="Valid"){
+        window.location.href="/?group="+element.dataset.group+"&password="+passwordinuse;
+      } else {
+        alert("Incorrect password!");
+      }
     } else {
-      alert("Incorrect password!");
+      window.location.href="/?group="+element.dataset.group+"&password=";
     }
   }
   async function start(){
