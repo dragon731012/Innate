@@ -77,7 +77,7 @@
   }
   async function join(element){
     var passwordinuse=prompt("Password?");
-    var verify=await getText("https://server-dragon731012.koyeb.app/?val=v&group="+groupinuse+"&password="+passwordinuse);
+    var verify=await getText("https://server-dragon731012.koyeb.app/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
     if (verify=="Valid"){
       window.location.href="/?group="+element.dataset.group+"&password="+passwordinuse;
     } else {
