@@ -105,7 +105,9 @@
   var params=new URLSearchParams(window.location.search);
   var groupinuse=params.get('group');
 
-  alert(groupinuse);
+  if (groupinuse==null){
+    window.location.href="/groups";
+  }
   
   var clientuser=localStorage.getItem("username");
   var clientpassword=localStorage.getItem("password");
