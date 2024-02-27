@@ -110,7 +110,7 @@
     window.location.href="/groups";
   }
 
-  var verify=await getText("https://server-dragon731012.koyeb.app/?val=v&group="+groupinuse+"&password="+passwordinuse);
+  var verify=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
   if (verify!="Valid"){
     window.location.href="/groups";
   }
