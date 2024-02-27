@@ -41,9 +41,13 @@
     overflow-x:hidden;
   }
   .passwordinput{
-    width:30%;
-    position:relative;
-    right:0px;
+    width: 30%;
+    position: absolute;
+    right: 10%;
+    color: black;
+    background: transparent;
+    border-radius: 25px;
+    border: 2px solid black;
   }
   .grouptext{
     position: relative;
@@ -123,7 +127,7 @@
       var groupdiv=document.createElement("div");
       groupdiv.className="groupbox";
 
-        groupdiv.innerHTML="<div class='grouptext'><b>"+groupjson.groups[i].name+"</b></div><input class='passwordinput' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
+        groupdiv.innerHTML="<div class='grouptext'><b>"+groupjson.groups[i].name+"</b></div><input class='passwordinput' placeholder='Password...' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
       document.getElementById("groups").appendChild(groupdiv);
 
       var nopassword=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+groupjson.groups[i].name+"&password=");
