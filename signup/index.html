@@ -1,4 +1,4 @@
-<b>Username: </b><input id="user" placeholder="DON'T PUT REAL NAME">
+<b>Username: </b><input id="user">
 <b>Password: </b><input id="password">
 <b>Show Password:</b><input type="checkbox" onclick="myFunction()">
 <button onclick="signup();">Sign Up</button>
@@ -22,14 +22,6 @@
   }
 </style>
 <script>
-  function myFunction() {
-    var x= document.getElementById("password");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
-  }
   function getText(file){
     return new Promise((resolve) => {
       fetch(file)
