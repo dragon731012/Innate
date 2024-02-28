@@ -105,8 +105,10 @@
   var params=new URLSearchParams(window.location.search);
   var groupinuse=params.get('group');
   var passwordinuse=params.get('password');
-  if (passwordinuse==""){
+  if (passwordinuse=="" || passwordinuse==null){
     passwordinuse="none";
+  } else {
+    alert(passwordinuse);
   }
 
   if (groupinuse==null){
