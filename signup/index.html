@@ -1,3 +1,106 @@
+</title>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<head>  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
+<style>  
+body {  
+  background: #191828;  
+  color: #efedef;  
+  font-family: "Roboto", Arial, Helvetica, sans-serif;  
+  font-size: 16px;  
+  font-weight: 300;  
+  letter-spacing: 0.01em;  
+  line-height: 1.6em;  
+  margin: 0;  
+  padding: 100px;   
+  }  
+
+h4 {  
+  font-weight: bold;  
+  margin-bottom: 2.5rem;  
+ color: #3494e6;  
+  align: center;  
+}  
+.form-wrapper {  
+  background: #fff;  
+  border-radius: 5px;  
+  padding: 50px;  
+}  
+.form-control,  
+.custom-select {  
+  border-radius: 0px;  
+  color: #495057;  
+  background-color: #f1f1f1;  
+  border-color: none;  
+}  
+
+.form-control:focus {  
+  color: #495057;  
+  background-color: #ffffff;  
+  border: 1px solid #b5b6b3;  
+  outline: 0;  
+  box-shadow: none;  
+}  
+
+.btn {  
+  background: #3494e6;  
+  border: #3494e6;  
+  padding: 0.6rem 3rem;  
+  font-weight: bold;  
+}  
+.btn:hover,  
+.btn:focus,  
+.btn:active,  
+.btn-primary:not(:disabled):not(.disabled).active,  
+.btn-primary:not(:disabled):not(.disabled):active,  
+.show > .btn-primary.dropdown-toggle {  
+  background: #3494e6;  
+  border: #3494e6;  
+  outline: 0;  
+}  
+button {  
+    display: inline-block;  
+    padding: 0.35em 1.2em;  
+    border: 0.1em solid #3494e6;  
+    margin: 0 0.3em 0.3em 0;  
+    border-radius: 0.12em;  
+    box-sizing: border-box;  
+    text-decoration: none;  
+    font-family: 'Roboto',sans-serif;  
+    font-weight: 700;  
+    color: #3494e6;  
+    text-align: center;  
+    transition: all 0.2s;  
+    }  
+    button:hover {  
+    color: #FFFFFF;  
+    background-color: #3494e6;  
+    }  
+</style>  
+</head>  
+<body>  
+<section class="contact-from pt-4">  
+  <div class="container">  
+  <div class="row mt-5">  
+      <div class="col-md-7 mx-auto">  
+        <div class="form-wrapper">  
+          <div class="row">  
+            <div class="col-md-12">  
+              <h4> <center><b>Innate Signup Form </b></center></h4>  
+            </div>  
+          </div>  
+          <form _lpchecked="1">  
+            <div class="row">  
+              <div class="col-md-6">  
+                <div class="form-group">  
+         <input type="text" class="form-control" placeholder="Username" required >  
+                </div>  
+              </div>  
+              <div class="col-md-6">  
+                <div class="form-group">  
+                  <input type="text" class="form-control" placeholder="Password" required >  
+                </div>
+                <button onclick="signup();">Sign Up</button>
 <b>Username: </b><input id="user">
 <b>Password: </b><input id="password">
 <b>Show Password:</b><input type="checkbox" onclick="myFunction()">
