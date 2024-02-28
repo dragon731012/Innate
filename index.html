@@ -145,7 +145,7 @@
   var messages;
 
   async function start(){
-    messages=await getText("https://server.belowxero.net/?val=r&group="+groupinuse+"&password="+passwordinuse);
+    messages=await getText("https://server.belowxero.net/index.php/?val=r&group="+groupinuse+"&password="+passwordinuse);
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
@@ -191,7 +191,7 @@
       document.getElementById("messages").appendChild(messagediv);
     }
     setInterval(async ()=>{
-      var newmessages=await getText("https://server.belowxero.net/?val=r&group="+groupinuse+"&password="+passwordinuse);
+      var newmessages=await getText("https://server.belowxero.net/index.php/?val=r&group="+groupinuse+"&password="+passwordinuse);
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
@@ -225,7 +225,7 @@
 
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    var sent=await getText("https://server.belowxero.net/?val=w&group=hi&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp=hi&up="+clientpassword);
+    var sent=await getText("https://server.belowxero.net/index.php/?val=w&group=hi&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp=hi&up="+clientpassword);
     document.getElementById("messageinput").value="";
     document.getElementById("messageinput").blur();
   });
