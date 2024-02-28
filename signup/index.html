@@ -25,7 +25,7 @@
   async function signup(){
     var user=document.getElementById("user").value;
     var password=document.getElementById("password").value;
-    var reply=await getText("https://server-dragon731012.koyeb.app/user.php/?val=w&user="+user+"&password="+password).toString();
+    var reply=await getText("https://server.belowxero.net/user.php/?val=w&user="+user+"&password="+password).toString();
     if (reply=="Failure"){
       alert("Name already taken!");
     } else {
