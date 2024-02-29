@@ -101,10 +101,10 @@
     });
   }
   async function join(element){
-    var nopassword=await getText("https://server.belowxero.net/group.php/?val=v&group="+element.dataset.group+"&password=none");
+    var nopassword=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password=none");
     if (nopassword!="Valid"){
       var passwordinuse=document.getElementById(element.dataset.group).value;
-      var verify=await getText("https://server.belowxero.net/group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
+      var verify=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
       if (verify=="Valid"){
         window.location.href="/?group="+element.dataset.group+"&password="+passwordinuse;
       } else {
@@ -119,7 +119,7 @@
     }
   }
   async function start(){
-    groups=await getText("https://server.belowxero.net/group.php?val=r");
+    groups=await getText("https://server-dragon731012.koyeb.app/group.php?val=r");
     var grouplines=groups.toString().split("|");
     var groupjson={groups: []};
     for(var i=0;i<grouplines.length-1;i++){
@@ -135,7 +135,7 @@
         groupdiv.innerHTML="<div class='grouptext'><b>"+groupjson.groups[i].name+"</b></div><input class='passwordinput' placeholder='Password...' style='display:none;' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
       document.getElementById("groups").appendChild(groupdiv);
 
-      var nopassword=await getText("https://server.belowxero.net/group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");
+      var nopassword=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");
       if (nopassword!="Valid"){
         document.getElementById(groupjson.groups[i].name).style.display="block";
       }
