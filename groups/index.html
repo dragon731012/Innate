@@ -119,7 +119,7 @@
     }
   }
   async function start(){
-    groups=await getText("https://server-dragon731012.koyeb.app/group.php?val=r");
+    groups=await getText("https://server-dragon731012.koyeb.app/group.php?val=r&group=&password=");
     var grouplines=groups.toString().split("|");
     var groupjson={groups: []};
     for(var i=0;i<grouplines.length-1;i++){
