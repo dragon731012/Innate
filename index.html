@@ -1,3 +1,4 @@
+<script src="/innate-config.js"></script>
 <div id="messages"></div> 
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
@@ -116,7 +117,7 @@
   }
 
   async function verify(){
-    var verify=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
+    var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
     if (verify!="Valid"){
       window.location.href="/groups";
     }
@@ -145,7 +146,7 @@
   var messages;
 
   async function start(){
-    messages=await getText("https://server-dragon731012.koyeb.app/index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
+    messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
@@ -191,7 +192,7 @@
       document.getElementById("messages").appendChild(messagediv);
     }
     setInterval(async ()=>{
-      var newmessages=await getText("https://server-dragon731012.koyeb.app/index.php/?val=r&group="+groupinuse+"&up="+passwordinuse+"&gp=&user=&text=");
+      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+passwordinuse+"&gp=&user=&text=");
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
@@ -225,7 +226,7 @@
 
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    var sent=await getText("https://server-dragon731012.koyeb.app/index.php/?val=w&group=hi&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp=hi&up="+clientpassword);
+    var sent=await getText(innate.server+"index.php/?val=w&group=hi&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp=hi&up="+clientpassword);
     document.getElementById("messageinput").value="";
     document.getElementById("messageinput").blur();
   });
