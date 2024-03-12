@@ -102,6 +102,7 @@
   }
   async function join(element){
     var nopassword=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password=none");
+    nopassword=nopassword.toString();
     if (nopassword!="Valid"){
       var passwordinuse=document.getElementById(element.dataset.group).value;
       var verify=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
