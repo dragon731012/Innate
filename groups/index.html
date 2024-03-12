@@ -102,12 +102,12 @@
   }
   async function join(element){
     var nopassword=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password=none");
-    nopassword=""+nopassword;
-    if (nopassword!="Valid"){
+    nopassword=nopassword.trim();
+    if (nopassword!=="Valid"){
       var passwordinuse=document.getElementById(element.dataset.group).value;
       var verify=await getText("https://server-dragon731012.koyeb.app/group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
-      verify=""+verify;
-      if (verify=="Valid"){
+      verify = verify.trim();
+      if (verify==="Valid"){
         window.location.href="/?group="+element.dataset.group+"&password="+passwordinuse;
       } else {
         document.getElementById(element.dataset.group).style.animation='shake 0.5s';
