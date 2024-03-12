@@ -189,7 +189,7 @@
       document.getElementById("messages").appendChild(messagediv);
     }
     setInterval(async ()=>{
-      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+passwordinuse+"&gp=&user=&text=");
+      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
