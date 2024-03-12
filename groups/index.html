@@ -112,10 +112,10 @@
         document.getElementById(element.dataset.group).addEventListener('animationend',() => {
             document.getElementById(element.dataset.group).style.animation=null;
           });
-
+          alert(verify):
       }
     } else {
-      window.location.href="/?group="+element.dataset.group+"&password=";
+      window.location.href="/?group="+element.dataset.group+"&password=none";
     }
   }
   async function start(){
