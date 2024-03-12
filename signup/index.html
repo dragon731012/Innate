@@ -29,7 +29,7 @@
           return response.text();
         })
         .then((txt) => {
-          resolve(txt);
+          resolve(txt.trim());
         });
     });
   }
