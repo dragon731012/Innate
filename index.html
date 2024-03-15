@@ -4,14 +4,11 @@
   <input id="messageinput" placeholder="Send a message...">
 </form>
 <div id="navbar">
-  <a href="/login" class="navitem"> 
-    Login
-  </a>
-  <a href="/signup" class="navitem">
-    Sign up
-  </a>
   <a href="/groups" style="float:left;" class="navitem">
     Groups
+  </a>
+  <a onclick="signout();" style="float:right;" class="navitem">
+    Sign Out
   </a>
 </div>
 <style>
@@ -125,8 +122,17 @@
   var clientpassword=localStorage.getItem("password");
 
   if (clientuser==undefined || clientuser==null){
-    window.location.href="/signup";
+    window.location.href="/welcome";
   }
+  async function checklogin(){
+    var verify=await getText(innate.server+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
+    if (verify!="Valid"){
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+      window.location.href="/welcome";
+    }
+  }
+  checklogin();
   
   function getText(file){
     return new Promise((resolve) => {
