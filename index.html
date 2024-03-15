@@ -117,6 +117,12 @@
     }
   }
   verify();
+
+  function signout(){
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    window.location.href="/welcome";
+  }
   
   var clientuser=localStorage.getItem("username");
   var clientpassword=localStorage.getItem("password");
