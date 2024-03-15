@@ -37,7 +37,7 @@
     var user=document.getElementById("user").value;
     var password=document.getElementById("password").value;
     var verify=await getText(innate.server+"user.php/?val=r&user="+user+"&password="+password);
-    if (verify=="Valid"){
+    if (verify!="Valid"){
       var reply=await getText(innate.server+"user.php/?val=w&user="+user+"&password="+password).toString();
       if (reply=="Failure"){
         alert("Name already taken!");
