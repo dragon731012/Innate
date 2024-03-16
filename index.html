@@ -12,6 +12,10 @@
   </a>
 </div>
 <style>
+  --bg: white;
+  --primary: black;
+  --secondary: #c4c4c4;
+  
   #navbar{
     z-index:999999;
     width:100%;
@@ -35,16 +39,16 @@
   }
    
   ::-webkit-scrollbar-thumb {
-    background: black; 
+    background: var(--bg); 
     border-radius: 10px;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: gray; 
+    background: var(--secondary); 
   }
   
   ::placeholder{
-    color:black;
+    color:var(--bg);
   }
   
   #messageinput{
@@ -55,8 +59,8 @@
     bottom:10px;
     padding:10px;
     font-size:25px;
-    color:black;
-    border-color:black;
+    color:var(--bg);
+    border-color:var(--bg);
     background:transparent;
     border-radius:25px;
     outline:none;
@@ -85,15 +89,15 @@
     padding-left: 5px !important;
     padding: 7px;
     border-radius: 0px 10px 10px 10px;
-    color: black;
+    color: var(--bg);
   }
   .usertext{
     margin-left: 5px;
     margin-bottom:3px;
-    color: black;
+    color: var(--bg);
   }
   body{
-    background:#c4c4c4;
+    background:var(--secondary);
     overflow:hidden;
   }
 </style>
