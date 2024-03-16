@@ -31,24 +31,26 @@
     background:transparent;
     cursor:pointer;
   }
+  
   ::-webkit-scrollbar {
-    width: 10px;
-    color:var(--primary);
+      width: 10px;
+      color: var(--primary);
   }
-  
-  ::-webkit-scrollbar-track {
-  }
-   
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-  }
-  
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary); 
+      background: var(--secondary);
+      color: var(--secondary);
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      color: var(--primary);
+      background: var(--primary);
   }
   
   ::placeholder{
     color:var(--bg);
+  }
+  
+  ::-webkit-scrollbar-track {
   }
   
   #messageinput{
