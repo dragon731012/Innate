@@ -161,11 +161,6 @@
   }
 
   var messages;
-
-  function scrolltobottom() {
-      var messagescont=document.getElementById("messages");
-      messagescont.scrollTop = messagescont.scrollHeight;
-  }
   
   async function start(){
     messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
@@ -203,9 +198,6 @@
         messagediv.style.position="relative";
         messagediv.style.alignItems="end";
       }
-      if (i==messagejson.messages.length-1) {
-            scrolltobottom();
-        }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
         messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
@@ -244,6 +236,11 @@
         }
       }
     },1000);
+
+    SetTimeout(()=>{
+      var messagescont=document.getElementById("messages");
+      messagescont.scrollTop=messagescont.scrollHeight;
+    },100);
   }
   start();
 
