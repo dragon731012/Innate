@@ -109,7 +109,7 @@
       var verify=await getText(innate.server+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
       verify = verify.trim();
       if (verify==="Valid"){
-        window.location.href="/?group="+element.dataset.group+"&password="+passwordinuse;
+        window.location.href="/groups/?group="+element.dataset.group+"&password="+passwordinuse;
       } else {
         document.getElementById(element.dataset.group).style.animation='shake 0.5s';
         document.getElementById(element.dataset.group).addEventListener('animationend',() => {
@@ -117,7 +117,7 @@
           });
       }
     } else {
-      window.location.href="/?group="+element.dataset.group+"&password=none";
+      window.location.href="/groups/?group="+element.dataset.group+"&password=none";
     }
   }
   async function start(){
