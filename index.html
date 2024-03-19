@@ -1,5 +1,5 @@
 <script src="/innate-config.js"></script>
-<div id="messages"></div> 
+<div id="messages" style="display:none;"></div> 
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
 </form>
@@ -240,6 +240,7 @@
     setTimeout(()=>{
       var messagescont=document.getElementById("messages");
       messagescont.scrollTop=messagescont.scrollHeight;
+      messagescont.style.display="block";
     },100);
   }
   start();
