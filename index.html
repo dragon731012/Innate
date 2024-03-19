@@ -127,9 +127,8 @@
     }
   }
   
-  var params=new URLSearchParams(window.location.search);
-  var groupinuse=params.get('group');
-  var passwordinuse=params.get('password');
+  var groupinuse=localStorage.getItem("groupname");
+  var groupinuse=localStorage.getItem("grouppassword");
   if (passwordinuse=="" || passwordinuse==null){
     passwordinuse="none";
   }
