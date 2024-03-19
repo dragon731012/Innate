@@ -109,8 +109,8 @@
       var verify=await getText(innate.server+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
       verify = verify.trim();
       if (verify==="Valid"){
-        localStorage.setItem("group",element.dataset.group);
-        localStorage.setItem("password",passwordinuse);
+        localStorage.setItem("groupname",element.dataset.group);
+        localStorage.setItem("grouppassword",passwordinuse);
       } else {
         document.getElementById(element.dataset.group).style.animation='shake 0.5s';
         document.getElementById(element.dataset.group).addEventListener('animationend',() => {
@@ -118,8 +118,8 @@
           });
       }
     } else {
-      localStorage.setItem("group",element.dataset.group);
-      localStorage.setItem("password","none");
+      localStorage.setItem("groupname",element.dataset.group);
+      localStorage.setItem("grouppassword","none");
     }
   }
   async function start(){
