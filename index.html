@@ -191,8 +191,6 @@
     });
 
     x.observe(document.getElementById('messages'), { childList: true });
-
-    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
     
     for (var i=0;i<messagejson.messages.length;i++){
       var messagediv=document.createElement("div");
@@ -239,7 +237,7 @@
       }
     },1000);
 
-    bottomelmvisible();
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
   }
   start();
 
