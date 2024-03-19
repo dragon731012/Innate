@@ -4,14 +4,24 @@
   <input id="messageinput" placeholder="Send a message...">
 </form>
 <div id="navbar">
-  <a href="/groups" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
+  <a onclick="groups();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
     <img src="/images/groups-light.png" style="height: 5vh;">
   </a>
   <a onclick="signout();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
     <img src="/images/logout-light.png" style="height: 5vh;">
   </a>
 </div>
+<iframe id="groups" src="/groups"></iframe>
 <style>
+  #groups{
+    display:none;
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0px;
+    top:0px;
+    border:0px;
+  }
   :root {
     --bg: white;
     --primary: black;
@@ -108,6 +118,15 @@
   }
 </style>
 <script>
+  function groups(){
+    var groups=document.getElementById("groups");
+    if (groups.style.display=="none"){
+      groups.style.display="block";
+    } else {
+      groups.style.display="none";
+    }
+  }
+  
   var params=new URLSearchParams(window.location.search);
   var groupinuse=params.get('group');
   var passwordinuse=params.get('password');
