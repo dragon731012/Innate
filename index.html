@@ -173,6 +173,11 @@
       messagejson.messages.push(tempjson);
     }
 
+    function scrolltobottom() {
+      var messagescont=document.getElementById("messages");
+      messagescont.scrollTop = messagescont.scrollHeight;
+  }
+    
     function bottomelmvisible() {
         var rect = document.getElementsByClassName("messagebox")[document.getElementsByClassName("messagebox").length-1].getBoundingClientRect();
         var vWidth = window.innerWidth || doc.documentElement.clientWidth;
@@ -198,6 +203,9 @@
         messagediv.style.position="relative";
         messagediv.style.alignItems="end";
       }
+      if (i==messagejson.messages.length-1) {
+            scrolltobottom();
+        }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
         messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
@@ -205,7 +213,6 @@
         messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
-      document.getElementsByClassName("messagebox")[document.getElementsByClassName("messagebox").length-1].scrollIntoView(false);
     }
     setInterval(async ()=>{
       var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
