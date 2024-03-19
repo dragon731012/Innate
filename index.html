@@ -162,6 +162,11 @@
 
   var messages;
 
+  function scrolltobottom() {
+      var messagescont=document.getElementById("messages");
+      messagescont.scrollTop = messagescont.scrollHeight;
+  }
+  
   async function start(){
     messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
     var messagelines=messages.toString().split("|");
@@ -172,11 +177,6 @@
       tempjson.message=messagelines[i].split(":")[1];
       messagejson.messages.push(tempjson);
     }
-
-    function scrolltobottom() {
-      var messagescont=document.getElementById("messages");
-      messagescont.scrollTop = messagescont.scrollHeight;
-  }
     
     function bottomelmvisible() {
         var rect = document.getElementsByClassName("messagebox")[document.getElementsByClassName("messagebox").length-1].getBoundingClientRect();
