@@ -187,11 +187,12 @@
     if (currentgroup!=groupinuse){
       groupinuse=currentgroup;
       passwordinuse=localStorage.getItem("grouppassword");
+      document.getElementById("groups").style.display="none";
       verify();
       checklogin();
       start();
     }
-  }
+  },10);
   
   async function start(){
     messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
