@@ -128,7 +128,9 @@
   }
   
   var groupinuse=localStorage.getItem("groupname");
+  var currentgroup=groupinuse;
   var passwordinuse=localStorage.getItem("grouppassword");
+  
   if (passwordinuse=="" || passwordinuse==null){
     passwordinuse="none";
   }
@@ -179,9 +181,21 @@
   }
 
   var messages;
+
+  setInterval(()=>{
+    currentgroup=localStorage.getItem("groupname");
+    if (currentgroup!=groupinuse){
+      groupinuse=currentgroup;
+      passwordinuse=localStorage.getItem("grouppassword");
+      verify();
+      checklogin();
+      start();
+    }
+  }
   
   async function start(){
     messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
+    document.getElementById("messages").innerHTML="";
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
