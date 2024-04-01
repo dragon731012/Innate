@@ -271,18 +271,21 @@
       }
     },1000);
   }
-  start();
-
-  setTimeout(()=>{
-      var messagescont=document.getElementById("messages");
-      messagescont.scrollTop=messagescont.scrollHeight;
-      messagescont.style.opacity="1";
-    },100);
-
+  async function begin(){
+    await start();
+  
+    setTimeout(()=>{
+        var messagescont=document.getElementById("messages");
+        messagescont.scrollTop=messagescont.scrollHeight;
+        messagescont.style.opacity="1";
+      },100);
+  
     document.getElementById("messageform").addEventListener("submit",async (e)=>{
-      e.preventDefault();
-      var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword);
-      document.getElementById("messageinput").value="";
-      document.getElementById("messageinput").blur();
-    });
+        e.preventDefault();
+        var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword);
+        document.getElementById("messageinput").value="";
+        document.getElementById("messageinput").blur();
+      });
+  }
+  begin();
 </script>
