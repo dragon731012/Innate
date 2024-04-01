@@ -1,0 +1,47 @@
+<script src="/innate-config.js"></script>
+<b>Group name: </b><input id="group">
+<b>Group password: </b><input id="password">
+<button onclick="create();">Create</button>
+<style>
+  #group, #password{
+    border:2px solid black;
+    color:black;
+  }
+  
+  body{ width:100%;
+       height:100%;
+       overflow:hidden; 
+       display:flex;
+       flex-direction:column; 
+       align-items:center; 
+       justify-content:center;
+       button{
+         margin: 10px; 
+       }
+       
+       background:#c4c4c4;
+  }
+</style>
+<script>
+  function getText(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt.trim());
+        });
+    });
+  }
+  async function create(){
+    var name=document.getElementById("name").value;
+    var password=document.getElementById("password").value;
+    var reply=await getText(innate.server+"group.php/?val=w&group="+name+"&password="+password);
+    if (reply=="Failure"){
+    } else {
+      localStorage.setItem("groupname",password);
+      localStorage.setItem("grouppassword",user);
+    }
+  }
+</script>
