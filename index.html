@@ -166,7 +166,7 @@
   async function verify(){
     var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
     if (verify!="Valid"){
-      window.location.href="/welcome";
+      groups();
     } else {
       document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
       groupsframe.style.display="none";
