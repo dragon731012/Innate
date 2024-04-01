@@ -168,6 +168,7 @@
     if (verify!="Valid"){
       alert("invalid password");
     } else {
+      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
       groupsframe.style.display="none";
     }
   }
