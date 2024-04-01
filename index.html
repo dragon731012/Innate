@@ -154,7 +154,7 @@
     if (verify!="Valid"){
       alert("invalid password");
     } else {
-      start();
+      groups.style.display="none";
     }
   }
   verify();
@@ -178,52 +178,7 @@
     }
   }
   checklogin();
-  
-  function getText(file){
-    return new Promise((resolve) => {
-      fetch(file)
-        .then((response) => {
-          return response.text();
-        })
-        .then((txt) => {
-          resolve(txt.trim());
-        });
-    });
-  }
-
-  var messages;
-
-  async function getnewmessages(){
-      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
-      if (messages!=newmessages){
-        var messages1=newmessages;
-        newmessages=newmessages.replace(messages.toString(),"");
-        var newmessagelines=newmessages.split("|");
-        var newmessagejson={messages: []};
-        for(var i=0;i<newmessagelines.length-1;i++){
-          var tempjson2={};
-          tempjson2.user=newmessagelines[i].split(":")[0];
-          tempjson2.message=newmessagelines[i].split(":")[1];
-          newmessagejson.messages.push(tempjson2);
-        }
-        for (var i=0;i<newmessagejson.messages.length;i++){
-          var newmessagediv=document.createElement("div");
-          if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.style.position="relative";
-            newmessagediv.style.alignItems="end";
-          }
-          newmessagediv.className="messagebox";
-          if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
-          } else {
-            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
-          }
-          document.getElementById("messages").appendChild(newmessagediv);
-          messages=messages1;
-        }
-      }
-    }
-  
+ 
   setInterval(()=>{
     currentgroup=localStorage.getItem("groupname");
     if (currentgroup!=groupinuse){
@@ -232,75 +187,7 @@
       document.getElementById("groups").style.display="none";
       document.getElementById("messages").style.opacity="0";
       verify();
-      start();
     }
     checklogin();
   },10);
-  
-  async function start(){
-    messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
-    document.getElementById("messages").innerHTML="";
-    var messagelines=messages.toString().split("|");
-    var messagejson={messages: []};
-    for(var i=0;i<messagelines.length-1;i++){
-      var tempjson={};
-      tempjson.user=messagelines[i].split(":")[0];
-      tempjson.message=messagelines[i].split(":")[1];
-      messagejson.messages.push(tempjson);
-    }
-    
-    function bottomelmvisible() {
-        var rect = document.getElementsByClassName("messagebox")[document.getElementsByClassName("messagebox").length-1].getBoundingClientRect();
-        var vWidth = window.innerWidth || doc.documentElement.clientWidth;
-        var vHeight = window.innerHeight || doc.documentElement.clientHeight;
-  
-        if (rect.right < 0 || rect.bottom < 0 || rect.left > vWidth || rect.top > vHeight) return false;
-    
-        return true;
-        /* function credits to https://stackabuse.com/bytes/check-element-visibility-after-scrolling-with-jquery-or-js/ */
-    }
-
-    var x = new MutationObserver(function (e) {
-      if(bottomelmvisible()) {
-        e[0].addedNodes[0].scrollIntoView(false);
-      }
-    });
-
-    x.observe(document.getElementById('messages'), { childList: true });
-    
-    for (var i=0;i<messagejson.messages.length;i++){
-      var messagediv=document.createElement("div");
-      if (messagejson.messages[i].user==clientuser){
-        messagediv.style.position="relative";
-        messagediv.style.alignItems="end";
-      }
-      messagediv.className="messagebox";
-      if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
-      } else {
-        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
-      }
-      document.getElementById("messages").appendChild(messagediv);
-    }
-    clearInterval(getnewmessages);
-    setInterval(getnewmessages,1000);
-  }
-  async function begin(){
-    await start();
-    setInterval(getnewmessages,1000);
-  
-    setTimeout(()=>{
-        var messagescont=document.getElementById("messages");
-        messagescont.scrollTop=messagescont.scrollHeight;
-        messagescont.style.opacity="1";
-      },100);
-  
-    document.getElementById("messageform").addEventListener("submit",async (e)=>{
-        e.preventDefault();
-        var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword);
-        document.getElementById("messageinput").value="";
-        document.getElementById("messageinput").blur();
-      });
-  }
-  begin();
 </script>
