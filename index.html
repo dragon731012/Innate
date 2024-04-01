@@ -182,6 +182,37 @@
 
   var messages;
 
+  async function getnewmessages(){
+      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
+      if (messages!=newmessages){
+        var messages1=newmessages;
+        newmessages=newmessages.replace(messages.toString(),"");
+        var newmessagelines=newmessages.split("|");
+        var newmessagejson={messages: []};
+        for(var i=0;i<newmessagelines.length-1;i++){
+          var tempjson2={};
+          tempjson2.user=newmessagelines[i].split(":")[0];
+          tempjson2.message=newmessagelines[i].split(":")[1];
+          newmessagejson.messages.push(tempjson2);
+        }
+        for (var i=0;i<newmessagejson.messages.length;i++){
+          var newmessagediv=document.createElement("div");
+          if (newmessagejson.messages[i].user==clientuser){
+            newmessagediv.style.position="relative";
+            newmessagediv.style.alignItems="end";
+          }
+          newmessagediv.className="messagebox";
+          if (newmessagejson.messages[i].user==clientuser){
+            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+          } else {
+            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+          }
+          document.getElementById("messages").appendChild(newmessagediv);
+          messages=messages1;
+        }
+      }
+    }
+  
   setInterval(()=>{
     currentgroup=localStorage.getItem("groupname");
     if (currentgroup!=groupinuse){
@@ -239,41 +270,12 @@
       }
       document.getElementById("messages").appendChild(messagediv);
     }
-    async function getnewmessages(){
-      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
-      if (messages!=newmessages){
-        var messages1=newmessages;
-        newmessages=newmessages.replace(messages.toString(),"");
-        var newmessagelines=newmessages.split("|");
-        var newmessagejson={messages: []};
-        for(var i=0;i<newmessagelines.length-1;i++){
-          var tempjson2={};
-          tempjson2.user=newmessagelines[i].split(":")[0];
-          tempjson2.message=newmessagelines[i].split(":")[1];
-          newmessagejson.messages.push(tempjson2);
-        }
-        for (var i=0;i<newmessagejson.messages.length;i++){
-          var newmessagediv=document.createElement("div");
-          if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.style.position="relative";
-            newmessagediv.style.alignItems="end";
-          }
-          newmessagediv.className="messagebox";
-          if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
-          } else {
-            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
-          }
-          document.getElementById("messages").appendChild(newmessagediv);
-          messages=messages1;
-        }
-      }
-    }
     clearInterval(getnewmessages);
     setInterval(getnewmessages,1000);
   }
   async function begin(){
     await start();
+    setInterval(getnewmessages,1000);
   
     setTimeout(()=>{
         var messagescont=document.getElementById("messages");
