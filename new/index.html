@@ -41,7 +41,8 @@
     if (reply=="Failure"){
     } else {
       localStorage.setItem("groupname",password);
-      localStorage.setItem("grouppassword",user);
+      localStorage.setItem("grouppassword",name);
+      window.location.href="/chat?group="+name+"&password="+password;
     }
   }
 </script>
