@@ -208,6 +208,7 @@
       groupinuse=currentgroup;
       passwordinuse=localStorage.getItem("grouppassword");
       document.getElementById("groups").style.display="none";
+      document.getElementById('groups').contentWindow.location.reload();
       document.getElementById("messages").style.opacity="0";
       checklogin();
       verify();
