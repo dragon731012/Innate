@@ -1,0 +1,273 @@
+<script src="/innate-config.js"></script>
+<div id="messages" style="opacity:0;"></div> 
+<form id="messageform">
+  <input id="messageinput" placeholder="Send a message...">
+</form>
+<div id="navbar">
+  <a onclick="groups();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
+    <img src="/images/groups-light.png" style="height: 5vh;">
+  </a>
+  <a onclick="signout();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
+    <img src="/images/logout-light.png" style="height: 5vh;">
+  </a>
+</div>
+<iframe id="groups" src="/groups"></iframe>
+<style>
+  #groups{
+    display:none;
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0px;
+    top:0px;
+    border:0px;
+  }
+  :root {
+    --bg: white;
+    --primary: black;
+    --secondary: #dedede;
+  }
+  
+  #navbar{
+    z-index:999999;
+    width:100%;
+    position:absolute;
+    left:0px;
+    top:0px;
+  }
+  .navitem{
+    float:right;
+    text-decoration:none;
+    padding:10px;
+    height:10vh;
+    background:transparent;
+    cursor:pointer;
+  }
+  
+  ::-webkit-scrollbar {
+      width: 10px;
+      color: var(--primary);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+      color: var(--secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      color: var(--primary);
+      background: var(--primary);
+  }
+  
+  ::placeholder{
+    color:var(--primary);
+  }
+  
+  ::-webkit-scrollbar-track {
+  }
+  
+  #messageinput{
+    width:70%;
+    position:absolute;
+    text-align:left;
+    left:15%;
+    bottom:10px;
+    padding:10px;
+    font-size:25px;
+    color:var(--primary);
+    border-color:var(--primary);
+    background:transparent;
+    border-radius:25px;
+    outline:none;
+    height: 9vh;
+  }
+  #messages{
+    height:75vh;
+    position:absolute;
+    left:0px;
+    top:10%;
+    width:100%;
+    overflow-x:hidden;
+    overflow-y:scroll;
+  }
+  .messagebox{
+    margin-left:5px;
+    margin-right:5px;
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+  }
+  .messagetext{
+    max-width: 40%;
+    width:fit-content;
+    background: var(--secondary);
+    padding-left: 5px !important;
+    padding: 7px;
+    border-radius: 0px 10px 10px 10px;
+    color: var(--primary);
+  }
+  .usertext{
+    margin-left: 5px;
+    margin-bottom:3px;
+    color: var(--primary);
+  }
+  body{
+    background:var(--bg);
+    overflow:hidden;
+  }
+</style>
+<script>
+  function groups(){
+    var groups=document.getElementById("groups");
+    if (groups.style.display=="none"){
+      groups.style.display="block";
+    } else {
+      groups.style.display="none";
+    }
+  }
+  
+  var params=new URLSearchParams(window.location.search);
+  var groupinuse=params.get('group');
+  var passwordinuse=params.get('password');
+  if (passwordinuse=="" || passwordinuse==null){
+    passwordinuse="none";
+  }
+  if (groupinuse==null){
+    window.location.href="/groups";
+  }
+
+  async function verify(){
+    var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
+    if (verify!="Valid"){
+      window.location.href="/groups";
+    }
+  }
+  verify();
+
+  function signout(){
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    window.location.href="/welcome";
+  }
+  
+  var clientuser=localStorage.getItem("username");
+  var clientpassword=localStorage.getItem("password");
+
+  if (clientuser==undefined || clientuser==null){
+    window.location.href="/welcome";
+  }
+  async function checklogin(){
+    var verify=await getText(innate.server+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
+    if (verify!="Valid"){
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+      window.location.href="/welcome";
+    }
+  }
+  checklogin();
+  
+  function getText(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt.trim());
+        });
+    });
+  }
+
+  var messages;
+  
+  async function start(){
+    messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
+    var messagelines=messages.toString().split("|");
+    var messagejson={messages: []};
+    for(var i=0;i<messagelines.length-1;i++){
+      var tempjson={};
+      tempjson.user=messagelines[i].split(":")[0];
+      tempjson.message=messagelines[i].split(":")[1];
+      messagejson.messages.push(tempjson);
+    }
+    
+    function bottomelmvisible() {
+        var rect = document.getElementsByClassName("messagebox")[document.getElementsByClassName("messagebox").length-1].getBoundingClientRect();
+        var vWidth = window.innerWidth || doc.documentElement.clientWidth;
+        var vHeight = window.innerHeight || doc.documentElement.clientHeight;
+  
+        if (rect.right < 0 || rect.bottom < 0 || rect.left > vWidth || rect.top > vHeight) return false;
+    
+        return true;
+        /* function credits to https://stackabuse.com/bytes/check-element-visibility-after-scrolling-with-jquery-or-js/ */
+    }
+
+    var x = new MutationObserver(function (e) {
+      if(bottomelmvisible()) {
+        e[0].addedNodes[0].scrollIntoView(false);
+      }
+    });
+
+    x.observe(document.getElementById('messages'), { childList: true });
+    
+    for (var i=0;i<messagejson.messages.length;i++){
+      var messagediv=document.createElement("div");
+      if (messagejson.messages[i].user==clientuser){
+        messagediv.style.position="relative";
+        messagediv.style.alignItems="end";
+      }
+      messagediv.className="messagebox";
+      if (messagejson.messages[i].user==clientuser){
+        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
+      } else {
+        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
+      }
+      document.getElementById("messages").appendChild(messagediv);
+    }
+    setInterval(async ()=>{
+      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
+      if (messages!=newmessages){
+        var messages1=newmessages;
+        newmessages=newmessages.replace(messages.toString(),"");
+        var newmessagelines=newmessages.split("|");
+        var newmessagejson={messages: []};
+        for(var i=0;i<newmessagelines.length-1;i++){
+          var tempjson2={};
+          tempjson2.user=newmessagelines[i].split(":")[0];
+          tempjson2.message=newmessagelines[i].split(":")[1];
+          newmessagejson.messages.push(tempjson2);
+        }
+        for (var i=0;i<newmessagejson.messages.length;i++){
+          var newmessagediv=document.createElement("div");
+          if (newmessagejson.messages[i].user==clientuser){
+            newmessagediv.style.position="relative";
+            newmessagediv.style.alignItems="end";
+          }
+          newmessagediv.className="messagebox";
+          if (newmessagejson.messages[i].user==clientuser){
+            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+          } else {
+            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+          }
+          document.getElementById("messages").appendChild(newmessagediv);
+          messages=messages1;
+        }
+      }
+    },1000);
+
+    setTimeout(()=>{
+      var messagescont=document.getElementById("messages");
+      messagescont.scrollTop=messagescont.scrollHeight;
+      messagescont.style.opacity="1";
+    },100);
+  }
+  start();
+
+  document.getElementById("messageform").addEventListener("submit",async (e)=>{
+    e.preventDefault();
+    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword);
+    document.getElementById("messageinput").value="";
+    document.getElementById("messageinput").blur();
+  });
+</script>
