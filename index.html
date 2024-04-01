@@ -128,6 +128,18 @@
   }
 </style>
 <script>
+  function getText(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt.trim());
+        });
+    });
+  }
+  
   function groups(){
     var groups=document.getElementById("groups");
     if (groups.style.display=="none"){
