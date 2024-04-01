@@ -167,7 +167,8 @@
     passwordinuse="none";
   }
   if (groupinuse==null){
-    window.location.href="/groups";
+    groupinuse="general";
+    passwordinuse="none";
   }
 
   document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
