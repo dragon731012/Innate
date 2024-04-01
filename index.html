@@ -12,8 +12,18 @@
   </a>
 </div>
 <iframe id="groups" src="/groups"></iframe>
+<iframe id="chat"></iframe>
 <style>
   #groups{
+    display:none;
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0px;
+    bottom:0px;
+    border:0px;
+  }
+  #chat{
     display:none;
     width:100%;
     height:100%;
@@ -138,6 +148,7 @@
     window.location.href="/groups";
   }
 
+  document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
   async function verify(){
     var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
     if (verify!="Valid"){
