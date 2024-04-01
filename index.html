@@ -141,7 +141,9 @@
   async function verify(){
     var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
     if (verify!="Valid"){
-      window.location.href="/groups";
+      alert("invalid password");
+    } else {
+      start();
     }
   }
   verify();
@@ -191,9 +193,8 @@
       document.getElementById("groups").style.display="none";
       document.getElementById("messages").style.opacity="0";
       verify();
-      checklogin();
-      start();
     }
+    checklogin();
   },10);
   
   async function start(){
