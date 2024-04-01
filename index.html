@@ -147,9 +147,12 @@
   verify();
 
   function signout(){
+    alert("login failed.");
+    /*
     localStorage.removeItem("username");
     localStorage.removeItem("password");
     window.location.href="/welcome";
+    */
   }
   
   var clientuser=localStorage.getItem("username");
@@ -161,9 +164,7 @@
   async function checklogin(){
     var verify=await getText(innate.server+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
     if (verify!="Valid"){
-      localStorage.removeItem("username");
-      localStorage.removeItem("password");
-      window.location.href="/welcome";
+      signout();
     }
   }
   checklogin();
