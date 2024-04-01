@@ -128,7 +128,7 @@
   }
 </style>
 <script>
-  var groups=document.getElementById("groups");
+  var groupsframe=document.getElementById("groups");
   
   function getText(file){
     return new Promise((resolve) => {
@@ -144,10 +144,10 @@
   
   function groups(){
     var groups=document.getElementById("groups");
-    if (groups.style.display=="none"){
-      groups.style.display="block";
+    if (groupsframe.style.display=="none"){
+      groupsframe.style.display="block";
     } else {
-      groups.style.display="none";
+      groupsframe.style.display="none";
     }
   }
   
@@ -168,7 +168,7 @@
     if (verify!="Valid"){
       alert("invalid password");
     } else {
-      groups.style.display="none";
+      groupsframe.style.display="none";
     }
   }
   verify();
