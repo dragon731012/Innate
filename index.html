@@ -239,7 +239,7 @@
       }
       document.getElementById("messages").appendChild(messagediv);
     }
-    setInterval(async ()=>{
+    async function getnewmessages(){
       var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
       if (messages!=newmessages){
         var messages1=newmessages;
@@ -268,7 +268,9 @@
           messages=messages1;
         }
       }
-    },1000);
+    }
+    clearInterval(getnewmessages);
+    setInterval(getnewmessages,1000);
   }
   async function begin(){
     await start();
