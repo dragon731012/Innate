@@ -1,4 +1,5 @@
 <script src="/innate-config.js"></script>
+<script src="/swears.js"></script>
 <div id="messages" style="opacity:0;"></div> 
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
@@ -211,9 +212,9 @@
       }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+messagejson.messages[i].message+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       } else {
-        messagediv.innerHTML="<div class='usertext'><b>"+messagejson.messages[i].user+"</b></div><div class='messagetext'>"+messagejson.messages[i].message+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
     }
@@ -238,9 +239,9 @@
           }
           newmessagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           } else {
-            newmessagediv.innerHTML="<div class='usertext'><b>"+newmessagejson.messages[i].user+"</b></div><div class='messagetext'>"+newmessagejson.messages[i].message+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           }
           document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
