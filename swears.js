@@ -12,3 +12,18 @@ function filter(text){
         temptext=temptext.replace(swearlist[i],replacewith);
     }
 }
+
+function filter(text){
+		var temptext="";
+    temptext=text.replaceAll("0","o").replaceAll("@","o").replaceAll("1","l").replaceAll("$","s");
+    temptext=temptext.toLowerCase();
+    temptext=temptext.replace(" ","");
+    for (var i=0;i<swearlist.length;i++){
+        var replacewith="";
+        for (var y=0;y<swearlist[i].length;y++){
+            replacewith=replacewith+"*";
+        }
+        temptext=temptext.replaceAll(swearlist[i],replacewith);
+    }
+    return temptext;
+}
