@@ -23,12 +23,6 @@ function filter(text) {
 		}
 		if (temptext.includes(swearlist[i])) {
 			var index = temptext.indexOf(swearlist[i]);
-			for (var o = 0; o < spaces.length; o++) {
-				if (o < index) {
-					//index++;
-				}
-			}
-			console.log(index);
 			text = text.replaceAt(index, replacewith);
 		}
 	}
