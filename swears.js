@@ -13,17 +13,36 @@ function filter(text){
     }
 }
 
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
+/*Credit to Cem Kalyoncu at https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-specific-index-in-javascript*/
+
 function filter(text){
 		var temptext="";
     temptext=text.replaceAll("0","o").replaceAll("@","o").replaceAll("1","l").replaceAll("$","s");
     temptext=temptext.toLowerCase();
-    temptext=temptext.replace(" ","");
+	var spaces=[];
+	for (var i=0;i<temptext.length;i++){
+		if (temptext[i]==" "){
+			spaces.push(i);
+		}
+	}
+	temptext.replaceAll(" ","");
     for (var i=0;i<swearlist.length;i++){
         var replacewith="";
         for (var y=0;y<swearlist[i].length;y++){
             replacewith=replacewith+"*";
         }
-        temptext=temptext.replaceAll(swearlist[i],replacewith);
+	if (temptext.includes(swearlist[i]){
+        	var index=i;
+		for (var o=0;o<spaces.length;o++){
+			if (o<index){
+				index++;
+			}
+		}
+		text=text.replaceAt(index,replacewith);
+	}
     }
     return temptext;
 }
