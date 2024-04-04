@@ -31,5 +31,5 @@ function filter(text) {
 			text = text.replaceAt(index, replacewith);
 		}
 	}
-	return temptext;
+	return text;
 }
