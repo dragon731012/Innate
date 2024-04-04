@@ -22,7 +22,7 @@ function filter(text) {
 			replacewith = replacewith + "*";
 		}
 		if (temptext.includes(swearlist[i])) {
-			var index = i;
+			var index = temptext.indexOf(swearlist[i]);
 			for (var o = 0; o < spaces.length; o++) {
 				if (o < index) {
 					index++;
