@@ -28,6 +28,7 @@ function filter(text) {
 					index++;
 				}
 			}
+			console.log(index);
 			text = text.replaceAt(index, replacewith);
 		}
 	}
