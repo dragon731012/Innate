@@ -25,7 +25,7 @@ function filter(text) {
 			var index = temptext.indexOf(swearlist[i]);
 			for (var o = 0; o < spaces.length; o++) {
 				if (o < index) {
-					index++;
+					//index++;
 				}
 			}
 			console.log(index);
