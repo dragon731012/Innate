@@ -217,9 +217,9 @@
       }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+filter(messagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+":"+filter(messagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       } else {
-        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+filter(messagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+":"+filter(messagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
     }
@@ -246,9 +246,9 @@
           }
           newmessagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+filter(newmessagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+":"+filter(newmessagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           } else {
-            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+filter(newmessagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+":"+filter(newmessagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           }
           document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
@@ -277,7 +277,7 @@
         hours=hours-12;
         m="PM";
     }
-    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString().replace("0","")+" at "+hours.toString().replace("0","")+":"+today.getMinutes().toString().replace("0","")+" "+m;
+    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString().replace("0","")+" at "+hours.toString().replace("0","")+":"+today.getMinutes().toString()+" "+m;
     var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+time);
     document.getElementById("messageinput").value="";
     document.getElementById("messageinput").blur();
