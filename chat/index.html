@@ -180,8 +180,9 @@
     for(var i=0;i<messagelines.length-1;i++){
       var tempjson={};
       tempjson.time=messagelines[i].split(":")[0];
-      tempjson.user=messagelines[i].split(":")[1];
-      tempjson.message=messagelines[i].split(":")[2];
+      tempjson.time2=messagelines[i].split(":")[1];
+      tempjson.user=messagelines[i].split(":")[2];
+      tempjson.message=messagelines[i].split(":")[3];
       messagejson.messages.push(tempjson);
     }
     
@@ -229,8 +230,9 @@
         for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson2={};
           tempjson2.time=newmessagelines[i].split(":")[0];
-          tempjson2.user=newmessagelines[i].split(":")[1];
-          tempjson2.message=newmessagelines[i].split(":")[2];
+          tempjson2.time2=messagelines[i].split(":")[1];
+          tempjson2.user=newmessagelines[i].split(":")[2];
+          tempjson2.message=newmessagelines[i].split(":")[3];
           newmessagejson.messages.push(tempjson2);
         }
         for (var i=0;i<newmessagejson.messages.length;i++){
