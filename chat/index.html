@@ -101,8 +101,11 @@
   }
   .usertext{
     margin-left: 5px;
-    margin-bottom:3px;
     color: var(--primary);
+  }
+  .timetext{
+    color: gray;
+    font-size: 12;
   }
   body{
     background:var(--bg);
@@ -214,9 +217,9 @@
       }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+filter(messagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       } else {
-        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+filter(messagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
     }
@@ -243,9 +246,9 @@
           }
           newmessagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+filter(newmessagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           } else {
-            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+filter(newmessagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           }
           document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
