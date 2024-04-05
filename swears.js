@@ -53,7 +53,7 @@ function filter(text) {
 		if (temptext.includes(swearlist[i])) {
 			var index = temptext.indexOf(swearlist[i]);
 			text = text.replaceAt(index, replacewith);
-		} else if (isSimilar(swearlist[i],temptext.indexOf(swearlist[i])){
+		} else if (isSimilar(swearlist[i],temptext.indexOf(swearlist[i]))){
 			var index = temptext.indexOf(swearlist[i]);
 			text = text.replaceAt(index, replacewith);
 		}
