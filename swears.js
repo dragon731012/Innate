@@ -35,6 +35,9 @@ function levenshteinDistance(word1, word2) {
 }
 
 function filter(text) {
+	if (text==null || text==undefined){
+		window.location.reload();
+	}
 	var temptext = "";
 	temptext = text.replaceAll("0", "o").replaceAll("@", "o").replaceAll("1", "l").replaceAll("$", "s");
 	temptext = temptext.toLowerCase();
