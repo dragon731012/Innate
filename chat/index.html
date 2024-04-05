@@ -179,8 +179,9 @@
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
       var tempjson={};
-      tempjson.user=messagelines[i].split(":")[0];
-      tempjson.message=messagelines[i].split(":")[1];
+      tempjson.time=messagelines[i].split(":")[0];
+      tempjson.user=messagelines[i].split(":")[1];
+      tempjson.message=messagelines[i].split(":")[2];
       messagejson.messages.push(tempjson);
     }
     
@@ -227,8 +228,9 @@
         var newmessagejson={messages: []};
         for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson2={};
-          tempjson2.user=newmessagelines[i].split(":")[0];
-          tempjson2.message=newmessagelines[i].split(":")[1];
+          tempjson2.time=newmessagelines[i].split(":")[0];
+          tempjson2.user=newmessagelines[i].split(":")[1];
+          tempjson2.message=newmessagelines[i].split(":")[2];
           newmessagejson.messages.push(tempjson2);
         }
         for (var i=0;i<newmessagejson.messages.length;i++){
