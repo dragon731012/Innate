@@ -261,10 +261,16 @@
     e.preventDefault();
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');-
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
-    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString().replace("0","")+" at "+today.getHours().toString().replace("0","")+":"+today.getMinutes().toString().replace("0","");
-    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+);
+    var hours=today.getHours().toString();
+    var m="AM";
+    if (hours>12){
+        hours=hours-12;
+        m="PM";
+    }
+    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString().replace("0","")+" at "+hours.toString().replace("0","")+":"+today.getMinutes().toString().replace("0","")+" "+m;
+    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+time);
     document.getElementById("messageinput").value="";
     document.getElementById("messageinput").blur();
   });
