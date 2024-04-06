@@ -208,7 +208,7 @@
       tempjson.offset=messagelines[i].split(")")[1];
       tempjson.unix=messagelines[i].split(")")[2];
       messagejson.messages.push(tempjson);
-      console.log(convert(tempjson.unix,new Date().getTimezoneOffset(),tempjson.offset));
+      console.log(tempjson.unix+", "+new Date().getTimezoneOffset()+", "+tempjson.offset+", "+convert(tempjson.unix,new Date().getTimezoneOffset(),tempjson.offset));
     }
     
     function bottomelmvisible() {
