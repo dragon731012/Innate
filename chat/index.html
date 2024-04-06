@@ -311,14 +311,15 @@
           document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
         }
+        console.log(newmessagejson);
       }
     },1000);
-
     setTimeout(()=>{
       var messagescont=document.getElementById("messages");
       messagescont.scrollTop=messagescont.scrollHeight;
       messagescont.style.opacity="1";
     },100);
+    console.log(messagejson);
   }
   start();
 
