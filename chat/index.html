@@ -142,17 +142,19 @@
     if (hours!=10){
       hours=hours.toString().replace("0","");
     }
-
+    var toreturn="";
     var seconds=(new Date() - convertedTime)/1000;
     if (seconds >= 3600) {
-      return Math.floor(seconds / 3600) + " hours ago";
+      toreturn=Math.floor(seconds / 3600) + " hours ago";
     } else if (seconds >= 60) {
-      return Math.floor(seconds / 60) + " minutes ago";
+      toreturn=Math.floor(seconds / 60) + " minutes ago";
     } else if (Math.floor(seconds<60)){
-      return "Just now";
+      toreturn="Just now";
+    } else {
+      toreturn=mm+"/"+dd+"/"+yyyy+" at "+hours + ":" + minutes+" "+amorpm;
     }
-    
-    return mm+"/"+dd+"/"+yyyy+" at "+hours + ":" + minutes+" "+amorpm;
+
+    return toreturn+" <div class='date'>"+time+"</div><div class='offset'>"+originalOffset+"</div>";
   }
 
   
