@@ -298,23 +298,8 @@
 
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
-    var hours=today.getHours().toString();
-    var m="AM";
-    var min=today.getMinutes().toString();
-    if (min<10){
-      min="0"+min.toString();
-    }
-    if (hours>12){
-        hours=hours-12;
-        m="PM";
-    }
-    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString()+" at "+hours.toString().replace("0","")+":"+min+" "+m+")"+new Date().getTimezoneOffset()+")"+new Date().getTime();
-    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+time);
+    
+    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+":"+new Date().getTimezoneOffset());
     document.getElementById("messageinput").value="";
-    document.getElementById("messageinput").blur();
   });
 </script>
