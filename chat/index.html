@@ -121,6 +121,7 @@
   function convert(time, originalOffset, myOffset) {
     var timeDifferenceSeconds = (myOffset - originalOffset) * 60 * 60;
 
+    console.log(time + timeDifferenceSeconds);
     var convertedTime = new Date(time + timeDifferenceSeconds);
 
     var hours = convertedTime.getHours();
