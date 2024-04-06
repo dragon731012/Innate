@@ -119,6 +119,10 @@
 <script>
   /*function credit to chatgpt and edited majorly by me*/
   function convert(time, originalOffset, myOffset) {
+    time=Number(time);
+    originalOffset=Number(originalOffset);
+    myOffset=Number(myOffset);
+    
     if (time.toString().length === 13) {
         time /= 1000;
     }
