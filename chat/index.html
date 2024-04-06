@@ -212,15 +212,12 @@
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
       var tempjson={};
-      tempjson.time=messagelines[i].split(":")[0];
-      tempjson.time2=messagelines[i].split(":")[1];
+      tempjson.offset=messagelines[i].split(":")[0];
+      tempjson.unix=messagelines[i].split(":")[1];
       tempjson.user=messagelines[i].split(":")[2];
       tempjson.message=messagelines[i].split(":")[3];
-      tempjson.offset=messagelines[i].split(")")[1];
-      tempjson.unix=messagelines[i].split(")")[2];
       tempjson.unix=tempjson.unix.split(":")[0];
       messagejson.messages.push(tempjson);
-      console.log(tempjson.unix+", "+new Date().getTimezoneOffset()+", "+tempjson.offset+", "+convert(tempjson.unix,new Date().getTimezoneOffset(),tempjson.offset));
     }
     
     function bottomelmvisible() {
@@ -251,9 +248,9 @@
       }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+":"+filter(messagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       } else {
-        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(messagejson.messages[i].time)+":"+filter(messagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
     }
@@ -266,12 +263,11 @@
         var newmessagejson={messages: []};
         for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson2={};
-          tempjson2.time=newmessagelines[i].split(":")[0];
-          tempjson2.time2=newmessagelines[i].split(":")[1];
+          tempjson2.offset=newmessagelines[i].split(":")[0];
+          tempjson2.unix=newmessagelines[i].split(":")[1];
           tempjson2.user=newmessagelines[i].split(":")[2];
           tempjson2.message=newmessagelines[i].split(":")[3];
-          tempjson2.offset=newmessagelines[i].split(")")[1];
-          tempjson2.unix=newmessagelines[i].split(")")[2];
+          tempjson2.unix=tempjson2.unix.split(":")[0];
           newmessagejson.messages.push(tempjson2);
         }
         for (var i=0;i<newmessagejson.messages.length;i++){
@@ -282,9 +278,9 @@
           }
           newmessagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+":"+filter(newmessagejson.messages[i].time2)+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           } else {
-            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+filter(newmessagejson.messages[i].time)+":"+filter(newmessagejson.messages[i].time2)+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           }
           document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
