@@ -119,10 +119,13 @@
 <script>
   /*function credit to chatgpt and edited majorly by me*/
   function convert(time, originalOffset, myOffset) {
+    if (time.toString().length === 13) {
+        time /= 1000;
+    }
+
     var timeDifferenceSeconds = (myOffset - originalOffset) * 60 * 60;
 
-    console.log(time + timeDifferenceSeconds);
-    var convertedTime = new Date(time + timeDifferenceSeconds);
+    var convertedTime = new Date((time + timeDifferenceSeconds) * 1000);
 
     var hours = convertedTime.getHours();
     var minutes = convertedTime.getMinutes();
@@ -308,15 +311,14 @@
           document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
         }
-        console.log(newmessagejson);
       }
     },1000);
+
     setTimeout(()=>{
       var messagescont=document.getElementById("messages");
       messagescont.scrollTop=messagescont.scrollHeight;
       messagescont.style.opacity="1";
     },100);
-    console.log(messagejson);
   }
   start();
 
