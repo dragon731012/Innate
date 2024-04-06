@@ -326,8 +326,8 @@
 
   setInterval(()=>{
     var timetext=document.getElementsByClassName("timetext");
-    for (var i=0;i<messages.length;i++){
-      timetext.innerText="<b>"+convert(document.getElementsByClassName("date")[i].innerText,document.getElementsByClassName("offset")[i].innerText,new Date().getTimezoneOffset())+"</b>";
+    for (var i=0;i<timetext.length;i++){
+      timetext.innerText="<b>"+convert(document.getElementsByClassName("date")[i].innerHTML,document.getElementsByClassName("offset")[i].innerHTML,new Date().getTimezoneOffset())+"</b>";
     }
   },1000);
 </script>
