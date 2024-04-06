@@ -325,6 +325,9 @@
   });
 
   setInterval(()=>{
-    
+    var timetext=document.getElementsByClassName("timetext");
+    for (var i=0;i<messages.length;i++){
+      timetext.innerText="<b>"+convert(document.getElementsByClassName("date").innerText,document.getElementsByClassName("offset").innerText,new Date().getTimezoneOffset())+"</b>";
+    }
   },1000);
 </script>
