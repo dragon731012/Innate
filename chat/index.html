@@ -113,7 +113,7 @@
   }
 </style>
 <script>
-  /*function credit to chatgpt*/
+  /*function credit to chatgpt and edited majorly by me*/
   function convert(time, originalOffset, myOffset) {
     myOffset=myOffset*-1;
     if (time.toString().length === 13) {
@@ -129,8 +129,9 @@
 
     hours = (hours < 10 ? "0" : "") + hours;
     minutes = (minutes < 10 ? "0" : "") + minutes;
-
-    return hours + ":" + minutes;
+    hours=hours.replace("0","");
+    
+    return (convertedTime.getMonth()+1).replace("0","")+"/"+convertedTime.getDate()+"/"+convertedTime.getFullYear()+" "+hours + ":" + minutes;
   }
 
   
