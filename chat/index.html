@@ -126,12 +126,15 @@
 
     var hours = convertedTime.getHours();
     var minutes = convertedTime.getMinutes();
+    var dd = String(convertedTime.getDate()).padStart(2, '0');
+    var mm = String(convertedTime.getMonth() + 1).padStart(2, '0');
+    var yyyy = convertedTime.getFullYear();
 
     hours = (hours < 10 ? "0" : "") + hours;
     minutes = (minutes < 10 ? "0" : "") + minutes;
     hours=hours.replace("0","");
     
-    return (convertedTime.getMonth()+1).toString().replace("0","")+"/"+convertedTime.getDate()+"/"+convertedTime.getFullYear()+" "+hours + ":" + minutes;
+    return mm+"/"+dd+"/"+yyyy+" at "+hours + ":" + minutes;
   }
 
   
