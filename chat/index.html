@@ -212,8 +212,8 @@
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
       var tempjson={};
-      tempjson.offset=messagelines[i].split(":")[0];
-      tempjson.unix=messagelines[i].split(":")[1];
+      tempjson.offset=messagelines[i].split(":")[1];
+      tempjson.unix=messagelines[i].split(":")[0];
       tempjson.user=messagelines[i].split(":")[2];
       tempjson.message=messagelines[i].split(":")[3];
       tempjson.unix=tempjson.unix.split(":")[0];
@@ -263,8 +263,8 @@
         var newmessagejson={messages: []};
         for(var i=0;i<newmessagelines.length-1;i++){
           var tempjson2={};
-          tempjson2.offset=newmessagelines[i].split(":")[0];
-          tempjson2.unix=newmessagelines[i].split(":")[1];
+          tempjson2.offset=newmessagelines[i].split(":")[1];
+          tempjson2.unix=newmessagelines[i].split(":")[0];
           tempjson2.user=newmessagelines[i].split(":")[2];
           tempjson2.message=newmessagelines[i].split(":")[3];
           tempjson2.unix=tempjson2.unix.split(":")[0];
@@ -300,7 +300,7 @@
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
     
-    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+":"+new Date().getTimezoneOffset());
+    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
     document.getElementById("messageinput").value="";
   });
 </script>
