@@ -122,10 +122,6 @@
     time=Number(time);
     originalOffset=Number(originalOffset);
     myOffset=Number(myOffset);
-    
-    if (time.toString().length === 13) {
-        time /= 1000;
-    }
 
     var timeDifferenceSeconds = (myOffset - originalOffset) * 60 * 60;
 
