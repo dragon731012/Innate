@@ -131,7 +131,7 @@
     minutes = (minutes < 10 ? "0" : "") + minutes;
     hours=hours.replace("0","");
     
-    return (convertedTime.getMonth()+1).replace("0","")+"/"+convertedTime.getDate()+"/"+convertedTime.getFullYear()+" "+hours + ":" + minutes;
+    return (convertedTime.getMonth()+1).toString().replace("0","")+"/"+convertedTime.getDate()+"/"+convertedTime.getFullYear()+" "+hours + ":" + minutes;
   }
 
   
