@@ -134,6 +134,9 @@
       amorpm="PM";
       hours=hours-12;
     }
+    if (minutes>9){
+      minutes="0"+minutes.toString();
+    }
     mm=mm.toString().replace("0","");
     dd=dd.toString().replace("0","");
     if (hours!=10){
