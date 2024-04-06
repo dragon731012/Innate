@@ -326,7 +326,7 @@
   setInterval(()=>{
     var timetext=document.getElementsByClassName("timetext");
     for (var i=0;i<timetext.length;i++){
-      timetext.innerHTML="<b>"+convert(document.getElementsByClassName("date")[i].innerHTML,document.getElementsByClassName("offset")[i].innerHTML,new Date().getTimezoneOffset())+"</b>";
+      alert(convert(document.getElementsByClassName("date")[i].innerHTML,document.getElementsByClassName("offset")[i].innerHTML,new Date().getTimezoneOffset()));
     }
   },1000);
 </script>
