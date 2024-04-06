@@ -128,12 +128,17 @@
     var dd = String(convertedTime.getDate()).padStart(2, '0');
     var mm = String(convertedTime.getMonth() + 1).padStart(2, '0');
     var yyyy = convertedTime.getFullYear();
+    var amorpm="AM";
 
-    hours = (hours < 10 ? "0" : "") + hours;
-    minutes = (minutes < 10 ? "0" : "") + minutes;
+    if (hours>12){
+      amorpm="PM";
+      hours=hours-12;
+    }
+    mm=mm.toString().replace("0","");
+    dd=dd.toString().replace("0","");
     hours=hours.replace("0","");
     
-    return mm+"/"+dd+"/"+yyyy+" at "+hours + ":" + minutes;
+    return mm+"/"+dd+"/"+yyyy+" at "+hours + ":" + minutes+" "+amorpm;
   }
 
   
