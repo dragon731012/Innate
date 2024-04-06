@@ -125,7 +125,7 @@
     
     var timeDifferenceSeconds = (myOffset - originalOffset) * 60 * 60;
 
-    var convertedTime = new Date((time + timeDifferenceSeconds) * 1000);
+    var convertedTime = new Date(time + timeDifferenceSeconds);
 
     var hours = convertedTime.getHours();
     var minutes = convertedTime.getMinutes();
