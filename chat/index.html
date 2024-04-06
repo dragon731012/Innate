@@ -207,6 +207,7 @@
       tempjson.message=messagelines[i].split(":")[3];
       tempjson.offset=messagelines[i].split(")")[1];
       tempjson.unix=messagelines[i].split(")")[2];
+      tempjson.unix=tempjson.unix.split(":")[0];
       messagejson.messages.push(tempjson);
       console.log(tempjson.unix+", "+new Date().getTimezoneOffset()+", "+tempjson.offset+", "+convert(tempjson.unix,new Date().getTimezoneOffset(),tempjson.offset));
     }
