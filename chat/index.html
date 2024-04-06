@@ -148,10 +148,16 @@
     }
     var toreturn="";
     var seconds=(new Date() - convertedTime)/1000;
-    if (seconds >= 3600) {
+    if (seconds >= 3600 && seconds<86400) {
       toreturn=Math.floor(seconds / 3600) + " hours ago";
+      if (Math.floor(seconds / 3600)==1){
+        toreturn="1 hour ago";
+      }
     } else if (seconds >= 60) {
       toreturn=Math.floor(seconds / 60) + " minutes ago";
+      if (Math.floor(seconds / 60)==1){
+        toreturn="1 minute ago";
+      }
     } else if (Math.floor(seconds<60)){
       toreturn="Just now";
     } else {
