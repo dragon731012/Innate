@@ -142,6 +142,15 @@
     if (hours!=10){
       hours=hours.toString().replace("0","");
     }
+
+    var seconds=(new Date() - convertedTime)/1000;
+    if (seconds >= 3600) {
+      return Math.floor(seconds / 3600) + " hours ago";
+    } else if (seconds >= 60) {
+      return Math.floor(seconds / 60) + " minutes ago";
+    } else if (Math.floor(seconds<60)){
+      return "Just now";
+    }
     
     return mm+"/"+dd+"/"+yyyy+" at "+hours + ":" + minutes+" "+amorpm;
   }
@@ -308,4 +317,8 @@
     var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
     document.getElementById("messageinput").value="";
   });
+
+  setInterval(()=>{
+    
+  },1000);
 </script>
