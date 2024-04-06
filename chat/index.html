@@ -113,6 +113,36 @@
   }
 </style>
 <script>
+  /*function credit to chatgpt*/
+  function convert(time, originalOffset, myOffset) {
+    var timeInMilliseconds = time * 1000;
+    
+    var originalOffsetMilliseconds = originalOffset * 60 * 60 * 1000;
+    
+    var myOffsetMilliseconds = myOffset * 60 * 60 * 1000;
+    
+    var timeDifferenceMilliseconds = myOffsetMilliseconds - originalOffsetMilliseconds;
+    
+    var convertedTime = new Date(timeInMilliseconds + timeDifferenceMilliseconds);
+    
+    var hours = convertedTime.getUTCHours();
+    var minutes = convertedTime.getUTCMinutes();
+    
+    hours = (hours < 10 ? "0" : "") + hours;
+    minutes = (minutes < 10 ? "0" : "") + minutes;
+    
+    return hours + ":" + minutes;
+  }
+  
+  var time = 1617700000;
+  var originalOffset = -5;
+  var myOffset = 300;
+  
+  var convertedTime = convertTimeToMyTimezone(time, originalOffset, myOffset);
+  console.log(convertedTime);
+
+  
+  
   function groups(){
     var groups=document.getElementById("groups");
     if (groups.style.display=="none"){
@@ -186,6 +216,8 @@
       tempjson.time2=messagelines[i].split(":")[1];
       tempjson.user=messagelines[i].split(":")[2];
       tempjson.message=messagelines[i].split(":")[3];
+      tempjson.offset=messagelines[i].split(")")[1];
+      tempjson.unix=messagelines[i].split(")")[2];
       messagejson.messages.push(tempjson);
     }
     
@@ -236,6 +268,8 @@
           tempjson2.time2=newmessagelines[i].split(":")[1];
           tempjson2.user=newmessagelines[i].split(":")[2];
           tempjson2.message=newmessagelines[i].split(":")[3];
+          tempjson2.offset=newmessagelines[i].split(")")[1];
+          tempjson2.unix=newmessagelines[i].split(")")[2];
           newmessagejson.messages.push(tempjson2);
         }
         for (var i=0;i<newmessagejson.messages.length;i++){
@@ -280,7 +314,7 @@
         hours=hours-12;
         m="PM";
     }
-    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString()+" at "+hours.toString().replace("0","")+":"+min+" "+m;
+    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString()+" at "+hours.toString().replace("0","")+":"+min+" "+m+")"+new Date().getTimezoneOffset()+")"+new Date().getTime()/1000;
     var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+time);
     document.getElementById("messageinput").value="";
     document.getElementById("messageinput").blur();
