@@ -119,7 +119,9 @@
 <script>
   /*function credit to chatgpt and edited majorly by me*/
   function convert(time, originalOffset, myOffset) {
-    time=time*1000;
+    if (time.toString().length === 13) {
+        time /= 1000;
+    }
     
     var timeDifferenceSeconds = (myOffset - originalOffset) * 60 * 60;
 
