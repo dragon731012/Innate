@@ -117,11 +117,7 @@
   function convert(time, originalOffset, myOffset) {
     var timeInMilliseconds = time * 1000;
     
-    var originalOffsetMilliseconds = originalOffset * 60 * 60 * 1000;
-    
-    var myOffsetMilliseconds = myOffset * 60 * 60 * 1000;
-    
-    var timeDifferenceMilliseconds = myOffsetMilliseconds - originalOffsetMilliseconds;
+    var timeDifferenceMilliseconds = (myOffset - originalOffset) * 60 * 60 * 1000;
     
     var convertedTime = new Date(timeInMilliseconds + timeDifferenceMilliseconds);
     
@@ -308,7 +304,7 @@
         hours=hours-12;
         m="PM";
     }
-    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString()+" at "+hours.toString().replace("0","")+":"+min+" "+m+")"+new Date().getTimezoneOffset()+")"+new Date().getTime()/1000;
+    var time = mm.toString().replace("0","") + '/' + dd.toString().replace("0","") + '/' + yyyy.toString()+" at "+hours.toString().replace("0","")+":"+min+" "+m+")"+new Date().getTimezoneOffset()+")"+new Date().getTime();
     var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+time);
     document.getElementById("messageinput").value="";
     document.getElementById("messageinput").blur();
