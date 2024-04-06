@@ -114,21 +114,22 @@
 </style>
 <script>
   /*function credit to chatgpt*/
-  function convert(time, originalOffset, myOffset) {
-    if (time.toString().length === 10) {
-        time *= 1000; 
+  function convertTimeToMyTimezone(time, originalOffset, myOffset) {
+    myOffset=myOffset*-1;
+    if (time.toString().length === 13) {
+        time /= 1000;
     }
 
-    var timeDifferenceMilliseconds = (myOffset - originalOffset) * 60 * 60 * 1000;
-    
-    var convertedTime = new Date(time + timeDifferenceMilliseconds);
-    
-    var hours = convertedTime.getUTCHours();
-    var minutes = convertedTime.getUTCMinutes();
-    
+    var timeDifferenceSeconds = (myOffset - originalOffset) * 60 * 60;
+
+    var convertedTime = new Date((time + timeDifferenceSeconds) * 1000);
+
+    var hours = convertedTime.getHours();
+    var minutes = convertedTime.getMinutes();
+
     hours = (hours < 10 ? "0" : "") + hours;
     minutes = (minutes < 10 ? "0" : "") + minutes;
-    
+
     return hours + ":" + minutes;
   }
 
