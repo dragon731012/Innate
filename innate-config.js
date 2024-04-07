@@ -7,6 +7,7 @@ async function updateServer(){
   try{
     innate.server=new URL("/",innate.server);
   } catch(e){
+    console.log("on backup");
     for (var i=0;i<backups.length;i++){
       var found=true;
       try {
@@ -15,6 +16,7 @@ async function updateServer(){
         found=false;
       }
       if (found){
+        console.log("backup found, using server "+innate.server);
         break;
       }
     }
