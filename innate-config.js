@@ -13,7 +13,7 @@ async function findConnectableURL() {
 }
 
 async function getServer(){
-    return new URL("/",servers[i]);
+    return new URL("/",servers[0]);
     /*
   return findConnectableURL()
     .then(connectableURL => {
