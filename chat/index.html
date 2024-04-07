@@ -190,6 +190,7 @@
   }
 
   async function verify(){
+    await updateServer();
     var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
     if (verify!="Valid"){
       window.location.href="/groups";
@@ -210,6 +211,7 @@
     window.location.href="/welcome";
   }
   async function checklogin(){
+    await updateServer();
     var verify=await getText(innate.server+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
     if (verify!="Valid"){
       localStorage.removeItem("username");
@@ -234,6 +236,7 @@
   var messages;
   
   async function start(){
+    await updateServer();
     messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
@@ -325,7 +328,7 @@
 
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    
+    await updateServer();
     var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
     document.getElementById("messageinput").value="";
   });
