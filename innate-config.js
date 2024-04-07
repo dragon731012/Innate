@@ -1,4 +1,4 @@
-const innate={
+var innate={
   server:"https://server.marcosrubn.com"
 };
 
