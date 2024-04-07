@@ -1,6 +1,5 @@
 const innate={
-  server:"https://server.marcosruben.com",
-  server2:"https://innate-server.vercel.app"
+  server:"https://server.marcosruben.com"
 };
 
 innate.server=new URL("/",innate.server1);
