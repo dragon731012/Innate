@@ -1,24 +1,25 @@
-function valid(url){
-    return new Promise((resolve) => {
-      fetch(url)
-        .then(response => {
-          resolve(true);
-        })
-        .catch(error => {
-          resolve(false);
-        });
-    });
-  }
-
 const servers=["https://server.marcosruben.com","https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
-async function getServer(){
-  var server="";
-  for (var i=0;i<servers.length;i++){
-    if (valid(servers[i]){
-      console.log("server found, using server "+servers[i]);
-      return new URL("/",servers[i]);;
-    } else {
-      console.log('server '+servers[i]+" failed, alternating...");
+
+async function findConnectableURL() {
+    for (let url of servers) {
+        try {
+            await fetch(url);
+            return url;
+        } catch (error) {
+            console.error(`Failed to connect to ${url}:`, error);
+        }
     }
-  }
+    return null;
+}
+
+async function getServer(){
+  return findConnectableURL()
+    .then(connectableURL => {
+        if (connectableURL) {
+            return connectableURL;
+        } else {
+            console.log('No connectable URL found.');
+        }
+    })
+    .catch(error => console.error('Error finding connectable URL:', error));
 }
