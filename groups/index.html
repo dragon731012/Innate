@@ -110,6 +110,7 @@
     });
   }
   async function join(element){
+    await updateServer();
     var nopassword=await getText(innate.server+"group.php/?val=v&group="+element.dataset.group+"&password=none");
     nopassword=nopassword.trim();
     if (nopassword!=="Valid"){
@@ -131,6 +132,7 @@
     }
   }
   async function start(){
+    await updateServer();
     groups=await getText(innate.server+"group.php?val=r&group=&password=");
     var grouplines=groups.toString().split("|");
     var groupjson={groups: []};
