@@ -16,7 +16,7 @@ async function getServer(){
     for (var i=0;i<servers.length;i++){
         var found=true;
         try{
-            getText(servers[i]);
+            await getText(servers[i]);
         } catch (e) {
             found=false;
         }
