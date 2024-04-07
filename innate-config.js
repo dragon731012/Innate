@@ -1,15 +1,15 @@
 /*function credit to chatgpt*/
-async function isUrlReachable(url) {
-  try {
-    const response = await fetch(url, { method: 'HEAD' });
-    return response.ok;
-  } catch (error) {
-    console.error('Error checking URL reachability:', error);
-    return false;
-  }
+function isUrlReachable(url) {
+  return new Promise(resolve => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url);
+    xhr.onload = () => resolve(xhr.status >= 200 && xhr.status < 300);
+    xhr.onerror = () => resolve(false);
+    xhr.send();
+  });
 }
 
-var servers=["https://server.marcosruben.com","https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
+const servers=["https://server.marcosruben.com","https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
 async function getServer(){
   var server="";
   for (var i=0;i<servers.length;i++){
@@ -17,7 +17,7 @@ async function getServer(){
       .then(reachable => {
         if (reachable) {
           console.log("server found, using server "+servers[i]);
-          return servers[i];
+          return new URL("/",servers[i]);;
         } else {
           console.log('server '+servers[i]+" failed, alternating...");
         }
