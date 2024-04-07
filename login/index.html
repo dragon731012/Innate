@@ -37,7 +37,7 @@
   async function login(){
     var user=document.getElementById("user").value;
     var password=document.getElementById("password").value;
-    var reply=await getText(await getServer()+"user.php/?val=r&user="+user+"&password="+password);
+    var reply=await getText(innate.server+"user.php/?val=r&user="+user+"&password="+password);
     if (reply=="Failure"){
       alert("Invalid password or username!");
     } else {
