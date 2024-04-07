@@ -1,5 +1,5 @@
 const innate={
-  server:"https://server.marcosruben.com"
+  server:"https://server.marcosrubn.com"
 };
 
 var backups=["https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
