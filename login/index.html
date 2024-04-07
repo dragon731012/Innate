@@ -1,13 +1,18 @@
 <script src="/innate-config.js"></script>
-<b>Username: </b><input id="user">
-<b>Password: </b><input id="password">
+<h1>Log In</h1>
+<input id="user" placeholder="Username">
+<input id="password" placeholder="Password">
 <button onclick="login();">Log In</button>
 <style>
   #user, #password{
-    border:2px solid black;
-    color:black;
+    border: 2px solid black;
+    color: black;
+    border-radius: 1vh;
+    font-size: 3vh;
   }
-  
+  ::placeholder{
+    color:gray;
+  }
   body{ 
     width:100%;
     height:100%;
@@ -19,7 +24,11 @@
     background:white;
   }
   button{
-    margin: 10px; 
+    margin: 3vh;
+    border-radius: 0px;
+    color: black;
+    background: transparent;
+    font-size: 2.4vh;
   }
 </style>
 <script>
