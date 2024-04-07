@@ -1,16 +1,19 @@
 const innate={
+  server:"",
   server1:"https://server.marcosrub.com",
   server2:"https://innate-server.vercel.app"
 };
 
-var oldi=-1;
-for (var i=0;i<innate.length;oldi++){
-  if (oldi=i){
-    break;
-  }
-  try{
-    innate.server=new URL("/",innate.server1);
-  } catch(e){
-    i++;
+async function getServer(){
+  var oldi=-1;
+  for (var i=0;i<innate.length;oldi++){
+    if (oldi=i){
+      break;
+    }
+    try{
+      innate.server=new URL("/",innate.server1);
+    } catch(e){
+      i++;
+    }
   }
 }
