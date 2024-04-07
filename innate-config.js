@@ -4,14 +4,13 @@ const innate={
 };
 
 var oldi=-1;
-for (var i=0;i<innate.length){
+for (var i=0;i<innate.length;oldi++){
   if (oldi=i){
     break;
   }
   try{
     innate.server=new URL("/",innate.server1);
-  } catch {
+  } catch(e){
     i++;
   }
-  oldi++;
 }
