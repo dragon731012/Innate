@@ -2,4 +2,4 @@ const innate={
   server:"https://server.marcosruben.com"
 };
 
-innate.server=new URL("/",innate.server1);
+innate.server=new URL("/",innate.server);
