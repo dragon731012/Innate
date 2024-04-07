@@ -9,7 +9,7 @@ async function isUrlReachable(url) {
   }
 }
 
-var servers=["https://server.marcosrubn.com","https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
+var servers=["https://server.marcosruben.com","https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
 async function getServer(){
   var server="";
   for (var i=0;i<servers.length;i++){
