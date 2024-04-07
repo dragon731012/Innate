@@ -13,6 +13,8 @@ async function findConnectableURL() {
 }
 
 async function getServer(){
+    return new URL("/",servers[i]);
+    /*
   return findConnectableURL()
     .then(connectableURL => {
         if (connectableURL) {
@@ -22,4 +24,5 @@ async function getServer(){
         }
     })
     .catch(error => console.error('Error finding connectable URL:', error));
+    */
 }
