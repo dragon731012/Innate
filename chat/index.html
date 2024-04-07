@@ -190,7 +190,7 @@
   }
 
   async function verify(){
-    var verify=await getText(await getServer()+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
+    var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
     if (verify!="Valid"){
       window.location.href="/groups";
     }
@@ -210,7 +210,7 @@
     window.location.href="/welcome";
   }
   async function checklogin(){
-    var verify=await getText(await getServer()+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
+    var verify=await getText(innate.server+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
     if (verify!="Valid"){
       localStorage.removeItem("username");
       localStorage.removeItem("password");
@@ -234,7 +234,7 @@
   var messages;
   
   async function start(){
-    messages=await getText(await getServer()+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
+    messages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
@@ -282,7 +282,7 @@
       document.getElementById("messages").appendChild(messagediv);
     }
     setInterval(async ()=>{
-      var newmessages=await getText(await getServer()+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
+      var newmessages=await getText(innate.server+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
@@ -325,7 +325,7 @@
 
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    var sent=await getText(await getServer()+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
+    var sent=await getText(innate.server+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
     document.getElementById("messageinput").value="";
   });
 
