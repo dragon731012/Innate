@@ -173,6 +173,7 @@
 
   document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
   async function verify(){
+    await updateServer();
     var verify=await getText(innate.server+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
     if (verify!="Valid"){
       groups();
@@ -196,6 +197,7 @@
     window.location.href="/welcome";
   }
   async function checklogin(){
+    await updateServer();
     var verify=await getText(innate.server+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
     if (verify!="Valid"){
       signout();
