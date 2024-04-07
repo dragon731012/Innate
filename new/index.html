@@ -35,6 +35,7 @@
     });
   }
   async function create(){
+    await updateServer();
     var name=document.getElementById("group").value;
     var password=document.getElementById("password").value;
     var reply=await getText(innate.server+"group.php/?val=w&group="+name+"&password="+password);
