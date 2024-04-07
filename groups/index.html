@@ -2,7 +2,7 @@
 <div id="groups"><div style="display:none;">e</div></div>
 <style>
   body{
-    background:#c4c4c4;
+    background:white;
     overflow:hidden;
   }
   ::-webkit-scrollbar {
@@ -42,29 +42,33 @@
     overflow-x:hidden;
   }
   .passwordinput{
-    outline:none;
+    outline: none;
     width: 30%;
-    padding-left: 5px;
+    padding: 0.2vh;
     position: absolute;
     right: 10%;
     color: black;
     background: transparent;
     border-radius: 25px;
     border: 2px solid black;
+    font-size: 2.2vh;
+    padding-left: 1vh;
   }
   .grouptext{
     position: relative;
     left: 5px;
-    align-self: flex-start;
     display: flex;
+    font-size: 2.5vh;
   }
   ::placeholder{
     color:black;
   }
   .groupbox{
+    height: 5vh;
     display: flex;
     border-bottom: 3px solid black;
     width: 100%;
+    align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
     flex-direction: row;
@@ -75,11 +79,15 @@
     right: 5px;
     display: flex;
     background: black;
-    color:#c4c4c4;
+    color: white;
     border: 0px;
     border-radius: 27px;
     float: right;
-    align-self: flex-end;
+    font-size: 2.3vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 0.6vh;
+    padding-bottom: 0.6vh;
   }
 </style>
 <script>
@@ -136,7 +144,7 @@
       var groupdiv=document.createElement("div");
       groupdiv.className="groupbox";
 
-        groupdiv.innerHTML="<div class='grouptext'><b>"+groupjson.groups[i].name+"</b></div><input class='passwordinput' placeholder='Password...' style='display:none;' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
+        groupdiv.innerHTML="<div class='grouptext'>"+groupjson.groups[i].name+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
       document.getElementById("groups").appendChild(groupdiv);
 
       var nopassword=await getText(innate.server+"group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");
