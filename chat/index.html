@@ -101,7 +101,7 @@
     background: var(--secondary);
     padding-left: 5px !important;
     padding: 1vh;
-    border-radius: 0px 10px 10px 10px;
+    border-radius: 0px 1.8vh 1.8vh 1.8vh;
     color: var(--primary);
   }
   .usertext{
@@ -277,7 +277,7 @@
       }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       } else {
         messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       }
@@ -307,7 +307,7 @@
           }
           newmessagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:10px 0px 10px 10px;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           } else {
             newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           }
