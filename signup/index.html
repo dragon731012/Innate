@@ -34,6 +34,7 @@
     });
   }
   async function signup(){
+    await updateServer();
     var user=document.getElementById("user").value;
     var password=document.getElementById("password").value;
     var verify=await getText(innate.server+"user.php/?val=r&user="+user+"&password="+password);
