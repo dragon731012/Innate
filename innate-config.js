@@ -1,4 +1,4 @@
-const servers=["https://server.marcoruben.com","https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
+const servers=["https://innate-server.vercel.app/innate/https://server.marcosruben.com"];
 
 function getText(file){
     return new Promise((resolve) => {
