@@ -23,11 +23,10 @@ if (localStorage.getItem("server")==null){
 }
 async function start(){
   if (await checkWebsite(localStorage.getItem("server"))){
-    innate.server=new URL("/",localStorage.getItem("server"));
-  } else if (await checkWebsite(new URL("/",innate.server))){
-    localStorage.setItem("server",new URL("/",innate.server));
-  } else if (await checkWebsite(new URL("/",innate.backup1))){
-    localStorage.setItem("server",new URL("/",innate.backup1));
+  } else if (await checkWebsite(innate.server)){
+    localStorage.setItem("server",innate.server);
+  } else if (await checkWebsite(innate.backup1)){
+    localStorage.setItem("server",innate.backup1);
   } else {
     window.location.href="/notfound";
   }
