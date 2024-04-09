@@ -16,5 +16,10 @@ async function checkWebsite(url) {
     }
 }
 
-
-innate.server=new URL("/",innate.server);
+async function start(){
+  if (checkWebsite(new URL("/",innate.server))){
+    innate.server=new URL("/",innate.server);
+  } else {
+    alert("Cannot connect to server.");
+  }
+}
