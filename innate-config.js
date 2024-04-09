@@ -1,5 +1,5 @@
 var innate={
-  server:"https://server.marcosruben.com"
+  server:"https://server.marcosruben.com/"
 };
 
 async function checkWebsite(url) {
