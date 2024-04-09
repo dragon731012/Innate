@@ -1,5 +1,6 @@
 var innate={
-  server:"https://server.marcsruben.com/"
+  server:"https://server.marcosruben.com/",
+  backup:"https://innate-server.vercel.app/innate/https:/server.marcosruben.com/"
 };
 
 async function checkWebsite(url) {
@@ -20,7 +21,7 @@ async function start(){
   if (await checkWebsite(new URL("/",innate.server))){
     innate.server=new URL("/",innate.server);
   } else {
-    alert("Cannot connect to server.");
+    innate.server=new URL("/",innate.backup);
   }
 }
 start();
