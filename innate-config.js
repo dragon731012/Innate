@@ -17,9 +17,10 @@ async function checkWebsite(url) {
 }
 
 async function start(){
-  if (checkWebsite(new URL("/",innate.server))){
+  if (await checkWebsite(new URL("/",innate.server))){
     innate.server=new URL("/",innate.server);
   } else {
     alert("Cannot connect to server.");
   }
 }
+start();
