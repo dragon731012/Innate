@@ -18,10 +18,18 @@ async function checkWebsite(url) {
     }
 }
 
+if (localStorage.getItem("server")!=null && localStorage.getItem("server")!=undefined){
+  innate.server=localStorage.getItem("server");
+}
+
 async function start(){
-  if (await checkWebsite(new URL("/",innate.server))){
+  if (await checkWebsite(localStorage.getItem("server"))){
+    innate.server=new URL("/",localStorage.getItem("server")));
+  } else if (await checkWebsite(new URL("/",innate.server))){
+    localStorage.setItem("server",new URL("/",innate.server));
     innate.server=new URL("/",innate.server);
   } else if (await checkWebsite(new URL("/",innate.backup1))){
+    localStorage.setItem("server",new URL("/",innate.backup1));
     innate.server=new URL("/",innate.backup1);
   } else {
     window.location.href="/notfound";
