@@ -24,7 +24,7 @@ if (localStorage.getItem("server")!=null && localStorage.getItem("server")!=unde
 
 async function start(){
   if (await checkWebsite(localStorage.getItem("server"))){
-    innate.server=new URL("/",localStorage.getItem("server")));
+    innate.server=new URL("/",localStorage.getItem("server"));
   } else if (await checkWebsite(new URL("/",innate.server))){
     localStorage.setItem("server",new URL("/",innate.server));
     innate.server=new URL("/",innate.server);
