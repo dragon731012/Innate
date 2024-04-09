@@ -154,7 +154,7 @@
       if (Math.floor(seconds / 3600)==1){
         toreturn="1 hour ago";
       }
-    } else if (seconds >= 60) {
+    } else if (seconds >= 60 && seconds<3600) {
       toreturn=Math.floor(seconds / 60) + " minutes ago";
       if (Math.floor(seconds / 60)==1){
         toreturn="1 minute ago";
