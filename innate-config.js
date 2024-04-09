@@ -1,8 +1,8 @@
 var innate={
   server:"https://server.marcosrubesn.com/",
-  backup:"https://innate-server.vercel.app/innate/https:/server.marcosruben.com/"
 };
 
+/* function credit to chatgpt */
 async function checkWebsite(url) {
     try {
         const response = await fetch(url);
@@ -21,8 +21,7 @@ async function start(){
   if (await checkWebsite(new URL("/",innate.server))){
     innate.server=new URL("/",innate.server);
   } else {
-    console.log("server switched to "+innate.backup);
-    innate.server=new URL("/",innate.backup);
+    window.location.href="/notfound";
   }
 }
 start();
