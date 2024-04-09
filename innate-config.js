@@ -21,6 +21,7 @@ async function start(){
   if (await checkWebsite(new URL("/",innate.server))){
     innate.server=new URL("/",innate.server);
   } else {
+    alert("server switched to "+innate.backup);
     innate.server=new URL("/",innate.backup);
   }
 }
