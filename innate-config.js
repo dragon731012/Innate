@@ -1,5 +1,5 @@
 var innate={
-  server:"https://server.marcosrubesn.com/",
+  server:"https://server.marcosruben.com/",
   backup1:"https://cors-fv0g.onrender.com/https://server.marcosruben.com/"
 };
 
@@ -22,7 +22,7 @@ if (localStorage.getItem("server")==null){
   localStorage.setItem("server",innate.server);
 }
 async function start(){
-  if (await checkWebsite(localStorage.getItem("server"))){
+  if (await checkWebsite(localStorage.getItem("server")) && await checkWebsite(innate.server)==false){
   } else if (await checkWebsite(innate.server)){
     localStorage.setItem("server",innate.server);
   } else if (await checkWebsite(innate.backup1)){
