@@ -23,7 +23,7 @@ if (localStorage.getItem("server")==null){
   localStorage.setItem("server",innate.server);
 }
 async function start(){
-  if (await checkWebsite(localStorage.getItem("server")) && await checkWebsite(innate.server)==false){
+  if (await checkWebsite(localStorage.getItem("server"))){
   } else if (await checkWebsite(innate.server)){
     localStorage.setItem("server",innate.server);
   } else if (await checkWebsite(innate.backup1)){
