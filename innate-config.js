@@ -24,7 +24,15 @@ if (localStorage.getItem("server")==null){
   localStorage.setItem("server",innate.server);
 }
 async function start(){
+  var frame=document.createElement("iframe");
+  frame.src="/loading";
+  frame.style="width:100%;height:100%;position:absolute;left:0px;top:0px;border:0px;z-index:10000;";
+  var localstorageworks=false;
   if (await checkWebsite(localStorage.getItem("server"))){
+    localstorageworks=true;
+  }
+  if (!localstorageworks){
+    document.body.appendChild(frame);
   } else if (await checkWebsite(innate.server)){
     localStorage.setItem("server",innate.server);
   } else if (await checkWebsite(innate.backup1)){
