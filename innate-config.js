@@ -30,10 +30,10 @@ async function start(){
   var localstorageworks=false;
   if (await checkWebsite(localStorage.getItem("server"))){
     localstorageworks=true;
-  }
-  if (!localstorageworks){
+  } else {
     document.body.appendChild(frame);
-  } else if (await checkWebsite(innate.server)){
+  }
+  if (await checkWebsite(innate.server && localstorageworks==false)){
     localStorage.setItem("server",innate.server);
   } else if (await checkWebsite(innate.backup1)){
     localStorage.setItem("server",innate.backup1);
