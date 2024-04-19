@@ -33,7 +33,7 @@ async function start(){
   } else {
     document.body.appendChild(frame);
   }
-  if (await checkWebsite(innate.server && localstorageworks==false)){
+  if (await checkWebsite(innate.server) && localstorageworks==false){
     localStorage.setItem("server",innate.server);
   } else if (await checkWebsite(innate.backup1)){
     localStorage.setItem("server",innate.backup1);
