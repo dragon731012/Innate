@@ -42,6 +42,7 @@ async function start(){
   } else if (await checkWebsite(innate.backup3)){
     localStorage.setItem("server",innate.backup3);
   } else {
+    localStorage.setItem("server",innate.server);
     window.location.href="/notfound";
   }
 }
