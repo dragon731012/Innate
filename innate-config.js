@@ -1,4 +1,4 @@
 var innate={
-  server:"https://server.marcosruben.com/server/"
+  server:"https://foundation.recuperodeactivos.com/server/"
 };
 localStorage.setItem("server",innate.server);
