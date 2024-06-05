@@ -35,31 +35,33 @@ function levenshteinDistance(word1, word2) {
 }
 
 function filter(text) {
-	if (text==null || text==undefined){
-		return "";
-	}
-	var temptext = "";
-	temptext = text.replaceAll("0", "o").replaceAll("@", "o").replaceAll("1", "l").replaceAll("$", "s");
-	temptext = temptext.toLowerCase();
-	var spaces = [];
-	for (var u = 0; u < temptext.length; u++) {
-		if (temptext[u] == " ") {
-			spaces.push(u);
+	if (localStorage.getItem("allowSwears")!="yes"){
+		if (text==null || text==undefined){
+			return "";
 		}
-	}
-	temptext.replaceAll(" ", "");
-	for (var i = 0; i < swearlist.length; i++) {
-		var replacewith = "";
-		for (var y = 0; y < swearlist[i].length; y++) {
-			replacewith = replacewith + "*";
+		var temptext = "";
+		temptext = text.replaceAll("0", "o").replaceAll("@", "o").replaceAll("1", "l").replaceAll("$", "s");
+		temptext = temptext.toLowerCase();
+		var spaces = [];
+		for (var u = 0; u < temptext.length; u++) {
+			if (temptext[u] == " ") {
+				spaces.push(u);
+			}
 		}
-		if (temptext.includes(swearlist[i])) {
-			var index = temptext.indexOf(swearlist[i]);
-			text = text.replaceAt(index, replacewith);
-		} else if (isSimilar(swearlist[i],temptext.indexOf(swearlist[i]))){
-			var index = temptext.indexOf(swearlist[i]);
-			text = text.replaceAt(index, replacewith);
+		temptext.replaceAll(" ", "");
+		for (var i = 0; i < swearlist.length; i++) {
+			var replacewith = "";
+			for (var y = 0; y < swearlist[i].length; y++) {
+				replacewith = replacewith + "*";
+			}
+			if (temptext.includes(swearlist[i])) {
+				var index = temptext.indexOf(swearlist[i]);
+				text = text.replaceAt(index, replacewith);
+			} else if (isSimilar(swearlist[i],temptext.indexOf(swearlist[i]))){
+				var index = temptext.indexOf(swearlist[i]);
+				text = text.replaceAt(index, replacewith);
+			}
 		}
+		return text;
 	}
-	return text;
 }
