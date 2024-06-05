@@ -1,0 +1,128 @@
+<script src="/innate-config.js"></script>
+<title>Innate - Options</title>
+<div id="cont">
+  <h1>Options</h1>
+  <div class="switchtext">
+		<b style="display: flex;font-size: 22px;padding-right: 10px;font-weight: 100;">Swear Filter - </b>
+		<label class="switch" style="display:flex;">
+		  <input type="checkbox" id="swearFilter" checked>
+		  <span class="slider round"></span>
+		</label>
+	</div>
+</div>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+
+  h1{
+    font-size: 5vh;
+    color: black;
+    font-family: "Special Elite", system-ui;
+    font-weight: 100;
+  }
+  
+  #cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #F8F8F8;
+    padding: 5vw;
+    border-radius: 3vh;
+  }
+  ::placeholder{
+    color:black;
+  }
+  body{ 
+    width:100%;
+    height:100%;
+    overflow:hidden; 
+    display:flex;
+    flex-direction:column; 
+    align-items:center; 
+    justify-content:center;
+    background:white;
+  }
+  
+  .switch {
+		position: relative;
+		display: inline-block;
+		width: 53px;
+    height: 28px;
+		border: 2px solid black;
+		border-radius:25px;
+	}
+	
+	.switch input { 
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+	
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: transparent;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+	
+	.slider:before {
+		position: absolute;
+		content: "";
+	 	height: 20px;
+	 	width: 20px;
+	  	left: 4px;
+	  	bottom: 4px;
+	  	background-color: black;
+	  	-webkit-transition: .4s;
+	  	transition: .4s;
+	}
+	
+	input:checked + .slider {
+	  	background:transparent;
+	}
+	
+	input:focus + .slider {
+	  	box-shadow: 0 0 1px #2196F3;
+	}
+	
+	input:checked + .slider:before {
+	  	-webkit-transform: translateX(26px);
+	  	-ms-transform: translateX(26px);
+	  	transform: translateX(26px);
+	}
+
+	.switchtext{
+		display: flex;
+	    	align-items: center;
+	    	justify-content: center;
+	}
+	
+	.slider.round {
+	  	border-radius: 34px;
+		outline: none;
+	}
+	
+	.slider.round:before {
+	  	border-radius: 50%;
+	}
+</style>
+<script defer>
+  if (localStorage.getItem("allowSwears")=="yes"){
+  	document.getElementById("swearFilter").checked = false;
+  }
+	
+  document.getElementById("swearFilter").addEventListener('change', (event) => {
+    if (event.currentTarget.checked) {
+      localStorage.setItem("allowSwears","no");
+    } else {
+      localStorage.setItem("allowSwears","yes");
+    }
+  });
+</script>

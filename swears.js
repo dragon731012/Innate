@@ -63,5 +63,7 @@ function filter(text) {
 			}
 		}
 		return text;
+	} else {
+		return text;
 	}
 }

@@ -11,6 +11,9 @@
   <a onclick="signout();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
     <img src="/images/logout-light.png" style="height: 5vh;">
   </a>
+  <a onclick="options();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
+    <img src="/images/settings-light.png" style="height: 5vh;">
+  </a>
   <a onclick="newgroup();" style="float:left; border-radius: 0 0 0 10px;" class="navitem">
     <img src="/images/new-light.png" style="height: 5vh;">
   </a>
@@ -150,6 +153,15 @@
     if (document.getElementById("chat").src!=window.location.href+"new"){
       groupsframe.style.display="none";
       document.getElementById("chat").src="/new";
+    } else {
+      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
+    }
+  }
+
+  function options(){
+    if (document.getElementById("chat").src!=window.location.href+"settings"){
+      groupsframe.style.display="none";
+      document.getElementById("chat").src="/settings";
     } else {
       document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
     }
