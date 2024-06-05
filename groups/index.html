@@ -74,7 +74,12 @@
     flex-direction: row;
     justify-content: space-between;
   }
+  .groupbutton:disabled{
+    opacity:0.5;
+    cursor: default;
+  }
   .groupbutton{
+    cursor:pointer;
     position: relative;
     right: 5px;
     display: flex;
@@ -144,7 +149,11 @@
       var groupdiv=document.createElement("div");
       groupdiv.className="groupbox";
 
-        groupdiv.innerHTML="<div class='grouptext'>"+groupjson.groups[i].name+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
+      if (groupjson.groups[i].name!=localStorage.getItem("groupname")){
+        groupdiv.innerHTML="<div class='grouptext'>"+groupjson.groups[i].name+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);'>Join</button>";
+      } else {
+        groupdiv.innerHTML="<div class='grouptext'>"+groupjson.groups[i].name+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);' disabled>Joined</button>";
+      }
       document.getElementById("groups").appendChild(groupdiv);
 
       var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");

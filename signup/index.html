@@ -1,24 +1,96 @@
 <script src="/innate-config.js"></script>
-<b>Username: </b><input id="user">
-<b>Password: </b><input id="password">
-<button onclick="signup();">Sign Up</button>
+<title>Innate - Sign Up</title>
+<div id="cont">
+  <h1>Sign Up</h1>
+  <h3 id="error">&nbsp;</h3>
+  <input id="user" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="signup();">Sign Up</button>
+</div>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  
+  h1{
+    font-size: 5vh;
+    color: black;
+    font-family: "Special Elite", system-ui;
+    font-weight: 100;
+  }
+
+  h3{
+    font-style: normal;
+    font-family: sans-serif;
+    font-size: 1.5vh;
+    margin: 0px;
+  }
+  
+  #cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #F8F8F8;
+    padding: 5vw;
+    border-radius: 3vh;
+  }
+  
   #user, #password{
-    border:2px solid black;
+    border: 2px solid black;
+    color: black;
+    border-radius: 1vh;
+    font-size: 3vh;
+    background: transparent;
+    padding: 0.4vw;
+    margin: 1vw;
+    outline: none;
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  ::placeholder{
     color:black;
   }
-  body{ width:100%;
-       height:100%;
-       overflow:hidden; 
-       display:flex;
-       flex-direction:column; 
-       align-items:center; 
-       justify-content:center;
-       button{
-         margin: 10px;
-       }
-    
-       background:#c4c4c4;
+  body{ 
+    width:100%;
+    height:100%;
+    overflow:hidden; 
+    display:flex;
+    flex-direction:column; 
+    align-items:center; 
+    justify-content:center;
+    background:white;
+  }
+  
+  button{
+    margin-top: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 2.5vh;
+    border: 0px solid black;
+    text-align: center;
+    padding: 1.5vh;
+    border-radius: 50px;
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: normal;
+    background: #e8e8e8;
+    cursor: pointer;
   }
 </style>
 <script defer>
@@ -33,6 +105,11 @@
         });
     });
   }
+
+  document.getElementById('error').addEventListener('animationend',() => {
+    document.getElementById('error').style.animation=null;
+  });
+  
   async function signup(){
     var user=document.getElementById("user").value;
     var password=document.getElementById("password").value;
@@ -40,14 +117,16 @@
     if (verify!="Valid"){
       var reply=await getText(localStorage.getItem("server")+"user.php/?val=w&user="+user+"&password="+password).toString();
       if (reply=="Failure"){
-        alert("Name already taken!");
+        document.getElementById("error").innerHTML="Name already taken!";
+        document.getElementById("error").style.animation="shake 0.5s";
       } else {
         localStorage.setItem("password",password);
         localStorage.setItem("username",user);
         window.location.href="/";
       }
     } else {
-      alert("Name already taken!");
+      document.getElementById("error").innerHTML="Name already taken!";
+      document.getElementById("error").style.animation="shake 0.5s";
     }
   }
 </script>

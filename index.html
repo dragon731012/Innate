@@ -1,4 +1,5 @@
 <script src="/innate-config.js"></script>
+<title>Innate - Chat Freely</title>
 <div id="messages" style="opacity:0;"></div> 
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
@@ -146,8 +147,12 @@
   }
 
   function newgroup(){
-    groupsframe.style.display="none";
-    document.getElementById("chat").src="/new";
+    if (document.getElementById("chat").src!=window.location.href+"new"){
+      groupsframe.style.display="none";
+      document.getElementById("chat").src="/new";
+    } else {
+      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
+    }
   }
   
   function groups(){

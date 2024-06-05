@@ -1,17 +1,70 @@
 <script src="/innate-config.js"></script>
-<h1>Log In</h1>
-<input id="user" placeholder="Username">
-<input id="password" placeholder="Password">
-<button onclick="login();">Log In</button>
+<title>Innate - Login</title>
+<div id="cont">
+  <h1>Log In</h1>
+  <h3 id="error">&nbsp;</h3>
+  <input id="user" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login();">Log In</button>
+</div>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  
+  h1{
+    font-size: 5vh;
+    color: black;
+    font-family: "Special Elite", system-ui;
+    font-weight: 100;
+  }
+
+  h3{
+    font-style: normal;
+    font-family: sans-serif;
+    font-size: 1.5vh;
+    margin: 0px;
+  }
+  
+  #cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #F8F8F8;
+    padding: 5vw;
+    border-radius: 3vh;
+  }
+  
   #user, #password{
     border: 2px solid black;
     color: black;
     border-radius: 1vh;
     font-size: 3vh;
+    background: transparent;
+    padding: 0.4vw;
+    margin: 1vw;
+    outline: none;
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: normal;
   }
   ::placeholder{
-    color:gray;
+    color:black;
   }
   body{ 
     width:100%;
@@ -23,12 +76,21 @@
     justify-content:center;
     background:white;
   }
+  
   button{
-    margin: 3vh;
-    border-radius: 0px;
-    color: black;
-    background: transparent;
-    font-size: 2.4vh;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 2.5vh;
+    border: 0px solid black;
+    text-align: center;
+    padding: 1.5vh;
+    border-radius: 50px;
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: normal;
+    background: #e8e8e8;
   }
 </style>
 <script defer>
@@ -43,12 +105,18 @@
         });
     });
   }
+
+  document.getElementById('error').addEventListener('animationend',() => {
+    document.getElementById('error').style.animation=null;
+  });
+  
   async function login(){
     var user=document.getElementById("user").value;
     var password=document.getElementById("password").value;
     var reply=await getText(localStorage.getItem("server")+"user.php/?val=r&user="+user+"&password="+password);
     if (reply=="Failure"){
-      alert("Invalid password or username!");
+      document.getElementById("error").innerHTML="Invalid password or username!";
+      document.getElementById("error").style.animation="shake 0.5s";
     } else {
       localStorage.setItem("password",password);
       localStorage.setItem("username",user);
