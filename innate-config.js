@@ -1,4 +1,4 @@
 var innate={
-  server:window.location.origin+"/server/"
+  server:"https://innate.vendo.ar/server/"
 };
 localStorage.setItem("server",innate.server);
