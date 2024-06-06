@@ -1,4 +1,4 @@
 var innate={
-  server:"https://foundation.recuperodeactivos.com/server/"
+  server:window.location.origin+"/server/"
 };
 localStorage.setItem("server",innate.server);

@@ -1,9 +1,10 @@
-<script src="/innate-config.js"></script>
+<script src="/innate-config.js"></script> 
 <title>Innate - Chat Freely</title>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <div id="messages" style="opacity:0;"></div> 
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
-</form>
+</form> 
 <div id="navbar">
   <a onclick="groups();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
     <img src="/images/groups-light.png" style="height: 5vh;">
@@ -19,7 +20,7 @@
   </a>
 </div>
 <iframe id="chat"></iframe>
-<iframe id="groups" src="/groups"></iframe>
+<iframe id="groups"></iframe>
 <style>
   #groups{
     display:none;
@@ -80,9 +81,7 @@
   ::placeholder{
     color:var(--primary);
   }
-  
-  ::-webkit-scrollbar-track {
-  }
+
   
   #messageinput{
     width:70%;
@@ -137,6 +136,8 @@
 <script defer>
   var groupsframe=document.getElementById("groups");
   
+  document.getElementById("groups").src="/groups";
+
   function getText(file){
     return new Promise((resolve) => {
       fetch(file)

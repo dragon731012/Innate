@@ -3,7 +3,7 @@ eval(atob("dmFyIHN3ZWFybGlzdD1bCiAgIjIgZ2lybHMgMSBjdXAiLAogICIyZzFjIiwKICAiNHI1Z
 /*Credit to Cem Kalyoncu at https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-specific-index-in-javascript*/
 String.prototype.replaceAt = function(index, replacement) {
 	return this.substring(0, index) + replacement + this.substring(index + replacement.length);
-};
+}; 
 
 /* credit to chatgpt for this function */
 function isSimilar(word1, word2) {
@@ -11,6 +11,19 @@ function isSimilar(word1, word2) {
     const distance = levenshteinDistance(word1, word2);
     return distance <= threshold;
 }
+
+function escapeHTML(str) {
+	const map = {
+	  '&': '&amp;',
+	  '<': '&lt;',
+	  '>': '&gt;',
+	  '"': '&quot;',
+	  "'": '&#39;',
+	  '/': '&#x2F;'
+	};
+  
+	return str.replace(/[&<>"'/]/g, function(m) { return map[m]; });
+  }  
 
 /* credit to chatgpt for this function */
 function levenshteinDistance(word1, word2) {
@@ -35,6 +48,7 @@ function levenshteinDistance(word1, word2) {
 }
 
 function filter(text) {
+	text=escapeHTML(text);
 	if (localStorage.getItem("allowSwears")!="yes"){
 		if (text==null || text==undefined){
 			return "";
