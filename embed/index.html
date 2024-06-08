@@ -1,0 +1,146 @@
+<script src="/innate-config.js"></script>
+<script src="/colors.js"></script>
+<title>Innate - Embed</title>
+<div id="cont">
+  <h1>Embed</h1>
+  <button onclick="copyCode();" id="copy">Copy Embedded Code!</button>
+</div>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
+
+  h1{
+    font-size: 5vh;
+    color: var(--primary);
+    font-family: "Special Elite", system-ui;
+    font-weight: 100;
+  }
+
+  button{
+    cursor: pointer;
+    margin-top: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 2.5vh;
+    border: 0px solid var(--primary);
+    text-align: center;
+    padding: 1.5vh;
+    border-radius: 50px;
+    font-family: "Merriweather", serif;
+    font-weight: 300;
+    font-style: normal;
+    background: var(--button);
+  }
+  
+  #cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--container);
+    padding: 5vw;
+    border-radius: 3vh;
+  }
+  ::placeholder{
+    color:var(--primary);
+  }
+  body{ 
+    width:100%;
+    height:100%;
+    overflow:hidden; 
+    display:flex;
+    flex-direction:column; 
+    align-items:center; 
+    justify-content:center;
+    background:var(--bg);
+  }
+  
+  .switch {
+		position: relative;
+		display: inline-block;
+		width: 53px;
+    height: 28px;
+		border: 2px solid var(--primary);
+		border-radius:25px;
+	}
+	
+	.switch input { 
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+	
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: transparent;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+	
+	.slider:before {
+		position: absolute;
+		content: "";
+	 	height: 20px;
+	 	width: 20px;
+	  	left: 4px;
+	  	bottom: 4px;
+	  	background-color: var(--primary);
+	  	-webkit-transition: .4s;
+	  	transition: .4s;
+	}
+	
+	input:checked + .slider {
+	  	background:transparent;
+	}
+	
+	input:focus + .slider {
+	  	box-shadow: 0 0 1px #2196F3;
+	}
+	
+	input:checked + .slider:before {
+	  	-webkit-transform: translateX(26px);
+	  	-ms-transform: translateX(26px);
+	  	transform: translateX(26px);
+	}
+
+	.switchtext{
+		display: flex;
+	    	align-items: center;
+	    	justify-content: center;
+	}
+	
+	.slider.round {
+	  	border-radius: 34px;
+		outline: none;
+	}
+	
+	.slider.round:before {
+	  	border-radius: 50%;
+	}
+</style>
+<script defer>
+  function copyCode(){
+    if (localStorage.getItem("groupname")){
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText("<meta http-equiv='Content-Security-Policy' content='upgrade-insecure-requests' /><iframe style='border:0px solid white;width:100%;height:100%;position:absolute;left:0px;top:0px;' src='"+window.location.origin+"/chat/?group="+localStorage.getItem("groupname")+"&password="+localStorage.getItem("grouppassword")+"&inframe=yes'></iframe>")
+            .then(() => {
+                document.getElementById("copy").innerHTML="Success!";
+                setTimeout(()=>{
+                    document.getElementById("copy").innerHTML="Copy Embedded Code!";
+                },1000);
+            })
+            .catch((error) => {
+                console.error("Error copying text:", error);
+            });
+        }
+    } else {
+        document.getElementById("copy").innerHTML="You must be in a group.";
+    }
+  }
+</script>

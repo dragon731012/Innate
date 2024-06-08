@@ -1,4 +1,5 @@
 <script src="/innate-config.js"></script>
+<script src="/colors.js"></script>
 <title>Innate - Login</title>
 <div id="cont">
   <h1>Log In</h1>
@@ -27,7 +28,7 @@
   
   h1{
     font-size: 5vh;
-    color: black;
+    color: var(--primary);
     font-family: "Special Elite", system-ui;
     font-weight: 100;
   }
@@ -45,14 +46,14 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #F8F8F8;
+    background: var(--container);
     padding: 5vw;
     border-radius: 3vh;
   }
   
   #user, #password{
-    border: 2px solid black;
-    color: black;
+    border: 2px solid var(--primary);
+    color: var(--primary);
     border-radius: 1vh;
     font-size: 3vh;
     background: transparent;
@@ -64,7 +65,7 @@
     font-style: normal;
   }
   ::placeholder{
-    color:black;
+    color:var(--primary);
   }
   body{ 
     width:100%;
@@ -74,7 +75,7 @@
     flex-direction:column; 
     align-items:center; 
     justify-content:center;
-    background:white;
+    background:var(--bg);
   }
   
   button{
@@ -83,14 +84,14 @@
     margin-right: 5px;
     margin-left: 5px;
     font-size: 2.5vh;
-    border: 0px solid black;
+    border: 0px solid var(--primary);
     text-align: center;
     padding: 1.5vh;
     border-radius: 50px;
     font-family: "Merriweather", serif;
     font-weight: 300;
     font-style: normal;
-    background: #e8e8e8;
+    background: var(--button);
   }
 </style>
 <script defer>
@@ -120,7 +121,12 @@
     } else {
       localStorage.setItem("password",password);
       localStorage.setItem("username",user);
-      window.location.href="/";
+      var params=new URLSearchParams(window.location.search);
+        if (!params.get('redirect')){
+          window.location.href="/";
+        } else {
+          window.location.href=params.get("redirect");
+        }
     }
   }
 </script>

@@ -1,12 +1,20 @@
 <script src="/innate-config.js"></script>
+<script src="/colors.js"></script>
 <title>Innate - Options</title>
 <div id="cont">
   <h1>Options</h1>
   <div class="switchtext">
-		<b style="display: flex;font-size: 22px;padding-right: 10px;font-weight: 100;">Swear Filter - </b>
+		<b style="display: flex;font-size: 22px;padding-right: 10px;font-weight: 100; color: var(--primary);">Swear Filter - </b>
 		<label class="switch" style="display:flex;">
-		  <input type="checkbox" id="swearFilter" checked>
-		  <span class="slider round"></span>
+			<input type="checkbox" id="swearFilter" checked>
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="switchtext">
+		<b style="display: flex;font-size: 22px;padding-right: 10px;font-weight: 100; color: var(--primary);">Dark Mode - </b>
+		<label class="switch" style="display:flex;">
+			<input type="checkbox" id="darkMode" checked>
+			<span class="slider round"></span>
 		</label>
 	</div>
 </div>
@@ -16,7 +24,7 @@
 
   h1{
     font-size: 5vh;
-    color: black;
+    color: var(--primary);
     font-family: "Special Elite", system-ui;
     font-weight: 100;
   }
@@ -27,12 +35,12 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #F8F8F8;
+    background: var(--container);
     padding: 5vw;
     border-radius: 3vh;
   }
   ::placeholder{
-    color:black;
+    color:var(--primary);
   }
   body{ 
     width:100%;
@@ -42,7 +50,7 @@
     flex-direction:column; 
     align-items:center; 
     justify-content:center;
-    background:white;
+    background:var(--bg);
   }
   
   .switch {
@@ -50,7 +58,7 @@
 		display: inline-block;
 		width: 53px;
     height: 28px;
-		border: 2px solid black;
+		border: 2px solid var(--primary);
 		border-radius:25px;
 	}
 	
@@ -79,7 +87,7 @@
 	 	width: 20px;
 	  	left: 4px;
 	  	bottom: 4px;
-	  	background-color: black;
+	  	background-color: var(--primary);
 	  	-webkit-transition: .4s;
 	  	transition: .4s;
 	}
@@ -102,6 +110,7 @@
 		display: flex;
 	    	align-items: center;
 	    	justify-content: center;
+			margin: 7px;
 	}
 	
 	.slider.round {
@@ -117,12 +126,41 @@
   if (localStorage.getItem("allowSwears")=="yes"){
   	document.getElementById("swearFilter").checked = false;
   }
+  if (localStorage.getItem("darkMode")!="yes"){
+	document.getElementById("darkMode").checked=false;
+  }
 	
   document.getElementById("swearFilter").addEventListener('change', (event) => {
     if (event.currentTarget.checked) {
       localStorage.setItem("allowSwears","no");
     } else {
       localStorage.setItem("allowSwears","yes");
+    }
+  });
+
+  document.getElementById("darkMode").addEventListener('change', (event) => {
+    if (event.currentTarget.checked) {
+      localStorage.setItem("darkMode","yes");
+		colors={
+			primary: "white",
+			secondary: "#212121",
+			bg: "black",
+			container: "#070707",
+			button: "white"
+		};
+		localStorage.setItem("colors",JSON.stringify(colors));
+		window.top.location.href="/?settings=yes";
+    } else {
+      localStorage.setItem("darkMode","no");
+		colors={
+			primary: "black",
+			secondary: "#dedede",
+			bg: "white",
+			container: "#F8F8F8",
+			button: "#e8e8e8"
+		};
+		localStorage.setItem("colors",JSON.stringify(colors));
+		window.top.location.href="/?settings=yes";
     }
   });
 </script>

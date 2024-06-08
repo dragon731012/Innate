@@ -1,22 +1,29 @@
+<script src="/register-sw.js"></script>
+<script src="/colors.js"></script>
 <script src="/innate-config.js"></script> 
 <title>Innate - Chat Freely</title>
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+<meta name="description" content="Stop scrolling, start chatting with Innate, the ultimate chatting website for any purpose. Dive into lively conversations, create groups for your school or friend circle, and be whoever you want to be. Connect, discuss, and explore limitless possibilities!">
+<meta name="keywords" content="chatting website, online chat platform, group discussions, social interaction, virtual communities, messaging platform, communication hub, online conversations, friend groups, school groups, chat rooms, chat community, chatting network, online forum, connect with others">
 <div id="messages" style="opacity:0;"></div> 
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
 </form> 
 <div id="navbar">
   <a onclick="groups();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
-    <img src="/images/groups-light.png" style="height: 5vh;">
+    <img src="/images/groups-light.png" class="navimage" style="height: 5vh;">
   </a>
   <a onclick="signout();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
-    <img src="/images/logout-light.png" style="height: 5vh;">
+    <img src="/images/logout-light.png" class="navimage" style="height: 5vh;">
   </a>
   <a onclick="options();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
-    <img src="/images/settings-light.png" style="height: 5vh;">
+    <img src="/images/settings-light.png" class="navimage" style="height: 5vh;">
   </a>
   <a onclick="newgroup();" style="float:left; border-radius: 0 0 0 10px;" class="navitem">
-    <img src="/images/new-light.png" style="height: 5vh;">
+    <img src="/images/new-light.png" class="navimage" style="height: 5vh;">
+  </a>
+  <a onclick="embedpage();" style="float:left; border-radius: 0 0 0 10px;" class="navitem">
+    <img src="/images/embed-light.png" class="navimage" style="height: 5vh;">
   </a>
 </div>
 <iframe id="chat"></iframe>
@@ -39,11 +46,6 @@
     left:0px;
     bottom:0px;
     border:0px;
-  }
-  :root {
-    --bg: white;
-    --primary: black;
-    --secondary: #dedede;
   }
   
   #navbar{
@@ -134,6 +136,13 @@
   }
 </style>
 <script defer>
+  if (localStorage.getItem("darkMode")=="yes"){
+    var images=document.getElementsByClassName("navimage");
+    for (var i=0;i<images.length;i++){
+      images[i].src=images[i].src.replace("light","dark");
+    }
+  }
+
   var groupsframe=document.getElementById("groups");
   
   document.getElementById("groups").src="/groups";
@@ -163,6 +172,15 @@
     if (document.getElementById("chat").src!=window.location.href+"settings"){
       groupsframe.style.display="none";
       document.getElementById("chat").src="/settings";
+    } else {
+      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
+    }
+  }
+
+  function embedpage(){
+    if (document.getElementById("chat").src!=window.location.href+"embed"){
+      groupsframe.style.display="none";
+      document.getElementById("chat").src="/embed";
     } else {
       document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
     }

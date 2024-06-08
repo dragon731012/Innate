@@ -1,19 +1,17 @@
 <script src="/innate-config.js"></script>
+<script src="/colors.js"></script>
 <div id="groups"><div style="display:none;">e</div></div>
 <style>
   body{
-    background:white;
+    background:var(--bg);
     overflow:hidden;
   }
   ::-webkit-scrollbar {
     width: 10px;
   }
   
-  ::-webkit-scrollbar-track {
-  }
-   
   ::-webkit-scrollbar-thumb {
-    background: black; 
+    background: var(--primary); 
     border-radius: 10px;
   }
   @keyframes shake {
@@ -47,10 +45,10 @@
     padding: 0.2vh;
     position: absolute;
     right: 10%;
-    color: black;
+    color: var(--primary);
     background: transparent;
     border-radius: 25px;
-    border: 2px solid black;
+    border: 2px solid var(--primary);
     font-size: 2.2vh;
     padding-left: 1vh;
   }
@@ -59,14 +57,15 @@
     left: 5px;
     display: flex;
     font-size: 2.5vh;
+    color:var(--primary);
   }
   ::placeholder{
-    color:black;
+    color:var(--primary);
   }
   .groupbox{
     height: 5vh;
     display: flex;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid var(--primary);
     width: 100%;
     align-items: center;
     padding-top: 5px;
@@ -83,8 +82,8 @@
     position: relative;
     right: 5px;
     display: flex;
-    background: black;
-    color: white;
+    background: var(--primary);
+    color:var(--bg);
     border: 0px;
     border-radius: 27px;
     float: right;
@@ -102,7 +101,22 @@
   if (clientuser==undefined || clientuser==null){
     window.location.href="/signup";
   }
-  
+
+  var groupPasswords=localStorage.getItem("groupPasswords");
+  if (groupPasswords){
+    groupPasswords=JSON.parse(groupPasswords);
+  } else {
+    groupPasswords={};
+  }
+
+  function updatePasswords(){
+    if (!groupPasswords[localStorage.getItem("groupname")]){
+      groupPasswords[localStorage.getItem("groupname")]={password:""};
+    }
+    groupPasswords[localStorage.getItem("groupname")].password=localStorage.getItem("grouppassword");
+    localStorage.setItem("groupPasswords",JSON.stringify(groupPasswords));
+  }
+    
   function getText(file){
     return new Promise((resolve) => {
       fetch(file)
@@ -124,6 +138,7 @@
       if (verify==="Valid"){
         localStorage.setItem("groupname",element.dataset.group);
         localStorage.setItem("grouppassword",passwordinuse);
+        updatePasswords();
       } else {
         document.getElementById(element.dataset.group).style.animation='shake 0.5s';
         document.getElementById(element.dataset.group).addEventListener('animationend',() => {
@@ -155,6 +170,12 @@
         groupdiv.innerHTML="<div class='grouptext'>"+groupjson.groups[i].name+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+groupjson.groups[i].name+"'><button class='groupbutton' data-group='"+groupjson.groups[i].name+"' onclick='join(this);' disabled>Joined</button>";
       }
       document.getElementById("groups").appendChild(groupdiv);
+
+      if (!groupPasswords[groupjson.groups[i].name]){
+        groupPasswords[groupjson.groups[i].name]={password:""};
+      }
+
+      document.getElementsByClassName("passwordinput")[document.getElementsByClassName("passwordinput").length-1].value=groupPasswords[groupjson.groups[i].name].password;
 
       var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");
       if (nopassword!="Valid"){

@@ -1,5 +1,6 @@
 <script src="/innate-config.js"></script>
 <script src="/swears.js"></script>
+<script src="/colors.js"></script>
 <div id="messages" style="opacity:0;"></div> 
 <form id="messageform">
   <input id="messageinput" placeholder="Send a message...">
@@ -14,12 +15,7 @@
     top:0px;
     border:0px;
   }
-  :root {
-    --bg: white;
-    --primary: black;
-    --secondary: #dedede;
-  }
-  
+
   #navbar{
     z-index:999999;
     width:100%;
@@ -56,9 +52,6 @@
     color:var(--primary);
   }
   
-  ::-webkit-scrollbar-track {
-  }
-  
   .date,.offset{
     display:none;
   }
@@ -72,7 +65,7 @@
     padding:1.2vh;
     font-size: 3.2vh;
     color:var(--primary);
-    border-color:var(--primary);
+    border:1px solid var(--primary);
     background:transparent;
     border-radius:3.5vh;
     outline:none;
@@ -182,6 +175,13 @@
   var params=new URLSearchParams(window.location.search);
   var groupinuse=params.get('group');
   var passwordinuse=params.get('password');
+  if (params.get("inframe")=="yes"){
+    document.getElementById("messages").style="height: 90vh;position: absolute;left: 0px;top: 0%;width: 100%;overflow-x: hidden;overflow-y: scroll;";
+    if (!localStorage.getItem("username") || !localStorage.getItem("password")){
+      localStorage.setItem("redirect",window.location.href);
+      window.location.href="/welcome";
+    }
+  }
   if (passwordinuse=="" || passwordinuse==null){
     passwordinuse="none";
   }
