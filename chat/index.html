@@ -234,6 +234,7 @@
   var messages;
   
   async function start(){
+    getText(localStorage.getItem("server")+"archiveData.php"); 
     messages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
@@ -325,8 +326,12 @@
 
   document.getElementById("messageform").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    var sent=await getText(localStorage.getItem("server")+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
-    document.getElementById("messageinput").value="";
+    document.getElementById("messageinput").value=document.getElementById("messageinput").value.trim();
+    if (document.getElementById("messageinput").value!=""){
+      getText(localStorage.getItem("server")+"archiveData.php"); 
+      var sent=await getText(localStorage.getItem("server")+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
+      document.getElementById("messageinput").value="";
+    }
   });
 
   setInterval(()=>{

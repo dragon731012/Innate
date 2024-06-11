@@ -1,4 +1,4 @@
 var innate={
-  server:"https://innate.ape3d.com/server/"
+  server:window.location.origin+"/server/"
 };
 localStorage.setItem("server",innate.server);

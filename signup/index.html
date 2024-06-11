@@ -125,8 +125,10 @@
         localStorage.setItem("username",user);
         if (!localStorage.getItem("redirect")){
           window.location.href="/";
+          localStorage.removeItem("redirect");
         } else {
           window.location.href=localStorage.getItem("redirect");
+          localStorage.removeItem("redirect");
         }
       }
     } else {

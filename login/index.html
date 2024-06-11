@@ -122,11 +122,13 @@
       localStorage.setItem("password",password);
       localStorage.setItem("username",user);
       var params=new URLSearchParams(window.location.search);
-        if (!params.get('redirect')){
-          window.location.href="/";
-        } else {
-          window.location.href=params.get("redirect");
-        }
+      if (!localStorage.getItem("redirect")){
+        window.location.href="/";
+        localStorage.removeItem("redirect");
+      } else {
+        window.location.href=localStorage.getItem("redirect");
+        localStorage.removeItem("redirect");
+      }
     }
   }
 </script>

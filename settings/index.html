@@ -149,7 +149,7 @@
 			button: "white"
 		};
 		localStorage.setItem("colors",JSON.stringify(colors));
-		window.top.location.href="/?settings=yes";
+		window.top.location.reload();
     } else {
       localStorage.setItem("darkMode","no");
 		colors={
@@ -160,7 +160,7 @@
 			button: "#e8e8e8"
 		};
 		localStorage.setItem("colors",JSON.stringify(colors));
-		window.top.location.href="/?settings=yes";
+		window.top.location.reload();
     }
   });
 </script>
