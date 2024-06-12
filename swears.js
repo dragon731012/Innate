@@ -12,18 +12,18 @@ function isSimilar(word1, word2) {
     return distance <= threshold;
 }
 
-function escapeHTML(str) {
-	const map = {
-	  '&': '&amp;',
-	  '<': '&lt;',
-	  '>': '&gt;',
-	  '"': '&quot;',
-	  "'": '&#39;',
-	  '/': '&#x2F;'
-	};
+function escapeHTML(unsafe)
+{
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }
+
   
-	return str.replace(/[&<>"'/]/g, function(m) { return map[m]; });
-  }  
+  
 
 /* credit to chatgpt for this function */
 function levenshteinDistance(word1, word2) {
@@ -77,6 +77,7 @@ function filter(text) {
 			}
 		}
 		return text;
+			
 	} else {
 		return text;
 	}
