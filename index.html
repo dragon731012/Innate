@@ -5,10 +5,6 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <meta name="description" content="Stop scrolling, start chatting with Innate, the ultimate chatting website for any purpose. Dive into lively conversations, create groups for your school or friend circle, and be whoever you want to be. Connect, discuss, and explore limitless possibilities!">
 <meta name="keywords" content="chatting website, online chat platform, group discussions, social interaction, virtual communities, messaging platform, communication hub, online conversations, friend groups, school groups, chat rooms, chat community, chatting network, online forum, connect with others">
-<div id="messages" style="opacity:0;"></div> 
-<form id="messageform">
-  <input id="messageinput" placeholder="Send a message...">
-</form> 
 <div id="navbar">
   <a onclick="groups();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
     <img src="/images/groups-light.png" class="navimage" style="height: 5vh;">
@@ -26,28 +22,35 @@
     <img src="/images/embed-light.png" class="navimage" style="height: 5vh;">
   </a>
 </div>
+
 <iframe id="chat"></iframe>
 <iframe id="groups"></iframe>
 <style>
   #groups{
-    display:none;
     width:100%;
     height:100%;
     position:absolute;
-    left:0px;
+    left:-100%;
     bottom:0px;
     border:0px;
+    transition: 0.3s all;
   }
   #chat{
     display:block;
+    transition: opacity 0.5s ease-in-out;
     width:100%;
     height:100%;
     position:absolute;
     left:0px;
     bottom:0px;
     border:0px;
+    opacity: 1;
   }
-  
+
+  .hidden {
+        opacity: 0 !important;
+    }
+
   #navbar{
     z-index:999999;
     width:100%;
@@ -109,6 +112,22 @@
     overflow-x:hidden;
     overflow-y:scroll;
   }
+  @keyframes fadeout{
+    0%{
+      opacity:1;
+    }
+    100%{
+      opacity: 0;
+    }
+  }
+  @keyframes fadein{
+    0%{
+      opacity:0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
   .messagebox{
     margin-left:5px;
     margin-right:5px;
@@ -133,6 +152,8 @@
   body{
     background:var(--bg);
     overflow:hidden;
+    animation-duration: 0.8s;
+    animation: none;
   }
 </style>
 <script defer>
@@ -159,39 +180,62 @@
     });
   }
 
+  var canSwitch=true;
+  function switchTo(link) {
+    if (canSwitch){
+      canSwitch=false;
+      var frame=document.getElementById("chat");
+      frame.style.animation="fadeout 0.5s forwards";
+      function animationEnding(){
+        frame.src=link;
+        frame.addEventListener("load",loadStarting);
+      }
+      function loadStarting(){
+        canSwitch=true;
+        frame.style.animation="fadein 0.5s forwards";
+        frame.style.opacity="1";
+      }
+      frame.addEventListener("animationend",animationEnding);
+    }
+  }
+
+
+
   function newgroup(){
     if (document.getElementById("chat").src!=window.location.href+"new"){
-      groupsframe.style.display="none";
-      document.getElementById("chat").src="/new";
+      groupsframe.style.left="-100%";
+      switchTo("/new");
     } else {
-      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
     }
   }
 
   function options(){
     if (document.getElementById("chat").src!=window.location.href+"settings"){
-      groupsframe.style.display="none";
-      document.getElementById("chat").src="/settings";
+      groupsframe.style.left="-100%";
+      switchTo("/settings");
     } else {
-      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
     }
   }
 
   function embedpage(){
     if (document.getElementById("chat").src!=window.location.href+"embed"){
-      groupsframe.style.display="none";
-      document.getElementById("chat").src="/embed";
+      groupsframe.style.left="-100%";
+      switchTo(document.getElementById("chat").src="/embed");
     } else {
-      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
     }
   }
   
+  document.getElementById("chat").style.opacity="1";
+
   function groups(){
     var groups=document.getElementById("groups");
-    if (groupsframe.style.display=="none"){
-      groupsframe.style.display="block";
+    if (groupsframe.style.left=="-100%"){
+      groupsframe.style.left="0%";
     } else {
-      groupsframe.style.display="none";
+      groupsframe.style.left="-100%";
     }
   }
   
@@ -213,8 +257,8 @@
     if (verify!="Valid"){
       groups();
     } else {
-      document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
-      groupsframe.style.display="none";
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
+      groupsframe.style.left="-100%";
     }
   }
   verify();
@@ -244,9 +288,8 @@
     if (currentgroup!=groupinuse){
       groupinuse=currentgroup;
       passwordinuse=localStorage.getItem("grouppassword");
-      document.getElementById("groups").style.display="none";
+      document.getElementById("groups").style.left="-100%";
       document.getElementById('groups').contentWindow.location.reload();
-      document.getElementById("messages").style.opacity="0";
       checklogin();
       verify();
     }

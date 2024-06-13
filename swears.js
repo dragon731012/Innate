@@ -47,8 +47,18 @@ function levenshteinDistance(word1, word2) {
     return dp[word1.length][word2.length];
 }
 
+function escapeInvalid(input) {
+    return input.replace(/[^\x00-\x7F]/g, '');
+}
+
+function escapeInvalid(text) {
+    var regex = /[^a-zA-Z0-9_\-\.\s@,?!$&"'']/g;
+    var sanitized = text.replace(regex, '');
+    return sanitized;
+}
+
 function filter(text) {
-	text=escapeHTML(text);
+	text=DOMPurify.sanitize(text);
 	if (localStorage.getItem("allowSwears")!="yes"){
 		if (text==null || text==undefined){
 			return "";
