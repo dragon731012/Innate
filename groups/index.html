@@ -130,6 +130,12 @@
         });
     });
   }
+
+  async function setTarget(element){
+    localStorage.removeItem("groupname");
+    localStorage.setItem('targetuser',element.dataset.group);
+  }
+  
   async function join(element){
     var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password=none");
     nopassword=nopassword.trim();
@@ -138,6 +144,7 @@
       var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
       verify = verify.trim();
       if (verify==="Valid"){
+        localStorage.removeItem("targetuser");
         localStorage.setItem("groupname",element.dataset.group);
         localStorage.setItem("grouppassword",passwordinuse);
         updatePasswords();
@@ -148,43 +155,87 @@
           });
       }
     } else {
+      localStorage.removeItem("targetuser");
       localStorage.setItem("groupname",element.dataset.group);
       localStorage.setItem("grouppassword","none");
     }
   }
-  async function start(){
-    groups=await getText(localStorage.getItem("server")+"group.php?val=r&group=&password=");
-    var grouplines=groups.toString().split("|");
-    var groupjson={groups: []};
-    for(var i=0;i<grouplines.length-1;i++){
-      var tempjson={};
-      tempjson.name=grouplines[i];
-      groupjson.groups.push(tempjson);
+
+  var params=new URLSearchParams(window.location.search);
+  if (!params.get("dm")){
+    async function start(){
+      groups=await getText(localStorage.getItem("server")+"group.php?val=r&group=&password=");
+      var grouplines=groups.toString().split("|");
+      var groupjson={groups: []};
+      for(var i=0;i<grouplines.length-1;i++){
+        var tempjson={};
+        tempjson.name=grouplines[i];
+        groupjson.groups.push(tempjson);
+      }
+      
+      for (var i=0;i<groupjson.groups.length;i++){
+        var groupdiv=document.createElement("div");
+        groupdiv.className="groupbox";
+
+        if (groupjson.groups[i].name!=localStorage.getItem("groupname")){
+          groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(groupjson.groups[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);'>Join</button>";
+        } else {
+          groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(groupjson.groups[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);' disabled>Joined</button>";
+        }
+        document.getElementById("groups").appendChild(groupdiv);
+
+        if (!groupPasswords[groupjson.groups[i].name]){
+          groupPasswords[groupjson.groups[i].name]={password:""};
+        }
+
+        document.getElementsByClassName("passwordinput")[document.getElementsByClassName("passwordinput").length-1].value=groupPasswords[groupjson.groups[i].name].password;
+
+        var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");
+        if (nopassword!="Valid"){
+          document.getElementById(groupjson.groups[i].name).style.display="block";
+        }
+      }
+      document.getElementsByClassName("groupbox")[0].style.borderTop="3px solid black";
     }
-    
-    for (var i=0;i<groupjson.groups.length;i++){
-      var groupdiv=document.createElement("div");
-      groupdiv.className="groupbox";
-
-      if (groupjson.groups[i].name!=localStorage.getItem("groupname")){
-        groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(groupjson.groups[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);'>Join</button>";
-      } else {
-        groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(groupjson.groups[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);' disabled>Joined</button>";
+    start();
+  } else {
+    var dms;
+    async function start(){
+      dms=await getText(localStorage.getItem("server")+"opendm.php?val=r&currentuser="+clientuser+"&up="+clientpassword+"&targetuser=");
+      var dmlines=dms.toString().split("|");
+      var dmjson={dms: []};
+      for(var i=0;i<dmlines.length-1;i++){
+        var tempjson={};
+        tempjson.name=dmlines[i];
+        dmjson.dms.push(tempjson);
       }
-      document.getElementById("groups").appendChild(groupdiv);
+      
+      for (var i=0;i<dmjson.dms.length;i++){
+        var dmdiv=document.createElement("div");
+        dmdiv.className="groupbox";
 
-      if (!groupPasswords[groupjson.groups[i].name]){
-        groupPasswords[groupjson.groups[i].name]={password:""};
+        if (dmjson.dms[i].name!=localStorage.getItem("targetuser")){
+          dmdiv.innerHTML="<div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);'>Message</button>";
+        } else {
+          dmdiv.innerHTML="<div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);' disabled>Messaging</button>";
+        }
+        document.getElementById("groups").appendChild(dmdiv);
+
+        document.getElementById(dmjson.dms[i].name).style.display="none";
       }
-
-      document.getElementsByClassName("passwordinput")[document.getElementsByClassName("passwordinput").length-1].value=groupPasswords[groupjson.groups[i].name].password;
-
-      var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");
-      if (nopassword!="Valid"){
-        document.getElementById(groupjson.groups[i].name).style.display="block";
+      document.getElementsByClassName("groupbox")[0].style.borderTop="3px solid black";
+      
+      async function updateDM(){
+        var newdm=await getText(localStorage.getItem("server")+"opendm.php?val=r&currentuser="+clientuser+"&up="+clientpassword+"&targetuser=");
+        if (newdm!=dms){
+          newdm=newdm.replace(dms,"");
+          var usertodm=newdm.split("|")[0];
+          localStorage.setItem("alert",usertodm+" started a conversation with you.");
+          window.location.reload();
+        }
       }
+      setInterval(updateDM,1000);
     }
-    document.getElementsByClassName("groupbox")[0].style.borderTop="3px solid black";
+    start();
   }
-  start();
 </script>

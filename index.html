@@ -9,6 +9,9 @@
   <a onclick="groups();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
     <img src="/images/groups-light.png" class="navimage" style="height: 5vh;">
   </a>
+  <a onclick="dms();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
+    <img src="/images/dms-light.png" class="navimage" style="height: 5vh;">
+  </a>
   <a onclick="signout();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
     <img src="/images/logout-light.png" class="navimage" style="height: 5vh;">
   </a>
@@ -25,8 +28,9 @@
 
 <iframe id="chat"></iframe>
 <iframe id="groups"></iframe>
+<iframe id="dmframe"></iframe>
 <style>
-  #groups{
+  #groups,#dmframe{
     width:100%;
     height:100%;
     position:absolute;
@@ -164,9 +168,14 @@
     }
   }
 
+  var inDM=localStorage.getItem("inDM") || false;
+  var dmframe=document.getElementById("dmframe");
   var groupsframe=document.getElementById("groups");
   
-  document.getElementById("groups").src="/groups";
+  window.addEventListener('load', (event) => {
+    document.getElementById("groups").src="/groups";
+    document.getElementById("dmframe").src="/groups?dm=yes";
+  });
 
   function getText(file){
     return new Promise((resolve) => {
@@ -204,6 +213,7 @@
   function newgroup(){
     if (document.getElementById("chat").src!=window.location.href+"new"){
       groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
       switchTo("/new");
     } else {
       switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
@@ -213,6 +223,7 @@
   function options(){
     if (document.getElementById("chat").src!=window.location.href+"settings"){
       groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
       switchTo("/settings");
     } else {
       switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
@@ -222,6 +233,7 @@
   function embedpage(){
     if (document.getElementById("chat").src!=window.location.href+"embed"){
       groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
       switchTo(document.getElementById("chat").src="/embed");
     } else {
       switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
@@ -232,15 +244,27 @@
 
   function groups(){
     var groups=document.getElementById("groups");
+    dmframe.style.left="-100%";
     if (groupsframe.style.left=="-100%"){
       groupsframe.style.left="0%";
     } else {
       groupsframe.style.left="-100%";
     }
   }
+
+  function dms(){
+    groupsframe.style.left="-100%";
+    if (dmframe.style.left=="-100%"){
+      dmframe.style.left="0%";
+    } else {
+      dmframe.style.left="-100%";
+    }
+  }
   
   var groupinuse=localStorage.getItem("groupname");
+  var dminuse=localStorage.getItem("targetuser");
   var currentgroup=groupinuse;
+  var currentdm=dminuse;
   var passwordinuse=localStorage.getItem("grouppassword");
   
   if (passwordinuse=="" || passwordinuse==null){
@@ -259,6 +283,7 @@
     } else {
       switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
       groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
     }
   }
   verify();
@@ -285,13 +310,37 @@
  
   setInterval(()=>{
     currentgroup=localStorage.getItem("groupname");
-    if (currentgroup!=groupinuse){
+    currentdm=localStorage.getItem("targetuser");
+    var messageToAlert=localStorage.getItem("alert");
+
+    if (localStorage.getItem("refresh")){
+      localStorage.removeItem("refresh");
+      document.getElementById('groups').contentWindow.location.reload();
+      document.getElementById('dmframe').contentWindow.location.reload();
+    }
+
+    if (currentgroup!=groupinuse && currentgroup!=null && currentdm==null){
       groupinuse=currentgroup;
+      dminuse=null;
+      localStorage.setItem("refresh","yes");
       passwordinuse=localStorage.getItem("grouppassword");
       document.getElementById("groups").style.left="-100%";
       document.getElementById('groups').contentWindow.location.reload();
       checklogin();
       verify();
+    }
+    if (currentdm!=dminuse && currentdm!=null && currentgroup==null){
+      dminuse=currentdm;
+      groupinuse=null;
+      localStorage.setItem("refresh","yes");
+      document.getElementById("dmframe").style.left="-100%";
+      document.getElementById('dmframe').contentWindow.location.reload();
+      switchTo("/chat/?dm=yes&targetuser="+dminuse);
+    }
+
+    if (messageToAlert){
+      alert(messageToAlert);
+      localStorage.removeItem("alert");
     }
   },10);
 </script>

@@ -97,9 +97,16 @@
     border-radius: 0px 1.8vh 1.8vh 1.8vh;
     color: var(--primary);
   }
+  .dmbutton{
+    height: 2vh;
+    margin: 0.2vw;
+    cursor: pointer;
+  }
   .usertext{
     font-size:2.3vh;
     color: var(--primary);
+    display: flex;
+    align-items: center;
   }
   .timetext{
     font-size:1.7vh;
@@ -183,17 +190,20 @@
       window.location.href="/welcome";
     }
   }
+
   if (passwordinuse=="" || passwordinuse==null){
     passwordinuse="none";
   }
-  if (groupinuse==null){
+  if (groupinuse==null && !params.get("dm")){
     window.location.href="/groups";
   }
 
   async function verify(){
-    var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
-    if (verify!="Valid"){
-      window.location.href="/groups";
+    if (!params.get("dm")){
+      var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
+      if (verify!="Valid"){
+        window.location.href="/groups";
+      }
     }
   }
   verify();
@@ -220,6 +230,18 @@
   }
   checklogin();
   
+  function startDM(element){
+    const elements = document.getElementsByClassName("dmbutton");
+    const elementsArray = Array.from(elements);
+    for (let i = 0; i < elementsArray.length; i++) {
+      if (elementsArray[i] === element) {
+        var usertotarget=document.getElementsByClassName("usertext")[i].querySelector('b').textContent;
+        getText(localStorage.getItem("server")+"opendm.php/?val=w&targetuser="+usertotarget+"&currentuser="+clientuser+"&up="+clientpassword);
+        localStorage.setItem("refresh","yes");
+      }
+    }
+  }
+
   function getText(file){
     return new Promise((resolve) => {
       fetch(file)
@@ -233,10 +255,103 @@
   }
 
   var messages;
+  var mode="light";
+  if (localStorage.getItem("darkMode")=="yes") mode="dark";
   
   async function start(){
     getText(localStorage.getItem("server")+"archiveData.php"); 
     messages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
+    var messagelines=messages.toString().split("|");
+    var messagejson={messages: []};
+    for(var i=0;i<messagelines.length-1;i++){
+      var tempjson={};
+      tempjson.offset=messagelines[i].split(":")[1];
+      tempjson.unix=messagelines[i].split(":")[0];
+      tempjson.user=messagelines[i].split(":")[2];
+      tempjson.message=messagelines[i].split(":")[3];
+      tempjson.unix=tempjson.unix.split(":")[0];
+      messagejson.messages.push(tempjson);
+    }
+
+    function bottomelmvisible() {
+        var doc=document;
+        var rect = document.getElementsByClassName("messagebox")[document.getElementsByClassName("messagebox").length-1].getBoundingClientRect();
+        var vWidth = window.innerWidth || doc.documentElement.clientWidth;
+        var vHeight = window.innerHeight || doc.documentElement.clientHeight;
+  
+        if (rect.right < 0 || rect.bottom < 0 || rect.left > vWidth || rect.top > vHeight) return false;
+    
+        return true;
+        /* function credits to https://stackabuse.com/bytes/check-element-visibility-after-scrolling-with-jquery-or-js/ */
+    }
+
+    var x = new MutationObserver(function (e) {
+      if(bottomelmvisible()) {
+        e[0].addedNodes[0].scrollIntoView(false);
+      }
+    });
+
+    x.observe(document.getElementById('messages'), { childList: true });
+    
+    for (var i=0;i<messagejson.messages.length;i++){
+      var messagediv=document.createElement("div");
+      if (messagejson.messages[i].user==clientuser){
+        messagediv.style.position="relative";
+        messagediv.style.alignItems="end";
+      }
+      messagediv.className="messagebox";
+      if (messagejson.messages[i].user==clientuser){
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+      } else {
+        messagediv.innerHTML="<div class='usertext'><b>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
+      }
+      document.getElementById("messages").appendChild(messagediv);
+    }
+    setInterval(async ()=>{
+      var newmessages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
+      if (messages!=newmessages){
+        var messages1=newmessages;
+        newmessages=newmessages.replace(messages.toString(),"");
+        var newmessagelines=newmessages.split("|");
+        var newmessagejson={messages: []};
+        for(var i=0;i<newmessagelines.length-1;i++){
+          var tempjson2={};
+          tempjson2.offset=newmessagelines[i].split(":")[1];
+          tempjson2.unix=newmessagelines[i].split(":")[0];
+          tempjson2.user=newmessagelines[i].split(":")[2];
+          tempjson2.message=newmessagelines[i].split(":")[3];
+          tempjson2.unix=tempjson2.unix.split(":")[0];
+          newmessagejson.messages.push(tempjson2);
+        }
+        for (var i=0;i<newmessagejson.messages.length;i++){
+          var newmessagediv=document.createElement("div");
+          if (newmessagejson.messages[i].user==clientuser){
+            newmessagediv.style.position="relative";
+            newmessagediv.style.alignItems="end";
+          }
+
+          newmessagediv.className="messagebox";
+          if (newmessagejson.messages[i].user==clientuser){
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+          } else {
+            newmessagediv.innerHTML="<div class='usertext'><b>"+filter(newmessagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
+          }
+          document.getElementById("messages").appendChild(newmessagediv);
+          messages=messages1;
+        }
+      }
+    },1000);
+
+    setTimeout(()=>{
+      var messagescont=document.getElementById("messages");
+      messagescont.scrollTop=messagescont.scrollHeight;
+      messagescont.style.opacity="1";
+    },100);
+  }
+
+  async function dm(){
+    getText(localStorage.getItem("server")+"archiveData.php"); 
+    messages=await getText(localStorage.getItem("server")+"dm.php/?val=r&currentuser="+clientuser+"&targetuser="+params.get("targetuser")+"&up="+clientpassword);
     var messagelines=messages.toString().split("|");
     var messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
@@ -284,7 +399,7 @@
       document.getElementById("messages").appendChild(messagediv);
     }
     setInterval(async ()=>{
-      var newmessages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
+      var newmessages=await getText(localStorage.getItem("server")+"dm.php/?val=r&currentuser="+clientuser+"&targetuser="+params.get("targetuser")+"&up="+clientpassword);
       if (messages!=newmessages){
         var messages1=newmessages;
         newmessages=newmessages.replace(messages.toString(),"");
@@ -323,17 +438,32 @@
       messagescont.style.opacity="1";
     },100);
   }
-  start();
 
-  document.getElementById("messageform").addEventListener("submit",async (e)=>{
-    e.preventDefault();
-    document.getElementById("messageinput").value=document.getElementById("messageinput").value.trim();
-    if (document.getElementById("messageinput").value!=""){
-      getText(localStorage.getItem("server")+"archiveData.php"); 
-      var sent=await getText(localStorage.getItem("server")+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
-      document.getElementById("messageinput").value="";
-    }
-  });
+  if (!params.get("dm")){
+    start();
+
+    document.getElementById("messageform").addEventListener("submit",async (e)=>{
+      e.preventDefault();
+      document.getElementById("messageinput").value=document.getElementById("messageinput").value.trim();
+      if (document.getElementById("messageinput").value!=""){
+        getText(localStorage.getItem("server")+"archiveData.php"); 
+        var sent=await getText(localStorage.getItem("server")+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
+        document.getElementById("messageinput").value="";
+      }
+    });
+  } else {
+    dm();
+
+    document.getElementById("messageform").addEventListener("submit",async (e)=>{
+      e.preventDefault();
+      document.getElementById("messageinput").value=document.getElementById("messageinput").value.trim();
+      if (document.getElementById("messageinput").value!=""){
+        getText(localStorage.getItem("server")+"archiveData.php"); 
+        var sent=await getText(localStorage.getItem("server")+"dm.php/?val=w&currentuser="+clientuser+"&targetuser="+params.get("targetuser")+"&text="+document.getElementById("messageinput").value+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
+        document.getElementById("messageinput").value="";
+      }
+    });
+  }
 
   setInterval(()=>{
     var timetext=document.getElementsByClassName("timetext");
