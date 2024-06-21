@@ -111,6 +111,8 @@
     document.getElementById('error').style.animation=null;
   });
   
+  getText(localStorage.getItem("server")+"archiveData.php");
+
   async function login(){
     var user=document.getElementById("user").value;
     var password=document.getElementById("password").value;

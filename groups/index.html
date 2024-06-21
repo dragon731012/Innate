@@ -95,6 +95,15 @@
     padding-top: 0.6vh;
     padding-bottom: 0.6vh;
   }
+  .unread{
+    background: red;
+    position: absolute;
+    height: 2vh;
+    width: 2vh;
+    display: none;
+    border-radius: 50%;
+    left: 0.2vw;
+  }
 </style>
 <script defer>
   var clientuser=localStorage.getItem("username");
@@ -215,9 +224,9 @@
         dmdiv.className="groupbox";
 
         if (dmjson.dms[i].name!=localStorage.getItem("targetuser")){
-          dmdiv.innerHTML="<div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);'>Message</button>";
+          dmdiv.innerHTML="<div class='unread'></div><div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);'>Message</button>";
         } else {
-          dmdiv.innerHTML="<div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);' disabled>Messaging</button>";
+          dmdiv.innerHTML="<div class='unread'></div><div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);' disabled>Messaging</button>";
         }
         document.getElementById("groups").appendChild(dmdiv);
 
@@ -232,6 +241,30 @@
           var usertodm=newdm.split("|")[0];
           localStorage.setItem("alert",usertodm+" started a conversation with you.");
           window.location.reload();
+        }
+
+        var response=await getText(localStorage.getItem("server")+"unread.php?val=r&currentuser="+clientuser+"&up="+clientpassword);
+        var parts=response.split("|");
+        var found=false;
+        for (var i=0;i<parts.length;i++){
+          var segments=parts[i].split(":");
+          if (segments[1]=="unread" && segments[0]!=""){
+            var users=document.getElementsByClassName("grouptext");
+            for (var u=0;u<users.length;u++){
+              if (users[u].innerHTML==segments[0]){
+                document.getElementsByClassName("unread")[u].style.display="block";
+                users[u].style.left="calc(5px + 0.2vw + 2vh)";
+                found=true;
+                break;
+              } else {
+                document.getElementsByClassName("unread")[u].style.display="none";
+              document.getElementsByClassName("grouptext")[u].style.left="5px";
+              }
+            }
+            if (!found){
+              console.log("user "+segments[0]+" not found in DMs.");
+            }
+          }
         }
       }
       setInterval(updateDM,1000);

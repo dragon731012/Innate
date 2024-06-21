@@ -11,6 +11,7 @@
   </a>
   <a onclick="dms();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
     <img src="/images/dms-light.png" class="navimage" style="height: 5vh;">
+    <div id="unread"></div>
   </a>
   <a onclick="signout();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
     <img src="/images/logout-light.png" class="navimage" style="height: 5vh;">
@@ -38,6 +39,16 @@
     bottom:0px;
     border:0px;
     transition: 0.3s all;
+  }
+  #unread{
+    width: 40%;
+    background: red;
+    position: relative;
+    bottom: 100%;
+    height: 40%;
+    border-radius: 50%;
+    left: 70%;
+    display: none;
   }
   #chat{
     display:block;
@@ -343,4 +354,25 @@
       localStorage.removeItem("alert");
     }
   },10);
+
+  setInterval(()=>{
+    if (document.getElementById("dmframe").style.left=="-100%"){
+      document.getElementById("dmframe").contentWindow.location.reload();
+    }
+  },4000);
+
+  async function updateRead(){
+    var response=await getText(localStorage.getItem("server")+"unread.php?val=r&currentuser="+clientuser+"&up="+clientpassword);
+    var parts=response.split("|");
+    for (var i=0;i<parts.length;i++){
+      if (parts[i].split(":")[1]=="unread" && parts[i].split(":")[0]!=""){
+        document.getElementById("unread").style.display="block";
+        break;
+      } else {
+        document.getElementById("unread").style.display="none";
+      }
+    }
+  }
+
+  setInterval(updateRead,700);
 </script>
