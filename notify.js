@@ -1,32 +1,33 @@
 async function run() {
   try {
-    const registration = await navigator.serviceWorker.register("serviceworker.js", {
-      scope: "./"
-    });
-
     // Check if the Notification API is supported
     if (!('Notification' in window)) {
       console.error('Notifications are not supported on this browser');
       return;
     }
 
-    // Check if permission to show notifications has been granted already
+    // Request permission to show notifications
     let permission = await Notification.requestPermission();
     if (permission !== 'granted') {
       console.error('Permission to show notifications denied');
       return;
     }
 
-    // Notify immediately upon registration
+    // Register the service worker
+    const registration = await navigator.serviceWorker.register("serviceworker.js", {
+      scope: "./"
+    });
+
+    // Notify immediately upon successful registration
     registration.showNotification("Subscription Successful", {
       body: "You are now subscribed to notifications!",
-      icon: "/favicon.ico", // Replace with your icon path
+      icon: "/favicon.ico", // Use favicon.ico as the notification icon
     });
 
     // Schedule notifications at 1:00 PM daily
     const options = {
       body: "Check your messages!",
-      icon: "/favicon.ico", // Replace with your icon path
+      icon: "/favicon.ico", // Use favicon.ico as the notification icon
     };
 
     // Function to schedule notification at 1:00 PM
