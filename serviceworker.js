@@ -4,7 +4,7 @@ const INTERVAL = 10 * 1000; // 10 seconds in milliseconds
 // Function to fetch data from the server
 async function fetchData() {
   try {
-    const response = await fetch('/api/data'); // Replace with your server API endpoint
+    const response = await fetch('https://innate.ape3d.com/server/unread.php?val=r&currentuser="+localStorage.getItem("username")+"&up='+localStorage.getItem("password")); // Replace with your server API endpoint
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
