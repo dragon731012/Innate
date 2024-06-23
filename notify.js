@@ -17,6 +17,12 @@ async function run() {
       return;
     }
 
+    // Notify immediately upon registration
+    registration.showNotification("Subscription Successful", {
+      body: "You are now subscribed to notifications!",
+      icon: "/favicon.ico", // Replace with your icon path
+    });
+
     // Schedule notifications at 1:00 PM daily
     const options = {
       body: "Check your messages!",
