@@ -1,122 +1,389 @@
-<html style="overflow:hidden;height:100%;">
-                                  <head>
-                                      <link rel="stylesheet" href="https://bubbleblast.potatogaming.ix.tc/style.css">
-                                      <meta name="viewport" content="interactive-widget=overlays-content,user-scalable=no"/>
-                                  </head>
-                                  <body style='margin:0;padding:0;background:#transparent;overflow:hidden;height:100%;'>
-                                      <div id="loading">
-                                        <img src="https://bubbleblast.potatogaming.ix.tc/files/icon-extended.jpg" id="loadicon">
-                                        <button id="playbutton" onclick="start();">Play</button>
-                                                <button id="achievementsbutton" onclick="achieve();">Achievements</button>
-                                                        <button id="shopbutton" onclick="shop();">Shop</button>
-                                    </div>
-                                    <div id="achievements">
-                                        <img class="backbutton" src="https://bubbleblast.potatogaming.ix.tc/files/backbutton.png" onload="
-                                            this.addEventListener('click', function() {
-                                                achieve();
-                                            });
-                                        ">
-                                        <div id="achievementsCont">
-                                        </div>
-                                     </div>
-                                        <div id="shop">
-                                                <img class="backbutton" src="https://bubbleblast.potatogaming.ix.tc/files/backbutton.png" onload="
-                                                    this.addEventListener('click', function() {
-                                                        shop();
-                                                    });
-                                                ">
-                                                <div id="shopItems">
-                                                  <div id="bottomBar">
-                                                    <button id="watchAd" onclick="showAd();">
-                                                      Ad for 100
-                                                      <img style="height:3vh;" src="https://bubbleblast.potatogaming.ix.tc/files/shards.png">
-                                                    </button>
-                                                  </div>
-                                                </div>
+<head>
+<script src="/register-sw.js"></script>
+<script src="/colors.js"></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Innate">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicon.ico">
+<link rel="apple-touch-startup-image" href="/favicon.ico">
+<script src="/innate-config.js"></script> 
+<title>Innate - Chat Freely</title>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+<meta name="description" content="Stop scrolling, start chatting with Innate, the ultimate chatting website for any purpose. Dive into lively conversations, create groups for your school or friend circle, and be whoever you want to be. Connect, discuss, and explore limitless possibilities!">
+<meta name="keywords" content="chatting website, online chat platform, group discussions, social interaction, virtual communities, messaging platform, communication hub, online conversations, friend groups, school groups, chat rooms, chat community, chatting network, online forum, connect with others">
+<meta name="theme-color" content="#000000">
+</head>
+<div id="navbar">
+  <a onclick="groups();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
+    <img src="/images/groups-light.png" class="navimage" style="height: 5vh;">
+  </a>
+  <a onclick="dms();" style="float:left;border-radius: 0 0 10px 0;" class="navitem">
+    <img src="/images/dms-light.png" class="navimage" style="height: 5vh;">
+    <div id="unread"></div>
+  </a>
+  <a onclick="signout();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
+    <img src="/images/logout-light.png" class="navimage" style="height: 5vh;">
+  </a>
+  <a onclick="options();" style="float:right; border-radius: 0 0 0 10px;" class="navitem">
+    <img src="/images/settings-light.png" class="navimage" style="height: 5vh;">
+  </a>
+  <a onclick="newgroup();" style="float:left; border-radius: 0 0 0 10px;" class="navitem">
+    <img src="/images/new-light.png" class="navimage" style="height: 5vh;">
+  </a>
+  <a onclick="embedpage();" style="float:left; border-radius: 0 0 0 10px;" class="navitem">
+    <img src="/images/embed-light.png" class="navimage" style="height: 5vh;">
+  </a>
+</div>
 
-                                              <div id="powerupsCont">
-                                            </div>
-                                             </div>
-                                    <div id="topBar">
-                                        <div id="powerupmenu">
-                                            <div class="powerupuse">
-                                                <div class="powerupusetext">
-                                                    Multiplier
-                                                </div>
-                                                <div id="multiplieruseamount" class="powerupusetext">
-                                                    0
-                                                </div>
-                                                <button class="powerupusebutton" onclick="useItem('multiplier');">
-                                                    Use
-                                                </button>
-                                            </div>
-                                            <div class="powerupuse">Bomb</div>
-                                            <div class="powerupuse">Streak Saver</div>
-                                            <div class="powerupuse">Shuffler</div>
-                                        </div>
-                                      <img class="alignLeft" src="https://bubbleblast.potatogaming.ix.tc/files/homebutton-2.png" onload="
-                                        this.addEventListener('click', function() {
-                                            document.getElementById('loading').style.display='flex';
-                                            running=false;
-                                        });
-                                      ">
-                                        <img class="alignLeft" src="https://bubbleblast.potatogaming.ix.tc/files/powerup.png" onload="
-                                        this.addEventListener('click', function() {
-                                            openPowerups();
-                                        });
-                                      ">
+<iframe id="chat"></iframe>
+<iframe id="groups"></iframe>
+<iframe id="dmframe"></iframe>
+<style>
+  #groups,#dmframe{
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:-100%;
+    bottom:0px;
+    border:0px;
+    transition: 0.3s all;
+  }
+  #unread{
+    width: 40%;
+    background: red;
+    position: relative;
+    bottom: 100%;
+    height: 40%;
+    border-radius: 50%;
+    left: 70%;
+    display: none;
+  }
+  #chat{
+    display:block;
+    transition: opacity 0.5s ease-in-out;
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0px;
+    bottom:0px;
+    border:0px;
+    opacity: 1;
+  }
 
-                                      <div class="alignRight" style="position:absolute;right:3vw;display:flex;align-items:center;justify-content:center;">
-                                        <img style="height:8vw;" src="https://bubbleblast.potatogaming.ix.tc/files/shards.png">
-                                        <div style="font-size:8vw;color:white;" id="shards">0</div>
-                                      </div>
-                                    </div>
-                                    <div id="bubbleContainer">
-                                        <div id="highscore">0</div>
-                                        <div id="score">0</div>
-                                    </div>
-                                    <div id="particles" style="z-index: 1000;position: absolute;">
-                                    </div>
-                                        <div id="gameover">
-                                            <div id="finishtext">
-                                                <div id="got">
-                                                    Game Over
-                                                    <div style="font-size: 2.5vh; margin-top: 5vh;">Score</div>
-                                                </div>
-                                                <div id="finishscore">0</div>
-                                                <div id="hst">New High Score!</div>
-                                            </div>
-                                            <a onclick="playAgain();"><div id="playagain">Play Again</div></a>
-                                        </div>
+  .hidden {
+        opacity: 0 !important;
+    }
 
-                                    <script src="https://bubbleblast.potatogaming.ix.tc/matter.js"></script>
-                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                    <script>
-                                      function loadData(key){
-                                                    window.webkit.messageHandlers.urlHandler.postMessage({ action:"load",key:key});
-                                                }
+  #navbar{
+    z-index:999999;
+    width:100%;
+    position:absolute;
+    left:0px;
+    top:0px;
+  }
+  .navitem{
+    float:right;
+    text-decoration:none;
+    margin:10px;
+    height:5vh;
+    background:transparent;
+    cursor:pointer;
+  }
+  
+  ::-webkit-scrollbar {
+      width: 10px;
+      color: var(--primary);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+      color: var(--secondary);
+  }
 
-                                                function saveData(key,value){
-                                                    window.webkit.messageHandlers.urlHandler.postMessage({ action:"save",key:key,value:value });
-                                                }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      color: var(--primary);
+      background: var(--primary);
+  }
+  
+  ::placeholder{
+    color:var(--primary);
+  }
 
-                                                // Function to send vibrate action to iOS
-                                                function vibrate() {
-                                                    window.webkit.messageHandlers.urlHandler.postMessage({ action:"vibrate" });
-                                                }
-                                                function longVibrate() {
-                                                    window.webkit.messageHandlers.urlHandler.postMessage({ action:"longVibrate" });
-                                                }
-                                                function showAd() {
-                                                    window.webkit.messageHandlers.urlHandler.postMessage({ action:"showAd" });
-                                                }
-                                                function showBg() {
-                                                    window.webkit.messageHandlers.urlHandler.postMessage({ action:"showBg" });
-                                                }
-                                                function hideBg() {
-                                                    window.webkit.messageHandlers.urlHandler.postMessage({ action:"hideBg" });
-                                                }
-                                    </script>
-                                      <script src="https://bubbleblast.potatogaming.ix.tc/script.js"></script>
-                                  </body>
-                                </html>
+  
+  #messageinput{
+    width:70%;
+    position:absolute;
+    text-align:left;
+    left:15%;
+    bottom:10px;
+    padding:10px;
+    font-size:25px;
+    color:var(--primary);
+    border-color:var(--primary);
+    background:transparent;
+    border-radius:25px;
+    outline:none;
+    height: 9vh;
+  }
+  #messages{
+    height:75vh;
+    position:absolute;
+    left:0px;
+    top:10%;
+    width:100%;
+    overflow-x:hidden;
+    overflow-y:scroll;
+  }
+  @keyframes fadeout{
+    0%{
+      opacity:1;
+    }
+    100%{
+      opacity: 0;
+    }
+  }
+  @keyframes fadein{
+    0%{
+      opacity:0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  .messagebox{
+    margin-left:5px;
+    margin-right:5px;
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+  }
+  .messagetext{
+    max-width: 40%;
+    width:fit-content;
+    background: var(--secondary);
+    padding-left: 5px !important;
+    padding: 7px;
+    border-radius: 0px 10px 10px 10px;
+    color: var(--primary);
+  }
+  .usertext{
+    margin-left: 5px;
+    margin-bottom:3px;
+    color: var(--primary);
+  }
+  body{
+    background:var(--bg);
+    overflow:hidden;
+    animation-duration: 0.8s;
+    animation: none;
+  }
+</style>
+<script defer>
+  if (localStorage.getItem("darkMode")=="yes"){
+    var images=document.getElementsByClassName("navimage");
+    for (var i=0;i<images.length;i++){
+      images[i].src=images[i].src.replace("light","dark");
+    }
+  }
+
+  var inDM=localStorage.getItem("inDM") || false;
+  var dmframe=document.getElementById("dmframe");
+  var groupsframe=document.getElementById("groups");
+  
+  window.addEventListener('load', (event) => {
+    document.getElementById("groups").src="/groups";
+    document.getElementById("dmframe").src="/groups?dm=yes";
+  });
+
+  function getText(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((txt) => {
+          resolve(txt.trim());
+        });
+    });
+  }
+
+  var canSwitch=true;
+  function switchTo(link) {
+    if (canSwitch){
+      canSwitch=false;
+      var frame=document.getElementById("chat");
+      frame.style.animation="fadeout 0.5s forwards";
+      function animationEnding(){
+        frame.src=link;
+        frame.addEventListener("load",loadStarting);
+      }
+      function loadStarting(){
+        canSwitch=true;
+        frame.style.animation="fadein 0.5s forwards";
+        frame.style.opacity="1";
+      }
+      frame.addEventListener("animationend",animationEnding);
+    }
+  }
+
+
+
+  function newgroup(){
+    if (document.getElementById("chat").src!=window.location.href+"new"){
+      groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
+      switchTo("/new");
+    } else {
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
+    }
+  }
+
+  function options(){
+    if (document.getElementById("chat").src!=window.location.href+"settings"){
+      groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
+      switchTo("/settings");
+    } else {
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
+    }
+  }
+
+  function embedpage(){
+    if (document.getElementById("chat").src!=window.location.href+"embed"){
+      groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
+      switchTo(document.getElementById("chat").src="/embed");
+    } else {
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
+    }
+  }
+  
+  document.getElementById("chat").style.opacity="1";
+
+  function groups(){
+    var groups=document.getElementById("groups");
+    dmframe.style.left="-100%";
+    if (groupsframe.style.left=="-100%"){
+      groupsframe.style.left="0%";
+    } else {
+      groupsframe.style.left="-100%";
+    }
+  }
+
+  function dms(){
+    groupsframe.style.left="-100%";
+    if (dmframe.style.left=="-100%"){
+      dmframe.style.left="0%";
+    } else {
+      dmframe.style.left="-100%";
+    }
+  }
+  
+  var groupinuse=localStorage.getItem("groupname");
+  var dminuse=localStorage.getItem("targetuser");
+  var currentgroup=groupinuse;
+  var currentdm=dminuse;
+  var passwordinuse=localStorage.getItem("grouppassword");
+  
+  if (passwordinuse=="" || passwordinuse==null){
+    passwordinuse="none";
+  }
+  if (groupinuse==null){
+    groupinuse="general";
+    passwordinuse="none";
+  }
+
+  document.getElementById("chat").src="/chat/?group="+groupinuse+"&password="+passwordinuse;
+  async function verify(){
+    var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupinuse+"&password="+passwordinuse);
+    if (verify!="Valid"){
+      groups();
+    } else {
+      switchTo("/chat/?group="+groupinuse+"&password="+passwordinuse);
+      groupsframe.style.left="-100%";
+      dmframe.style.left="-100%";
+    }
+  }
+  verify();
+
+  function signout(){
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    window.location.href="/welcome";
+  }
+  
+  var clientuser=localStorage.getItem("username");
+  var clientpassword=localStorage.getItem("password");
+
+  if (clientuser==undefined || clientuser==null){
+    window.location.href="/welcome";
+  }
+  async function checklogin(){
+    var verify=await getText(localStorage.getItem("server")+"user.php/?val=r&user="+clientuser+"&password="+clientpassword);
+    if (verify!="Valid"){
+      signout();
+    }
+  }
+  checklogin();
+ 
+  setInterval(()=>{
+    currentgroup=localStorage.getItem("groupname");
+    currentdm=localStorage.getItem("targetuser");
+    var messageToAlert=localStorage.getItem("alert");
+
+    if (localStorage.getItem("refresh")){
+      localStorage.removeItem("refresh");
+      document.getElementById('groups').contentWindow.location.reload();
+      document.getElementById('dmframe').contentWindow.location.reload();
+    }
+
+    if (currentgroup!=groupinuse && currentgroup!=null && currentdm==null){
+      groupinuse=currentgroup;
+      dminuse=null;
+      localStorage.setItem("refresh","yes");
+      passwordinuse=localStorage.getItem("grouppassword");
+      document.getElementById("groups").style.left="-100%";
+      document.getElementById('groups').contentWindow.location.reload();
+      checklogin();
+      verify();
+    }
+    if (currentdm!=dminuse && currentdm!=null && currentgroup==null){
+      dminuse=currentdm;
+      groupinuse=null;
+      localStorage.setItem("refresh","yes");
+      document.getElementById("dmframe").style.left="-100%";
+      document.getElementById('dmframe').contentWindow.location.reload();
+      switchTo("/chat/?dm=yes&targetuser="+dminuse);
+    }
+
+    if (messageToAlert){
+      alert(messageToAlert);
+      localStorage.removeItem("alert");
+    }
+  },10);
+
+  setInterval(()=>{
+    if (document.getElementById("dmframe").style.left=="-100%"){
+      document.getElementById("dmframe").contentWindow.location.reload();
+    }
+  },4000);
+
+  async function updateRead(){
+    var response=await getText(localStorage.getItem("server")+"unread.php?val=r&currentuser="+clientuser+"&up="+clientpassword);
+    var parts=response.split("|");
+    for (var i=0;i<parts.length;i++){
+      if (parts[i].split(":")[1]=="unread" && parts[i].split(":")[0]!=""){
+        document.getElementById("unread").style.display="block";
+        break;
+      } else {
+        document.getElementById("unread").style.display="none";
+      }
+    }
+  }
+
+  setInterval(updateRead,700);
+</script>
