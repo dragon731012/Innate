@@ -119,6 +119,14 @@
   }
 </style>
 <script defer>
+  function replaceChars(value){
+    return value.replace(":","[colon]").replace(";","[semicolon]");
+  }
+
+  function addChars(value){
+    return value.replace("[colon]",":").replace("[semicolon]",";");
+  }
+  
   /*function credit to chatgpt and edited majorly by me*/
   function convert(time, originalOffset, myOffset) {
     time=Number(time);
@@ -267,7 +275,7 @@
       tempjson.offset=messagelines[i].split(":")[1];
       tempjson.unix=messagelines[i].split(":")[0];
       tempjson.user=messagelines[i].split(":")[2];
-      tempjson.message=messagelines[i].split(":")[3];
+      tempjson.message=addChars(messagelines[i].split(":")[3]);
       tempjson.unix=tempjson.unix.split(":")[0];
       messagejson.messages.push(tempjson);
     }
@@ -318,7 +326,7 @@
           tempjson2.offset=newmessagelines[i].split(":")[1];
           tempjson2.unix=newmessagelines[i].split(":")[0];
           tempjson2.user=newmessagelines[i].split(":")[2];
-          tempjson2.message=newmessagelines[i].split(":")[3];
+          tempjson2.message=addChars(newmessagelines[i].split(":")[3]);
           tempjson2.unix=tempjson2.unix.split(":")[0];
           newmessagejson.messages.push(tempjson2);
         }
@@ -446,7 +454,9 @@
       document.getElementById("messageinput").value=document.getElementById("messageinput").value.trim();
       if (document.getElementById("messageinput").value!=""){
         getText(localStorage.getItem("server")+"archiveData.php"); 
-        var sent=await getText(localStorage.getItem("server")+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+document.getElementById("messageinput").value+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
+        var texttosend=replaceChars(document.getElementById("messageinput").value);
+        
+        var sent=await getText(localStorage.getItem("server")+"index.php/?val=w&group="+groupinuse+"&user="+clientuser+"&text="+texttosend+"&gp="+passwordinuse+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
         document.getElementById("messageinput").value="";
       }
     });
@@ -458,7 +468,9 @@
       document.getElementById("messageinput").value=document.getElementById("messageinput").value.trim();
       if (document.getElementById("messageinput").value!=""){
         getText(localStorage.getItem("server")+"archiveData.php"); 
-        var sent=await getText(localStorage.getItem("server")+"dm.php/?val=w&currentuser="+clientuser+"&targetuser="+params.get("targetuser")+"&text="+document.getElementById("messageinput").value+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
+        var texttosend=replaceChars(document.getElementById("messageinput").value);
+        
+        var sent=await getText(localStorage.getItem("server")+"dm.php/?val=w&currentuser="+clientuser+"&targetuser="+params.get("targetuser")+"&text="+texttosend+"&up="+clientpassword+"&date="+Date.now()+"&offset="+new Date().getTimezoneOffset());
         document.getElementById("messageinput").value="";
       }
     });
