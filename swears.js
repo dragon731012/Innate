@@ -24,7 +24,11 @@ function escapeHTML(unsafe)
 
 
 function addChars(value){
-    return value.replace("[colon]",":").replace("[semicolon]",";").replace("[forwardslash]","/").replace("[backslash]","\\");
+    return value.replaceAll("[colon]",":").replaceAll("[semicolon]",";").replaceAll("[forwardslash]","/").replaceAll("[backslash]","\\");
+  }
+
+function replaceChars(value){
+    return value.replaceAll(":","[colon]").replaceAll(";","[semicolon]").replaceAll("/","[forwardslash]").replaceAll("\\","[backslash]");
   }
   
 /* credit to chatgpt for this function */
