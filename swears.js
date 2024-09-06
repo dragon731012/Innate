@@ -22,9 +22,11 @@ function escapeHTML(unsafe)
          .replace(/'/g, "&#039;");
  }
 
-  
-  
 
+function addChars(value){
+    return value.replace("[colon]",":").replace("[semicolon]",";");
+  }
+  
 /* credit to chatgpt for this function */
 function levenshteinDistance(word1, word2) {
     const dp = [];
@@ -58,7 +60,7 @@ function escapeInvalid(text) {
 }
 
 function filter(text) {
-	text=DOMPurify.sanitize(text);
+	text=addChars(DOMPurify.sanitize(text));
 	if (localStorage.getItem("allowSwears")!="yes"){
 		if (text==null || text==undefined){
 			return "";
