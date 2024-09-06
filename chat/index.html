@@ -122,10 +122,6 @@
   function replaceChars(value){
     return value.replace(":","[colon]").replace(";","[semicolon]");
   }
-
-  function addChars(value){
-    return value.replace("[colon]",":").replace("[semicolon]",";");
-  }
   
   /*function credit to chatgpt and edited majorly by me*/
   function convert(time, originalOffset, myOffset) {
@@ -308,9 +304,9 @@
       }
       messagediv.className="messagebox";
       if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+addChars(filter(messagejson.messages[i].message))+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       } else {
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+addChars(filter(messagejson.messages[i].message))+"</div>";
+        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
     }
@@ -326,7 +322,7 @@
           tempjson2.offset=newmessagelines[i].split(":")[1];
           tempjson2.unix=newmessagelines[i].split(":")[0];
           tempjson2.user=newmessagelines[i].split(":")[2];
-          tempjson2.message=addChars(newmessagelines[i].split(":")[3]);
+          tempjson2.message=newmessagelines[i].split(":")[3];
           tempjson2.unix=tempjson2.unix.split(":")[0];
           newmessagejson.messages.push(tempjson2);
         }
@@ -339,9 +335,9 @@
 
           newmessagediv.className="messagebox";
           if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(newmessagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+addChars(filter(newmessagejson.messages[i].message))+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(newmessagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           } else {
-            newmessagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(newmessagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+addChars(filter(newmessagejson.messages[i].message))+"</div>";
+            newmessagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(newmessagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
           }
           document.getElementById("messages").appendChild(newmessagediv);
           messages=messages1;
