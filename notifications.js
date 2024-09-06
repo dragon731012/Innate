@@ -9,6 +9,7 @@ if (Notification.permission !== "granted") {
 }
 
 function createNotification() {
+  setTimeout(()=>{
   const notification = new Notification("Test notification", {
     body: "test notification"
   });
@@ -19,4 +20,5 @@ function createNotification() {
   };
 
   setTimeout(notification.close.bind(notification), 5000);
+  },5000);
 }
