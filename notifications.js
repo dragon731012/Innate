@@ -3,7 +3,7 @@ if (Notification.permission!="granted"){
       if (permission === "granted") {
         const notification = new Notification("Test notification", {
           body: "test notification"
-        );
+        });
 
         notification.onclick = function (event) {
           event.preventDefault();
