@@ -17,7 +17,13 @@
 			<span class="slider round"></span>
 		</label>
 	</div>
-	<button onclick="window.location.href='/notify.html';">notify</button>
+	<div class="switchtext">
+		<b style="display: flex;font-size: 22px;padding-right: 10px;font-weight: 100; color: var(--primary);">Notifications - </b>
+		<label class="switch" style="display:flex;">
+			<input type="checkbox" id="notifications" checked>
+			<span class="slider round"></span>
+		</label>
+	</div>
 </div>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Orbitron:wght@400..900&family=Rubik+Distressed&family=Special+Elite&display=swap');
@@ -130,12 +136,23 @@
   if (localStorage.getItem("darkMode")!="yes"){
 	document.getElementById("darkMode").checked=false;
   }
+  if (localStorage.getItem("notifications")!="yes"){
+	document.getElementById("darkMode").checked=false;
+  }
 	
-  document.getElementById("swearFilter").addEventListener('change', (event) => {
+  document.getElementById("notifications").addEventListener('change', (event) => {
     if (event.currentTarget.checked) {
       localStorage.setItem("allowSwears","no");
     } else {
       localStorage.setItem("allowSwears","yes");
+    }
+  });
+
+  document.getElementById("swearFilter").addEventListener('change', (event) => {
+    if (event.currentTarget.checked) {
+      localStorage.setItem("notifications","no");
+    } else {
+      localStorage.setItem("notifications","yes");
     }
   });
 
