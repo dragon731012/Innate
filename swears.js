@@ -24,11 +24,11 @@ function escapeHTML(unsafe)
 
 
 function addChars(value){
-    return value.replaceAll("[colon]",":").replaceAll("[semicolon]",";").replaceAll("[forwardslash]","/").replaceAll("[backslash]","\\").replaceAll("[andchar]","&");
+    return value.replaceAll("[colon]",":").replaceAll("[semicolon]",";").replaceAll("[forwardslash]","/").replaceAll("[backslash]","\\").replaceAll("[andchar]","&").replaceAll("[hashtag]","#");
   }
 
 function replaceChars(value){
-    return value.replaceAll(":","[colon]").replaceAll(";","[semicolon]").replaceAll("/","[forwardslash]").replaceAll("\\","[backslash]").replaceAll("&","[andchar]");
+    return value.replaceAll(":","[colon]").replaceAll(";","[semicolon]").replaceAll("/","[forwardslash]").replaceAll("\\","[backslash]").replaceAll("&","[andchar]").replaceAll("#","[hashtag]");
   }
   
 /* credit to chatgpt for this function */
