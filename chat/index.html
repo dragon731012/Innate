@@ -293,7 +293,7 @@
       messagejson.messages.push(tempjson);
     }
 
-    shownMessages.messages=messagejson.messages.slice(0, messagejson.messages.length - messageBatch);
+    shownMessages.messages=messagejson.messages.slice(-messageBatch);
 
     function bottomelmvisible() {
         var doc=document;
@@ -316,7 +316,7 @@
     x.observe(document.getElementById('messages'), { childList: true });
     
     showMessages();
-    /*
+    
     setInterval(async ()=>{
       var newmessages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
       if (messages!=newmessages){
@@ -351,7 +351,7 @@
         }
       }
     },2000);
-*/
+
     setTimeout(()=>{
       var messagescont=document.getElementById("messages");
       messagescont.scrollTop=messagescont.scrollHeight;
