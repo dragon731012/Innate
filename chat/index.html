@@ -280,7 +280,7 @@
       var button=document.createElement("button");
       button.innerText="Load More Messages";
       button.onclick=function(){
-        shownMessages.messages=messagejson.messages.slice(-messageBatch*messageMultiplier);
+        shownMessages.messages=messagejson.messages.slice(messageBatch*messageMultiplier);
         messageMultiplier--;
 
         while (document.getElementById("messages").firstChild) {
@@ -308,7 +308,7 @@
       messagejson.messages.push(tempjson);
     }
 
-    shownMessages.messages=messagejson.messages.slice(-messageBatch*messageMultiplier);
+    shownMessages.messages=messagejson.messages.slice(messageBatch*messageMultiplier);
     messageMultiplier--;
 
     function bottomelmvisible() {
