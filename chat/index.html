@@ -256,7 +256,7 @@
 
   var messages;
   var messagejson;
-  var shownMessages;
+  var shownMessages={messages: []};
   var messageBatch=10;
   var mode="light";
   if (localStorage.getItem("darkMode")=="yes") mode="dark";
@@ -293,7 +293,7 @@
       messagejson.messages.push(tempjson);
     }
 
-    shownMessages=messagejson.messages.slice(0, messagejson.messages.length - messageBatch);
+    shownMessages.messages=messagejson.messages.slice(0, messagejson.messages.length - messageBatch);
 
     function bottomelmvisible() {
         var doc=document;
