@@ -279,18 +279,19 @@
     }
 
     var button=document.createElement("button");
-      button.innerText="Load More Messages";
-      button.onclick=function(){
-        shownMessages.messages=messagejson.messages.slice(messageBatch*messageMultiplier);
-        messageMultiplier--;
+    button.style="cursor: pointer;margin-top: 20px;margin-right: 5px;margin-left: 5px;font-size: 2.5vh;border: 0px solid var(--primary);text-align: center;padding: 1.5vh;border-radius: 50px;font-family: 'Merriweather', serif;font-weight: 300;font-style: normal;background: var(--button);";
+    button.innerText="Load More Messages";
+    button.onclick=function(){
+      shownMessages.messages=messagejson.messages.slice(messageBatch*messageMultiplier);
+      messageMultiplier--;
 
-        while (document.getElementById("messages").firstChild) {
-          document.getElementById("messages").removeChild(document.getElementById("messages").firstChild);
-        }
-
-        showMessages();
+      while (document.getElementById("messages").firstChild) {
+        document.getElementById("messages").removeChild(document.getElementById("messages").firstChild);
       }
-      document.getElementById("messages").appendChild(button);
+
+      showMessages();
+    }
+    document.getElementById("messages").appendChild(button);
   }
   
   async function start(){
