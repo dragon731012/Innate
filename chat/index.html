@@ -259,6 +259,7 @@
   var shownMessages={messages: []};
   var messageBatch=10;
   var mode="light";
+  var messageMultiplier=-1;
   if (localStorage.getItem("darkMode")=="yes") mode="dark";
 
   function showMessages(){
@@ -275,15 +276,21 @@
         messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
+
+      var button=document.createElement("button");
+      button.innerText="Load More Messages";
+      button.onclick=function(){
+        shownMessages.messages=messagejson.messages.slice(-messageBatch*messageMultiplier);
+        messageMultiplier--;
+
+        while (document.getElementById("messages").firstChild) {
+          document.getElementById("messages").removeChild(document.getElementById("messages").firstChild);
+        }
+
+        showMessages();
+      }
     }
   }
-/*
-  function updateMessages(newmessagejson){
-      var newmessagejsonstring=JSON.stringify(newmessagejson);
-      var messagejsonstring=JSON.stringify(messagejson);
-      let messagejsonstring = jsonString.replace('New York', 'Los Angeles');
-      let modifiedJsonObj = JSON.parse(modifiedString);
-    }*/
   
   async function start(){
     getText(localStorage.getItem("server")+"archiveData.php"); 
@@ -300,7 +307,8 @@
       messagejson.messages.push(tempjson);
     }
 
-    shownMessages.messages=messagejson.messages.slice(-messageBatch);
+    shownMessages.messages=messagejson.messages.slice(-messageBatch*messageMultipler);
+    messageMultipler--;
 
     function bottomelmvisible() {
         var doc=document;
@@ -340,7 +348,6 @@
           tempjson2.unix=tempjson2.unix.split(":")[0];
           newmessagejson.messages.push(tempjson2);
         }
-        //updateMessages(newmessagejson);
         for (var i=0;i<newmessagejson.messages.length;i++){
           var newmessagediv=document.createElement("div");
           if (newmessagejson.messages[i].user==clientuser){
