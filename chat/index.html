@@ -277,6 +277,13 @@
       document.getElementById("messages").appendChild(messagediv);
     }
   }
+/*
+  function updateMessages(newmessagejson){
+      var newmessagejsonstring=JSON.stringify(newmessagejson);
+      var messagejsonstring=JSON.stringify(messagejson);
+      let messagejsonstring = jsonString.replace('New York', 'Los Angeles');
+      let modifiedJsonObj = JSON.parse(modifiedString);
+    }*/
   
   async function start(){
     getText(localStorage.getItem("server")+"archiveData.php"); 
@@ -333,6 +340,7 @@
           tempjson2.unix=tempjson2.unix.split(":")[0];
           newmessagejson.messages.push(tempjson2);
         }
+        //updateMessages(newmessagejson);
         for (var i=0;i<newmessagejson.messages.length;i++){
           var newmessagediv=document.createElement("div");
           if (newmessagejson.messages[i].user==clientuser){
