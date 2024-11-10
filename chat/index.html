@@ -255,14 +255,34 @@
   }
 
   var messages;
+  var messagejson;
+  var shownMessages;
+  var messageBatch=10;
   var mode="light";
   if (localStorage.getItem("darkMode")=="yes") mode="dark";
+
+  function showMessages(){
+    for (var i=0;i<shownMessages.messages.length;i++){
+      var messagediv=document.createElement("div");
+      if (shownMessages.messages[i].user==clientuser){
+        messagediv.style.position="relative";
+        messagediv.style.alignItems="end";
+      }
+      messagediv.className="messagebox";
+      if (shownMessages.messages[i].user==clientuser){
+        messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
+      } else {
+        messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
+      }
+      document.getElementById("messages").appendChild(messagediv);
+    }
+  }
   
   async function start(){
     getText(localStorage.getItem("server")+"archiveData.php"); 
     messages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&gp="+passwordinuse+"&up="+clientpassword+"&user="+clientuser+"&text=");
     var messagelines=messages.toString().split("|");
-    var messagejson={messages: []};
+    messagejson={messages: []};
     for(var i=0;i<messagelines.length-1;i++){
       var tempjson={};
       tempjson.offset=messagelines[i].split(":")[1];
@@ -272,6 +292,8 @@
       tempjson.unix=tempjson.unix.split(":")[0];
       messagejson.messages.push(tempjson);
     }
+
+    shownMessages=messagejson.messages.slice(0, messagejson.messages.length - messageBatch);
 
     function bottomelmvisible() {
         var doc=document;
@@ -293,20 +315,8 @@
 
     x.observe(document.getElementById('messages'), { childList: true });
     
-    for (var i=0;i<messagejson.messages.length;i++){
-      var messagediv=document.createElement("div");
-      if (messagejson.messages[i].user==clientuser){
-        messagediv.style.position="relative";
-        messagediv.style.alignItems="end";
-      }
-      messagediv.className="messagebox";
-      if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
-      } else {
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
-      }
-      document.getElementById("messages").appendChild(messagediv);
-    }
+    showMessages();
+    
     setInterval(async ()=>{
       var newmessages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
       if (messages!=newmessages){
