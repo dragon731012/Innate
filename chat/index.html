@@ -276,8 +276,9 @@
         messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
       }
       document.getElementById("messages").appendChild(messagediv);
+    }
 
-      var button=document.createElement("button");
+    var button=document.createElement("button");
       button.innerText="Load More Messages";
       button.onclick=function(){
         shownMessages.messages=messagejson.messages.slice(messageBatch*messageMultiplier);
@@ -290,7 +291,6 @@
         showMessages();
       }
       document.getElementById("messages").appendChild(button);
-    }
   }
   
   async function start(){
@@ -389,6 +389,9 @@
       tempjson.unix=tempjson.unix.split(":")[0];
       messagejson.messages.push(tempjson);
     }
+
+    shownMessages.messages=messagejson.messages.slice(messageBatch*messageMultiplier);
+    messageMultiplier--;
     
     function bottomelmvisible() {
         var doc=document;
@@ -409,6 +412,8 @@
     });
 
     x.observe(document.getElementById('messages'), { childList: true });
+
+    showMessages();
     
     for (var i=0;i<messagejson.messages.length;i++){
       var messagediv=document.createElement("div");
