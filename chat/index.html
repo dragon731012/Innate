@@ -341,7 +341,7 @@
 
     x.observe(document.getElementById('messages'), { childList: true });
     
-    displayMessages();
+    displayMessage();
     
     setInterval(async ()=>{
       var newMessages = await getText(localStorage.getItem("server") + "index.php/?val=r&group=" + groupinuse + "&up=" + clientpassword + "&gp=" + passwordinuse + "&user=" + clientuser + "&text=");
