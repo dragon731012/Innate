@@ -263,8 +263,11 @@
   if (localStorage.getItem("darkMode")=="yes") mode="dark";
 
   function showMessages(){
+    var cont=document.createElement("div");
+    cont.style="width:100%;display:flex;justify-content:center;align-items:center;";
+    document.getElementById("messages").appendChild(cont);
     var button=document.createElement("button");
-    button.style="cursor: pointer;margin-top: 20px;margin-right: 5px;margin-left: 5px;font-size: 2.5vh;border: 0px solid var(--primary);text-align: center;padding: 1.5vh;border-radius: 50px;font-family: 'Merriweather', serif;font-weight: 300;font-style: normal;background: var(--button);";
+    button.style="cursor: pointer;margin-top: 20px;margin-right: 5px;margin-left: 5px;font-size: 2vh;border: 0px solid var(--primary);text-align: center;padding: 1vh;border-radius: 50px;font-family: 'Merriweather', serif;font-weight: 300;font-style: normal;background: var(--button);";
     button.innerText="Load More Messages";
     button.onclick=function(){
       shownMessages.messages=messagejson.messages.slice(messageBatch*messageMultiplier);
@@ -276,7 +279,7 @@
 
       showMessages();
     }
-    document.getElementById("messages").appendChild(button);
+    cont.appendChild(button);
     
     for (var i=0;i<shownMessages.messages.length;i++){
       var messagediv=document.createElement("div");
