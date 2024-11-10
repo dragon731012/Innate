@@ -255,8 +255,56 @@
   }
 
   var messages;
+  let messageBatchSize = 30;
+  let allMessages = [];
+  let messageIndex = 0;
   var mode="light";
   if (localStorage.getItem("darkMode")=="yes") mode="dark";
+
+  function displayMessages() {
+    const messagesToDisplay = allMessages.slice(messageIndex, messageIndex + messageBatchSize);
+  
+    const messagesContainer = document.getElementById("messages");
+    messagesToDisplay.forEach((msg) => {
+      var newmessagediv = document.createElement("div");
+      newmessagediv.className = "messagebox";
+      if (msg.user === clientuser) {
+        newmessagediv.style.position = "relative";
+        newmessagediv.style.alignItems = "end";
+      }
+  
+      newmessagediv.innerHTML = `
+        <div class='usertext'>
+          <b data-name='${msg.user}'>${filter(msg.user)}</b>
+          <img class='dmbutton' onclick='startDM(this);' src='/images/dms-${mode}.png'>
+        </div>
+        <div class='timetext'>
+          <b>${convert(msg.unix, msg.offset, new Date().getTimezoneOffset())}</b>
+        </div>
+        <div class='messagetext'>
+          ${filter(msg.message)}
+        </div>
+      `;
+  
+      messagesContainer.appendChild(newmessagediv);
+    });
+  
+    messageIndex += messageBatchSize;
+  
+    if (messageIndex < allMessages.length) {
+      showLoadMoreButton();
+    }
+  }
+  
+  function showLoadMoreButton() {
+    let loadMoreBtn = document.createElement('button');
+    loadMoreBtn.innerText = 'Load More Messages';
+    loadMoreBtn.onclick = () => {
+      displayMessages();
+      loadMoreBtn.remove();
+    };
+    document.getElementById("messages").appendChild(loadMoreBtn);
+  }
   
   async function start(){
     getText(localStorage.getItem("server")+"archiveData.php"); 
@@ -293,53 +341,34 @@
 
     x.observe(document.getElementById('messages'), { childList: true });
     
-    for (var i=0;i<messagejson.messages.length;i++){
-      var messagediv=document.createElement("div");
-      if (messagejson.messages[i].user==clientuser){
-        messagediv.style.position="relative";
-        messagediv.style.alignItems="end";
-      }
-      messagediv.className="messagebox";
-      if (messagejson.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
-      } else {
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(messagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(messagejson.messages[i].unix,messagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(messagejson.messages[i].message)+"</div>";
-      }
-      document.getElementById("messages").appendChild(messagediv);
-    }
+    displayMessage();
+    
     setInterval(async ()=>{
-      var newmessages=await getText(localStorage.getItem("server")+"index.php/?val=r&group="+groupinuse+"&up="+clientpassword+"&gp="+passwordinuse+"&user="+clientuser+"&text=");
-      if (messages!=newmessages){
-        var messages1=newmessages;
-        newmessages=newmessages.replace(messages.toString(),"");
-        var newmessagelines=newmessages.split("|");
-        var newmessagejson={messages: []};
-        for(var i=0;i<newmessagelines.length-1;i++){
-          var tempjson2={};
-          tempjson2.offset=newmessagelines[i].split(":")[1];
-          tempjson2.unix=newmessagelines[i].split(":")[0];
-          tempjson2.user=newmessagelines[i].split(":")[2];
-          tempjson2.message=newmessagelines[i].split(":")[3];
-          tempjson2.unix=tempjson2.unix.split(":")[0];
+      var newMessages = await getText(localStorage.getItem("server") + "index.php/?val=r&group=" + groupinuse + "&up=" + clientpassword + "&gp=" + passwordinuse + "&user=" + clientuser + "&text=");
+    
+      if (messages !== newMessages) {
+        var messages1 = newMessages;
+        newMessages = newMessages.replace(messages.toString(), "");
+        var newmessagelines = newMessages.split("|");
+        var newmessagejson = { messages: [] };
+    
+        for (var i = 0; i < newmessagelines.length - 1; i++) {
+          var tempjson2 = {};
+          tempjson2.offset = newmessagelines[i].split(":")[1];
+          tempjson2.unix = newmessagelines[i].split(":")[0];
+          tempjson2.user = newmessagelines[i].split(":")[2];
+          tempjson2.message = newmessagelines[i].split(":")[3];
+          tempjson2.unix = tempjson2.unix.split(":")[0];
           newmessagejson.messages.push(tempjson2);
         }
-        for (var i=0;i<newmessagejson.messages.length;i++){
-          var newmessagediv=document.createElement("div");
-          if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.style.position="relative";
-            newmessagediv.style.alignItems="end";
-          }
-
-          newmessagediv.className="messagebox";
-          if (newmessagejson.messages[i].user==clientuser){
-            newmessagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(newmessagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
-          } else {
-            newmessagediv.innerHTML="<div class='usertext'><b data-name='"+messagejson.messages[i].user+"'>"+filter(newmessagejson.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(newmessagejson.messages[i].unix,newmessagejson.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(newmessagejson.messages[i].message)+"</div>";
-          }
-          document.getElementById("messages").appendChild(newmessagediv);
-          messages=messages1;
-        }
+    
+        // Prepend new messages to the allMessages array
+        allMessages = [...newmessagejson.messages, ...allMessages];
+        displayMessages();
+    
+        messages = messages1;
       }
+
     },2000);
 
     setTimeout(()=>{
