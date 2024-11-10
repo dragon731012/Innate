@@ -263,21 +263,6 @@
   if (localStorage.getItem("darkMode")=="yes") mode="dark";
 
   function showMessages(){
-    for (var i=0;i<shownMessages.messages.length;i++){
-      var messagediv=document.createElement("div");
-      if (shownMessages.messages[i].user==clientuser){
-        messagediv.style.position="relative";
-        messagediv.style.alignItems="end";
-      }
-      messagediv.className="messagebox";
-      if (shownMessages.messages[i].user==clientuser){
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
-      } else {
-        messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
-      }
-      document.getElementById("messages").appendChild(messagediv);
-    }
-
     var button=document.createElement("button");
     button.style="cursor: pointer;margin-top: 20px;margin-right: 5px;margin-left: 5px;font-size: 2.5vh;border: 0px solid var(--primary);text-align: center;padding: 1.5vh;border-radius: 50px;font-family: 'Merriweather', serif;font-weight: 300;font-style: normal;background: var(--button);";
     button.innerText="Load More Messages";
@@ -292,6 +277,21 @@
       showMessages();
     }
     document.getElementById("messages").appendChild(button);
+    
+    for (var i=0;i<shownMessages.messages.length;i++){
+      var messagediv=document.createElement("div");
+      if (shownMessages.messages[i].user==clientuser){
+        messagediv.style.position="relative";
+        messagediv.style.alignItems="end";
+      }
+      messagediv.className="messagebox";
+      if (shownMessages.messages[i].user==clientuser){
+        messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' style='display:none;' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div style='border-radius:1.8vh 0px 1.8vh 1.8vh;' class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
+      } else {
+        messagediv.innerHTML="<div class='usertext'><b data-name='"+shownMessages.messages[i].user+"'>"+filter(shownMessages.messages[i].user)+"</b><img class='dmbutton' onclick='startDM(this);' src='/images/dms-"+mode+".png'></div><div class='timetext'><b>"+convert(shownMessages.messages[i].unix,shownMessages.messages[i].offset,new Date().getTimezoneOffset())+"</b></div><div class='messagetext'>"+filter(shownMessages.messages[i].message)+"</div>";
+      }
+      document.getElementById("messages").appendChild(messagediv);
+    }
   }
   
   async function start(){
