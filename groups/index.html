@@ -155,10 +155,6 @@
     groupPasswords[localStorage.getItem("groupname")].password=localStorage.getItem("grouppassword");
     localStorage.setItem("groupPasswords",JSON.stringify(groupPasswords));
   }
-
-  function close(element){
-    element.parentNode.style.display='none';
-  }
   
   function getText(file){
     return new Promise((resolve) => {
@@ -205,6 +201,10 @@
       localStorage.setItem("grouppassword","none");
       document.getElementById("groups").style.pointerEvents="all";
     }
+  }
+
+  function close(element){
+    element.parentNode.style.display='none';
   }
 
   async function finishJoin(element){
