@@ -214,9 +214,9 @@
         groupdiv.className="groupbox";
 
         if (groupjson.groups[i].name!=localStorage.getItem("groupname")){
-          groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><div class="passwordcont"><h1 class="paswordhead>Password</h1><input class="passwordinput" placeholder="Password..." type="password" id="General"><button class="groupbutton" style="top:3vh;">Join</button><button class="x">x</button></div><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);'>Join</button>";
+          groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><div class='passwordcont'><h1 class='paswordhead'>Password</h1><input class='passwordinput' placeholder='Password...' type='password' id='General'><button class='groupbutton' style='top:3vh;'>Join</button><button class='x'>x</button></div><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);'>Join</button>";
         } else {
-          groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><div class="passwordcont"><h1 class="paswordhead>Password</h1><input class="passwordinput" placeholder="Password..." type="password" id="General"><button class="groupbutton" style="top:3vh;">Join</button><button class="x">x</button></div><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);' disabled>Joined</button>";
+          groupdiv.innerHTML="<div class='grouptext'>"+filter(groupjson.groups[i].name)+"</div><div class='passwordcont'><h1 class='paswordhead'>Password</h1><input class='passwordinput' placeholder='Password...' type='password' id='General'><button class='groupbutton' style='top:3vh;'>Join</button><button class='x'>x</button></div><button class='groupbutton' data-group='"+escapeHTML(groupjson.groups[i].name)+"' onclick='join(this);' disabled>Joined</button>";
         }
         document.getElementById("groups").appendChild(groupdiv);
 
