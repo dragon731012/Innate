@@ -203,7 +203,22 @@
   }
 
   function finishJoin(element){
-    
+    var passwordinuse=document.getElementById(element.dataset.group).value;
+    var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
+    verify = verify.trim();
+    if (verify==="Valid"){
+      localStorage.removeItem("targetuser");
+      localStorage.setItem("groupname",element.dataset.group);
+      localStorage.setItem("grouppassword",passwordinuse);
+      updatePasswords();
+      document.getElementById("groups").style.pointerEvents="all";
+      element.parentNode.querySelector('.passwordcont').style.display="none";
+    } else {
+      document.getElementById(element.dataset.group).style.animation='shake 0.5s';
+      document.getElementById(element.dataset.group).addEventListener('animationend',() => {
+          document.getElementById(element.dataset.group).style.animation=null;
+        });
+    }
   }
 
   var params=new URLSearchParams(window.location.search);
