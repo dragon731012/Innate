@@ -209,7 +209,7 @@
 
   async function finishJoin(element){
     var passwordinuse=element.parentNode.querySelector('input').value;
-    var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
+    var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.parentNode.querySelector('input').id+"&password="+passwordinuse);
     verify = verify.trim();
     if (verify==="Valid"){
       localStorage.removeItem("targetuser");
