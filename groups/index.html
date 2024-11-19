@@ -55,45 +55,40 @@
     padding-left: 1vh;
   }
   .grouptext{
-    position: relative;
-    left: 5px;
-    display: flex;
-    font-size: 2.5vh;
-    color:var(--primary);
+    font-size: 3vh;
+    font-weight: 200;
+    text-align: left;
   }
   ::placeholder{
     color:var(--primary);
   }
   .groupbox{
-    height: 5vh;
+    background: var(--button);
+    width: 20vh;
+    height: 15vh;
+    border-radius: 3vh;
     display: flex;
-    border-bottom: 3px solid var(--primary);
-    width: 100%;
     align-items: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    overflow: hidden;
   }
   .groupbutton:disabled{
     opacity:0.5;
     cursor: default;
   }
   .groupbutton{
-    cursor:pointer;
-    position: relative;
-    right: 5px;
-    display: flex;
+        cursor: pointer;
     background: var(--primary);
-    color:var(--bg);
+    color: var(--bg);
     border: 0px;
     border-radius: 27px;
-    float: right;
     font-size: 2.3vh;
     padding-left: 1vh;
     padding-right: 1vh;
     padding-top: 0.6vh;
     padding-bottom: 0.6vh;
+    position: relative;
+    top: 2vh;
   }
   .unread{
     background: red;
