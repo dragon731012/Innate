@@ -214,7 +214,7 @@
     verify = verify.trim();
     if (verify==="Valid"){
       localStorage.removeItem("targetuser");
-      localStorage.setItem("groupname",element.dataset.group);
+      localStorage.setItem("groupname",element.parentNode.querySelector('input').id);
       localStorage.setItem("grouppassword",passwordinuse);
       updatePasswords();
       document.getElementById("groups").style.pointerEvents="all";
