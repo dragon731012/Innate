@@ -250,11 +250,11 @@
         }
 
         document.getElementsByClassName("passwordinput")[document.getElementsByClassName("passwordinput").length-1].value=groupPasswords[groupjson.groups[i].name].password;
-
+        /*
         var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+groupjson.groups[i].name+"&password=none");
         if (nopassword!="Valid"){
           document.getElementById(groupjson.groups[i].name).style.display="block";
-        }
+        }*/
       }
       document.getElementsByClassName("groupbox")[0].style.borderTop="3px solid black";
     }
