@@ -204,7 +204,7 @@
   }
 
   async function finishJoin(element){
-    var passwordinuse=document.getElementById(element.dataset.group).value;
+    var passwordinuse=element.parentNode.querySelector('input').value;
     var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
     verify = verify.trim();
     if (verify==="Valid"){
