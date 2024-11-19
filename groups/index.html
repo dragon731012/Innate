@@ -217,7 +217,7 @@
       localStorage.setItem("grouppassword",passwordinuse);
       updatePasswords();
       document.getElementById("groups").style.pointerEvents="all";
-      element.parentNode.querySelector('.passwordcont').style.display="none";
+      element.parentNode.style.display="none";
     } else {
       element.parentNode.querySelector('input').style.animation='shake 0.5s';
       element.parentNode.querySelector('input').addEventListener('animationend',() => {
