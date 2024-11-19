@@ -173,6 +173,7 @@
   }
   
   async function join(element){
+    document.getElementById("groups").style.pointerEvents="none";
     var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password=none");
     nopassword=nopassword.trim();
     if (nopassword!=="Valid"){
@@ -197,6 +198,7 @@
       localStorage.removeItem("targetuser");
       localStorage.setItem("groupname",element.dataset.group);
       localStorage.setItem("grouppassword","none");
+      document.getElementById("groups").style.pointerEvents="all";
     }
   }
 
