@@ -40,10 +40,10 @@
     bottom: 0px;
     overflow-y: scroll;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
     align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(30vh, 1fr));
+    justify-items: center;
   }
   .passwordinput{
     outline: none;
@@ -57,42 +57,48 @@
     border: 2px solid var(--primary);
     font-size: 2.2vh;
     padding-left: 1vh;
+    display: none !important;
   }
   .grouptext{
-    font-size: 3vh;
+    font-size: 4vh;
     font-weight: 200;
     text-align: left;
+    position: relative;
+    top: 3vh;
   }
   ::placeholder{
+    grid-template-co
     color:var(--primary);
   }
   .groupbox{
     background: var(--button);
-    width: 20vh;
-    height: 15vh;
-    border-radius: 3vh;
-    display: flex;
-    align-items: center;
+    height: 23vh;
+    border-radius: 4.5vh;
     flex-direction: column;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 25vh;
+    margin: 1vh;
   }
   .groupbutton:disabled{
     opacity:0.5;
     cursor: default;
   }
   .groupbutton{
-        cursor: pointer;
+    cursor: pointer;
     background: var(--primary);
     color: var(--bg);
     border: 0px;
     border-radius: 27px;
-    font-size: 2.3vh;
+    font-size: 3vh;
     padding-left: 1vh;
     padding-right: 1vh;
     padding-top: 0.6vh;
     padding-bottom: 0.6vh;
     position: relative;
-    top: 2vh;
+    top: 10vh;
+  }
   }
   .unread{
     background: red;
