@@ -215,9 +215,9 @@
       document.getElementById("groups").style.pointerEvents="all";
       element.parentNode.querySelector('.passwordcont').style.display="none";
     } else {
-      document.getElementById(element.dataset.group).style.animation='shake 0.5s';
-      document.getElementById(element.dataset.group).addEventListener('animationend',() => {
-          document.getElementById(element.dataset.group).style.animation=null;
+      element.parentNode.querySelector('input').style.animation='shake 0.5s';
+      element.parentNode.querySelector('input').addEventListener('animationend',() => {
+          element.parentNode.querySelector('input').style.animation=null;
         });
     }
   }
