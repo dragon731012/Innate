@@ -176,7 +176,7 @@
     var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password=none");
     nopassword=nopassword.trim();
     if (nopassword!=="Valid"){
-      element.parentNode.querySelector('.passwordcont').style.display="fixed";
+      element.parentNode.querySelector('.passwordcont').style.display="flex";
       /*
       var passwordinuse=document.getElementById(element.dataset.group).value;
       var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
