@@ -39,11 +39,8 @@
     left: 0px;
     bottom: 0px;
     overflow-y: scroll;
-    overflow-x: hidden;
-    display: grid;
-    align-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(30vh, 1fr));
-    justify-items: center;
+    display: ruby;
+    text-align: center;
   }
   .passwordinput{
     outline: none;
@@ -71,6 +68,7 @@
     color:var(--primary);
   }
   .groupbox{
+    min-width: 15vh;
     background: var(--button);
     height: 23vh;
     border-radius: 4.5vh;
@@ -78,8 +76,10 @@
     overflow: hidden;
     display: flex;
     align-items: center;
-    width: 25vh;
     margin: 1vh;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    max-width: 30vh;
   }
   .groupbutton:disabled{
     opacity:0.5;
