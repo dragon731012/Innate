@@ -177,6 +177,7 @@
     align-self: end;
     position: absolute;
     padding-top: 2vh;
+    cursor: pointer;
   }
   .groupbutton{
     cursor: pointer;
@@ -209,6 +210,14 @@
   var clientuser=localStorage.getItem("username");
   var clientpassword=localStorage.getItem("password");
 
+  var starred=localStorage.getItem("starred");
+  if (starred){
+    starred=JSON.parse(starred);
+  } else {
+    starred={};
+  }
+  
+
   if (clientuser==undefined || clientuser==null){
     window.location.href="/signup";
   }
@@ -218,6 +227,17 @@
     groupPasswords=JSON.parse(groupPasswords);
   } else {
     groupPasswords={};
+  }
+
+  function updateStars(){
+    var stars=document.getElementsByClassName("star");
+    for (var i=0;i<stars.length;i++){
+      if (starred[stars[i].parentNode.querySelector(".groupbutton").dataset.group]=="yes"){
+        stars[i].src="/images/star.png";
+      } else {
+        stars[i].src="/images/stardark.png";
+      }
+    }
   }
 
   function updatePasswords(){
