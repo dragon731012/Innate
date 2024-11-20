@@ -301,6 +301,7 @@
   if (!params.get("dm")){
     async function start(){
       groups=await getText(localStorage.getItem("server")+"group.php?val=r&group=&password=");
+      document.getElementById("dms").style.display="none";
       var grouplines=groups.toString().split("|");
       var groupjson={groups: []};
       for(var i=0;i<grouplines.length-1;i++){
