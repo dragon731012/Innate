@@ -4,6 +4,69 @@
 <script src="/pure.js"></script>
 <div id="groups"><div style="display:none;">e</div></div>
 <style>
+
+  #dms{
+    width:100%;
+    height:90%;
+    position:absolute;
+    left:0px;
+    bottom:0px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+  }
+  .dminput{
+    outline: none;
+    width: 30%;
+    padding: 0.2vh;
+    position: absolute;
+    right: 10%;
+    color: var(--primary);
+    background: transparent;
+    border-radius: 25px;
+    border: 2px solid var(--primary);
+    font-size: 2.2vh;
+    padding-left: 1vh;
+  }
+  .dmtext{
+    position: relative;
+    left: 5px;
+    display: flex;
+    font-size: 2.5vh;
+    color:var(--primary);
+  }
+  .dmbox{
+    height: 5vh;
+    display: flex;
+    border-bottom: 3px solid var(--primary);
+    width: 100%;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .dmbutton:disabled{
+    opacity:0.5;
+    cursor: default;
+  }
+  .dmbutton{
+    cursor:pointer;
+    position: relative;
+    right: 5px;
+    display: flex;
+    background: var(--primary);
+    color:var(--bg);
+    border: 0px;
+    border-radius: 27px;
+    float: right;
+    font-size: 2.3vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 0.6vh;
+    padding-bottom: 0.6vh;
+  }
+
+  
   body{
     background:var(--bg);
     overflow:hidden;
@@ -277,18 +340,18 @@
       
       for (var i=0;i<dmjson.dms.length;i++){
         var dmdiv=document.createElement("div");
-        dmdiv.className="groupbox";
+        dmdiv.className="dmbox";
 
         if (dmjson.dms[i].name!=localStorage.getItem("targetuser")){
-          dmdiv.innerHTML="<div class='unread'></div><div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);'>Message</button>";
+          dmdiv.innerHTML="<div class='unread'></div><div class='dmtext'>"+filter(dmjson.dms[i].name)+"</div><input class='dminput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='dmbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);'>Message</button>";
         } else {
-          dmdiv.innerHTML="<div class='unread'></div><div class='grouptext'>"+filter(dmjson.dms[i].name)+"</div><input class='passwordinput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='groupbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);' disabled>Messaging</button>";
+          dmdiv.innerHTML="<div class='unread'></div><div class='dmtext'>"+filter(dmjson.dms[i].name)+"</div><input class='dminput' placeholder='Password...' style='display:none;' type='password' id='"+escapeHTML(dmjson.dms[i].name)+"'><button class='dmbutton' data-group='"+escapeHTML(dmjson.dms[i].name)+"' onclick='setTarget(this);' disabled>Messaging</button>";
         }
-        document.getElementById("groups").appendChild(dmdiv);
+        document.getElementById("dms").appendChild(dmdiv);
 
         document.getElementById(dmjson.dms[i].name).style.display="none";
       }
-      document.getElementsByClassName("groupbox")[0].style.borderTop="3px solid black";
+      document.getElementsByClassName("dmbox")[0].style.borderTop="3px solid black";
       
       async function updateDM(){
         var newdm=await getText(localStorage.getItem("server")+"opendm.php?val=r&currentuser="+clientuser+"&up="+clientpassword+"&targetuser=");
@@ -305,7 +368,7 @@
         for (var i=0;i<parts.length;i++){
           var segments=parts[i].split(":");
           if (segments[1]=="unread" && segments[0]!=""){
-            var users=document.getElementsByClassName("grouptext");
+            var users=document.getElementsByClassName("dmtext");
             for (var u=0;u<users.length;u++){
               if (users[u].innerHTML==segments[0]){
                 document.getElementsByClassName("unread")[u].style.display="block";
@@ -314,7 +377,7 @@
                 break;
               } else {
                 document.getElementsByClassName("unread")[u].style.display="none";
-              document.getElementsByClassName("grouptext")[u].style.left="5px";
+              document.getElementsByClassName("dmtext")[u].style.left="5px";
               }
             }
             if (!found){
