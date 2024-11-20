@@ -232,12 +232,13 @@
   function updateStars(){
     var stars=document.getElementsByClassName("star");
     for (var i=0;i<stars.length;i++){
-      if (starred[stars[i].parentNode.querySelector(".groupbutton").dataset.group]=="yes"){
+      if (starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]=="yes"){
         stars[i].src="/images/star.png";
       } else {
         stars[i].src="/images/stardark.png";
       }
     }
+    localStorage.setItem("starred",JSON.stringify(starred));
   }
 
   function updatePasswords(){
@@ -261,7 +262,13 @@
   }
 
   function star(element){
-    
+    var currentstarred=starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id];
+    if (currentstarred=="yes"){
+      starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="no";
+    } else {
+      starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="yes";
+    }
+    updatePasswords();
   }
 
   async function setTarget(element){
@@ -358,6 +365,7 @@
           document.getElementById(groupjson.groups[i].name).style.display="block";
         }*/
       }
+      updateStars();
     }
     start();
   } else {
