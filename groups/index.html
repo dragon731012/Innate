@@ -415,6 +415,8 @@
     }
     start();
   } else {
+    document.getElementsByClassName("sections-container")[0].style.display="none";
+
     var dms;
     async function start(){
       dms=await getText(localStorage.getItem("server")+"opendm.php?val=r&currentuser="+clientuser+"&up="+clientpassword+"&targetuser=");
@@ -425,7 +427,6 @@
         tempjson.name=dmlines[i];
         dmjson.dms.push(tempjson);
       }
-      document.getElementsByClassName("sections-container")[0].style.display="none";
       
       for (var i=0;i<dmjson.dms.length;i++){
         var dmdiv=document.createElement("div");
