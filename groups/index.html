@@ -239,7 +239,6 @@
       }
     }
     localStorage.setItem("starred",JSON.stringify(starred));
-    updateStars();
   }
 
   function updatePasswords(){
@@ -269,7 +268,7 @@
     } else {
       starred[element.parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="yes";
     }
-    updatePasswords();
+    updateStars();
   }
 
   async function setTarget(element){
