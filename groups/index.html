@@ -278,10 +278,14 @@
   }
 
   function updateStars(){
+    var favorites=document.getElementById("favorites");
+    favorites.innerHTML="";
     var stars=document.getElementsByClassName("star");
     for (var i=0;i<stars.length;i++){
       if (starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]=="yes"){
         stars[i].src="/images/star.png";
+        var favoritegroup=stars[i].parentNode.cloneNode(true);
+        favorites.appendChild(favoritegroup);
       } else {
         stars[i].src="/images/stardark.png";
       }
