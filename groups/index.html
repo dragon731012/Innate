@@ -2,9 +2,50 @@
 <script src="/colors.js"></script>
 <script src="/swears.js"></script>
 <script src="/pure.js"></script>
-<div id="groups"><div style="display:none;">e</div></div>
+
+<div class="sections-container">
+  <div class="section">
+    <div class="section-header" onclick="opensection('favorites')">Favorites</div>
+    <div class="section-content" id="favorites">
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header" onclick="opensection('groups')">All</div>
+    <div class="section-content" id="groups" style="height:95vh;">
+    </div>
+  </div>
+</div>
+
 <div id="dms"><div style="display:none;">e</div></div>
 <style>
+  .sections-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: 0.3s all;
+}
+
+.section-header {
+  background-color: #007BFF;
+  color: white;
+  margin: 0px;
+  cursor: pointer;
+  height: 5vh;
+  text-align: center;
+  user-select: none;
+  font-size: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-content {
+  background-color: lightgray;
+  height: 100vh;
+  margin:0px;
+}
+
+  
 
   #dms{
     width:100%;
@@ -432,4 +473,26 @@
     }
     start();
   }
+
+
+  function opensection(id) {
+  if (id=="groups"){
+    document.getElementById("favorites").style.height="0vh";
+  } else {
+    document.getElementById("groups").style.height="0vh";
+  }
+  var element=document.getElementById(id);
+  if (element.style.height == "90vh"){
+      element.style.height="0vh";
+      if (id=="groups"){
+        document.getElementById("favorites").style.height="90vh";
+      } else {
+        document.getElementById("groups").style.height="90vh";
+      }
+  } else {
+    element.style.height="90vh";
+  }
+}
+
+opensection("groups");
 </script>
