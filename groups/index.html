@@ -425,7 +425,7 @@
         tempjson.name=dmlines[i];
         dmjson.dms.push(tempjson);
       }
-      document.getElementById("sections-container").style.display="none";
+      document.getElementsByClassName("sections-container")[0].style.display="none";
       
       for (var i=0;i<dmjson.dms.length;i++){
         var dmdiv=document.createElement("div");
