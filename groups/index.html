@@ -262,11 +262,11 @@
   }
 
   function star(element){
-    var currentstarred=starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id];
+    var currentstarred=starred[element.parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id];
     if (currentstarred=="yes"){
-      starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="no";
+      starred[element.parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="no";
     } else {
-      starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="yes";
+      starred[element.parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="yes";
     }
     updatePasswords();
   }
