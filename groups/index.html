@@ -6,12 +6,12 @@
 <div class="sections-container">
   <div class="section">
     <div class="section-header" onclick="opensection('favorites')" style="margin-top:10vh;">Favorites</div>
-    <div class="section-content" id="favorites">
+    <div class="section-content" style="border-top:3px solid;" id="favorites">
     </div>
   </div>
   <div class="section">
     <div class="section-header" onclick="opensection('groups')">All</div>
-    <div class="section-content" id="groups" style="height:95vh;">
+    <div class="section-content" id="groups" style="height: 83.5vh;border-top: 3px solid;border-bottom: 3px solid;bottom: 0.5vh;">
     </div>
   </div>
 </div>
@@ -482,6 +482,8 @@
   }
 
 
+  var sectionHeight="83.5vh";
+  
   function opensection(id) {
   if (id=="groups"){
     document.getElementById("favorites").style.height="0vh";
@@ -489,15 +491,15 @@
     document.getElementById("groups").style.height="0vh";
   }
   var element=document.getElementById(id);
-  if (element.style.height == "80vh"){
+  if (element.style.height == sectionHeight){
       element.style.height="0vh";
       if (id=="groups"){
-        document.getElementById("favorites").style.height="80vh";
+        document.getElementById("favorites").style.height=sectionHeight;
       } else {
-        document.getElementById("groups").style.height="80vh";
+        document.getElementById("groups").style.height=sectionHeight;
       }
   } else {
-    element.style.height="80vh";
+    element.style.height=sectionHeight;
   }
 }
 
