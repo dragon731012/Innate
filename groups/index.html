@@ -28,7 +28,6 @@
     left: 0px;
     top: 0px;
     height: 100vh;
-    background:var(--bg);
 }
 
 .section-header {
@@ -50,6 +49,7 @@
     margin: 0px;
   bottom: 0.5vh;
     transition: 0.7s;
+  background:var(--bg);
   height: 83.5vh;
 }
 
@@ -520,7 +520,7 @@
   
   function opensection(id) {
   if (id=="groups"){
-    document.getElementById("favorites").style.height="0vh";
+    //document.getElementById("favorites").style.height="0vh";
   } else {
     document.getElementById("groups").style.height="0vh";
   }
@@ -528,7 +528,7 @@
   if (element.style.height == sectionHeight){
       element.style.height="0vh";
       if (id=="groups"){
-        document.getElementById("favorites").style.height=sectionHeight;
+        //document.getElementById("favorites").style.height=sectionHeight;
       } else {
         document.getElementById("groups").style.height=sectionHeight;
       }
