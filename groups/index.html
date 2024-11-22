@@ -520,7 +520,7 @@
   
   function opensection(id) {
   if (id=="groups"){
-    //document.getElementById("favorites").style.height="0vh";
+    document.getElementById("favorites").style.height=sectionHeight;
   } else {
     document.getElementById("groups").style.height="0vh";
   }
@@ -530,8 +530,9 @@
       if (id=="groups"){
         //document.getElementById("favorites").style.height=sectionHeight;
       } else {
-        document.getElementById("groups").style.height=sectionHeight;
+        //document.getElementById("groups").style.height=sectionHeight;
       }
+      document.getElementById("groups").style.height=sectionHeight;
   } else {
     element.style.height=sectionHeight;
   }
