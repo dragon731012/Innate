@@ -431,7 +431,7 @@
         document.getElementById("groups").appendChild(groupdiv);
 
         if (starred[groupjson.groups[i].name]=="yes"){
-          document.getElementById("favorites").appendChild(groupdiv);
+          document.getElementById("favorites").appendChild(groupdiv.cloneNode(true));
         }
 
         if (!groupPasswords[groupjson.groups[i].name]){
