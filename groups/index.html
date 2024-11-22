@@ -422,6 +422,8 @@
         tempjson.name=grouplines[i];
         groupjson.groups.push(tempjson);
       }
+
+      groupjson.groups.sort( () => Math.random()-0.5 );
       
       for (var i=0;i<groupjson.groups.length;i++){
         var groupdiv=document.createElement("div");
