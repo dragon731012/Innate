@@ -278,17 +278,12 @@
   }
 
   function updateStars(){
-    const groupName = element.parentNode.querySelector(".passwordcont .passwordinput").id;
-    const groupDiv = element.parentNode;
-    
     var stars=document.getElementsByClassName("star");
     for (var i=0;i<stars.length;i++){
       if (starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]=="yes"){
         stars[i].src="/images/star.png";
-        removeStar(groupName);
       } else {
         stars[i].src="/images/stardark.png";
-        addStar(groupDiv.cloneNode(true));
       }
     }
     localStorage.setItem("starred",JSON.stringify(starred));
@@ -337,11 +332,16 @@
   }
 
   function star(element){
+    const groupName = element.parentNode.querySelector(".passwordcont .passwordinput").id;
+    const groupDiv = element.parentNode;
+    
     var currentstarred=starred[element.parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id];
     if (currentstarred=="yes"){
       starred[element.parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="no";
+      removeStar(groupName);
     } else {
       starred[element.parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]="yes";
+      addStar(groupDiv.cloneNode(true));
     }
     updateStars();
   }
