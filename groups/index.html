@@ -357,7 +357,7 @@
   }
   
   async function join(element){
-    document.getElementById("groups").style.pointerEvents="none";
+    document.getElementsByClassName("sections-container")[0].style.pointerEvents="none";
     var nopassword=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password=none");
     nopassword=nopassword.trim();
     if (nopassword!=="Valid"){
@@ -383,13 +383,13 @@
       localStorage.removeItem("targetuser");
       localStorage.setItem("groupname",element.dataset.group);
       localStorage.setItem("grouppassword","none");
-      document.getElementById("groups").style.pointerEvents="all";
+      document.getElementsByClassName("sections-container")[0].style.pointerEvents="all";
     }
   }
 
   function closePassword(element){
     element.parentNode.style.display='none';
-    document.getElementById("groups").style.pointerEvents="all";
+    document.getElementsByClassName("sections-container")[0].style.pointerEvents="all";
   }
 
   async function finishJoin(element){
@@ -401,7 +401,7 @@
       localStorage.setItem("groupname",element.parentNode.querySelector('input').id);
       localStorage.setItem("grouppassword",passwordinuse);
       updatePasswords();
-      document.getElementById("groups").style.pointerEvents="all";
+      document.getElementsByClassName("sections-container")[0].style.pointerEvents="all";
       element.parentNode.style.display="none";
     } else {
       element.parentNode.querySelector('input').style.animation='shake 0.5s';
