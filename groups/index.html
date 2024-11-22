@@ -278,15 +278,42 @@
   }
 
   function updateStars(){
+    const groupName = element.parentNode.querySelector(".passwordcont .passwordinput").id;
+    const groupDiv = element.parentNode;
+    
     var stars=document.getElementsByClassName("star");
     for (var i=0;i<stars.length;i++){
       if (starred[stars[i].parentNode.querySelector(".passwordcont").querySelector(".passwordinput").id]=="yes"){
         stars[i].src="/images/star.png";
+        removeStar(groupName);
       } else {
         stars[i].src="/images/stardark.png";
+        addStar(groupDiv.cloneNode(true));
       }
     }
     localStorage.setItem("starred",JSON.stringify(starred));
+  }
+
+  function addStar(div){
+    const favoritesSection = document.getElementById("favorites");
+    const starIcon = groupDiv.querySelector(".star");
+    starIcon.onclick = function () {
+      star(this);
+    };
+    favoritesSection.appendChild(groupDiv);
+  }
+
+  function removeStar(div){
+    const favoritesSection = document.getElementById("favorites");
+    const groupDivs = favoritesSection.getElementsByClassName("groupbox");
+  
+    for (let i = 0; i < groupDivs.length; i++) {
+      const input = groupDivs[i].querySelector(".passwordcont .passwordinput");
+      if (input && input.id === groupName) {
+        favoritesSection.removeChild(groupDivs[i]);
+        break;
+      }
+    }
   }
 
   function updatePasswords(){
