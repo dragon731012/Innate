@@ -519,6 +519,7 @@
   var sectionHeight="84.5vh";
   
   function opensection(id) {
+    /*
   if (id=="groups"){
     document.getElementById("favorites").style.height=sectionHeight;
   } else {
@@ -535,6 +536,13 @@
       document.getElementById("groups").style.height=sectionHeight;
   } else {
     element.style.height=sectionHeight;
+  }
+  */
+
+  if (document.getElementById("groups").style.height=="0vh"){
+    document.getElementById("groups").style.height=sectionHeight;
+  } else {
+    document.getElementById("groups").style.height="0vh";
   }
 }
 
