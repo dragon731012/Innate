@@ -362,8 +362,7 @@
     nopassword=nopassword.trim();
     if (nopassword!=="Valid"){
       element.parentNode.querySelector('.passwordcont').style.display="flex";
-      element.parentNode.querySelector('.passwordcont').value=groupPasswords[element.parentNode.querySelector('.passwordcont').id];
-      console.log(element.parentNode.querySelector('.passwordcont').id);
+      element.parentNode.querySelector('.passwordcont').querySelector(".passwordinput").value=groupPasswords[element.parentNode.querySelector('.passwordcont').querySelector(".passwordinput").id];
       /*
       var passwordinuse=document.getElementById(element.dataset.group).value;
       var verify=await getText(localStorage.getItem("server")+"group.php/?val=v&group="+element.dataset.group+"&password="+passwordinuse);
